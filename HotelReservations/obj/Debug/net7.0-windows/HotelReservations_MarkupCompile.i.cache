@@ -16,5 +16,5 @@ C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\App.xaml
 2011889779394
 MainWindow.xaml;Windows\Prices\AddEditPrices.xaml;Windows\Prices\DeletePrices.xaml;Windows\Prices\Prices.xaml;Windows\Reservations\ActiveReservations.xaml;Windows\Reservations\AddEditReservations.xaml;Windows\Reservations\DeleteReservations.xaml;Windows\Reservations\FinishedReservations.xaml;Windows\Reservations\FinishReservation.xaml;Windows\Reservations\Guests\AddEditGuest.xaml;Windows\Reservations\Guests\DeleteGuest.xaml;Windows\Reservations\Reservations.xaml;Windows\Rooms\AddEditRoom.xaml;Windows\Rooms\DeleteRoom.xaml;Windows\Rooms\Rooms.xaml;Windows\RoomTypes\AddEditRoomType.xaml;Windows\RoomTypes\DeleteRoomType.xaml;Windows\RoomTypes\RoomTypes.xaml;Windows\Users\AddEditUser.xaml;Windows\Users\DeleteUser.xaml;Windows\Users\Users.xaml;
 
-False
+True
 

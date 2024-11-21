@@ -93,7 +93,8 @@ namespace HotelReservations.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HotelReservations;component/windows/reservations/guests/addeditguest.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HotelReservations;V1.0.0.0;component/windows/reservations/guests/addeditguest.xa" +
+                    "ml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Windows\Reservations\Guests\AddEditGuest.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
