@@ -55,7 +55,7 @@ namespace HotelReservations.Windows
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             // basic validations
             if (contextPrice.RoomType == null)
@@ -93,7 +93,7 @@ namespace HotelReservations.Windows
             DialogResult = true;
             Close();
         }
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();

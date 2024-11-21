@@ -1,17 +1,23 @@
-
-using HotelReservations.Model;
+﻿using HotelReservations.Model;
 using HotelReservations.Windows;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace HotelReservations
 {
     public partial class MainWindow : Window
     {
+        private List<string> imagePaths = new List<string>();
+        private int currentImageIndex = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+            PopulateImages();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -53,20 +59,57 @@ namespace HotelReservations
             reservationsWindow.Show();
         }
 
-        private void LogoutMenuItem_Click(object sender, RoutedEventArgs e)
+        private void PopulateImages()
         {
-            // Clear authentication details
-            Hotel.GetInstance().loggedInUser = new User();
+            // Adăugăm imaginile disponibile în listă
+            imagePaths.Add("/Images/1.jpg");
+            imagePaths.Add("/Images/2.jpg");
+            imagePaths.Add("/Images/3.jpg");
+            imagePaths.Add("/Images/4.jpg");
+            imagePaths.Add("/Images/6.jpg");
+            imagePaths.Add("/Images/7.jpg");
+            imagePaths.Add("/Images/9.jpg");
+            imagePaths.Add("/Images/10.jpg");
+            imagePaths.Add("/Images/11.jpg");
+            imagePaths.Add("/Images/12.jpg");
+            imagePaths.Add("/Images/13.jpg");
+            imagePaths.Add("/Images/14.jpg");
+            imagePaths.Add("/Images/15.jpg");
+            imagePaths.Add("/Images/16.jpg");
+            imagePaths.Add("/Images/17.jpg");
+            // Setează prima imagine
+            if (imagePaths.Count > 0)
+            {
+                currentImageIndex = 0;
+                SetCarouselImage();
+            }
+        }
 
-            // Show the login form and hide the dashboard
-            LoginGrid.Visibility = Visibility.Visible;
-            DashboardGrid.Visibility = Visibility.Hidden;
+        private void SetCarouselImage()
+        {
+            if (imagePaths.Count > 0 && currentImageIndex >= 0 && currentImageIndex < imagePaths.Count)
+            {
+                var imageUri = new Uri(imagePaths[currentImageIndex], UriKind.Relative);
+                CarouselImage.Source = new BitmapImage(imageUri);
+            }
+        }
 
-            // Clear login fields
-            UsernameTextBox.Text = string.Empty;
-            PasswordBox.Password = string.Empty;
+        private void NextImage_Click(object sender, RoutedEventArgs e)
+        {
+            if (imagePaths.Count > 0)
+            {
+                currentImageIndex = (currentImageIndex + 1) % imagePaths.Count; // Rotire circulară
+                SetCarouselImage();
+            }
+        }
 
-            MessageBox.Show("Logged out", "Logout Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        private void PreviousImage_Click(object sender, RoutedEventArgs e)
+        {
+            if (imagePaths.Count > 0)
+            {
+                currentImageIndex = (currentImageIndex - 1 + imagePaths.Count) % imagePaths.Count; // Rotire circulară
+                SetCarouselImage();
+            }
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -103,11 +146,27 @@ namespace HotelReservations
                     ReservationsMenuItem.Visibility = Visibility.Visible;
                 }
 
-                MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Set the logged-in user for further operations
                 Hotel.GetInstance().loggedInUser = findUser;
             }
+        }
+
+        private void LogoutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear authentication details
+            Hotel.GetInstance().loggedInUser = new User();
+
+            // Show the login form and hide the dashboard
+            LoginGrid.Visibility = Visibility.Visible;
+            DashboardGrid.Visibility = Visibility.Hidden;
+
+            // Clear login fields
+            UsernameTextBox.Text = string.Empty;
+            PasswordBox.Password = string.Empty;
+
+            MessageBox.Show("Logged out", "Logout Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

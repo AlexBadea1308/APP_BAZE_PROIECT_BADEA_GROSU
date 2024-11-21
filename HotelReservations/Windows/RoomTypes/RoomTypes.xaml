@@ -5,28 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="Room Types" Height="450" Width="800">
-    <Grid>
+        Title="Room Types" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+        
+    <Grid Background="#34495E">
+        <!-- Gri închis pentru fundal -->
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="Room type:" VerticalContentAlignment="Center"/>
-            <TextBox Name="RoomTypeSearchTextBox" Height="24" Width="150" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="RoomTypeSearchTB_PreviewKeyUp"/>
+        <!-- StackPanel pentru "Room type" cu fundal albastru și text alb -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#2980B9">
+            <Label Content="Room type:" VerticalContentAlignment="Center" Foreground="White"/>
+            <TextBox Name="RoomTypeSearchTextBox" Height="30" Width="150" Margin="5" VerticalContentAlignment="Center" PreviewKeyUp="RoomTypeSearchTB_PreviewKeyUp" Foreground="Black" Background="#1ABC9C"/>
         </StackPanel>
 
-        <ToolBar Grid.Row="1">
-            <Button Name="AddButton" Content="Add" BorderBrush="Black" Padding="5,0,5,0" Click="AddButton_Click"></Button>
-            <Button Name="EditButton" Content="Edit" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditButton_Click"></Button>
-            <Button Name="DeleteButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteButton_Click"></Button>
+        <!-- ToolBar cu fundal albastru și text alb -->
+        <ToolBar Grid.Row="1" Background="#2980B9">
+            <Button Name="AddButton" Content="Add" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddButton_Click" Foreground="White"/>
+            <Button Name="EditButton" Content="Edit" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditButton_Click" Foreground="White"/>
+            <Button Name="DeleteButton" Content="Delete" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteButton_Click" Foreground="White"/>
         </ToolBar>
 
+        <!-- DataGrid cu fundal închis și text alb -->
         <DataGrid SelectionMode="Single" Grid.Row="2" Name="RoomTypesDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomTypesDataGrid_AutoGeneratingColumn">
-
+            <DataGrid.Background>
+                <SolidColorBrush Color="#2C3E50"/>
+                <!-- Gri închis pentru fundalul DataGrid -->
+            </DataGrid.Background>
+            <DataGrid.Foreground>
+                <SolidColorBrush Color="Black"/>
+                <!-- Text alb pentru DataGrid -->
+            </DataGrid.Foreground>
         </DataGrid>
-
     </Grid>
 </Window>

@@ -5,58 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="AddEditRoom" Height="450" Width="800">
+        Title="Add/Edit Room" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#34495E">
+
     <Grid>
+        <!-- Definire coloane -->
         <Grid.ColumnDefinitions>
-
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="300"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Definire randuri -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
+        <!-- Formular de completat date -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="0,100,20,404" Grid.RowSpan="2">
+            <!-- Room Number -->
             <StackPanel Orientation="Horizontal">
-                <Label Height="30" Width="150" Content="Room Number: " Margin="0,0,0,15"/>
-                <TextBox BorderBrush="Black" Name="RoomNumberTextBox" Height="30" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"
-                         Text="{Binding Path=RoomNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}">
+                <Label Height="30" Width="150" Content="Room Number: " Margin="0,0,0,15" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                <TextBox BorderBrush="White" Name="RoomNumberTextBox" Height="40" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"
+                         Text="{Binding Path=RoomNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" 
+                         Background="White" Foreground="Black" FontSize="14" FontWeight="Bold">
                     <Validation.ErrorTemplate>
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder/>
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"></TextBlock>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontWeight="Bold"/>
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
-                <Label Content="*" />
+                <Label Content="*" Foreground="Red" FontWeight="Bold"/>
             </StackPanel>
+
+            <!-- Minibar -->
             <StackPanel Orientation="Horizontal">
-                <Label Height="30" Width="150" Content="Has minibar? "/>
-                <CheckBox BorderBrush="Black" Name="HasMiniBarCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=HasMiniBar}"/>
+                <Label Height="30" Width="150" Content="Has minibar?" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                <CheckBox BorderBrush="White" Name="HasMiniBarCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=HasMiniBar}" Foreground="White"/>
             </StackPanel>
-            
+
+            <!-- TV -->
             <StackPanel Orientation="Horizontal">
-                <Label Height="30" Width="150" Content="Has TV? "/>
-                <CheckBox BorderBrush="Black"  Name="HasTvCheckBox"  VerticalAlignment="Center" IsChecked="{Binding Path=HasTV}"/>
+                <Label Height="30" Width="150" Content="Has TV?" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                <CheckBox BorderBrush="White" Name="HasTvCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=HasTV}" Foreground="White"/>
             </StackPanel>
-            
+
+            <!-- Room Type -->
             <StackPanel Orientation="Horizontal">
-                <Label Height="30" Width="150" Content="Room type: "/>
-                <ComboBox Name="RoomTypeComboBox" Width="150" Height="30" VerticalContentAlignment="Center" BorderBrush="Black" SelectedItem="{Binding RoomType, Mode=TwoWay}"/>
+                <Label Height="30" Width="150" Content="Room type:" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                <ComboBox Name="RoomTypeComboBox" Width="150" Height="40" VerticalContentAlignment="Center" BorderBrush="Black" SelectedItem="{Binding RoomType, Mode=TwoWay}" Background="#2C3E50" Foreground="Black" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="315" ShadowDepth="5" BlurRadius="10"/>
+                    </ComboBox.Effect>
+                </ComboBox>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft" >
-            <Button BorderBrush="Black" Name="SaveBtn" Content="Save" Width="80" Height="30" Margin="5,0,5,0" Click="SaveBtn_Click"/>
-            <Button BorderBrush="Black" Name="CancelBtn" Content="Cancel" Width="80" Height="30" Click="CancelBtn_Click" />
+        <!-- Butoane Save și Cancel -->
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="275,234,100,165" Grid.ColumnSpan="2">
+            <Button BorderBrush="White" Name="SaveBtn" Content="Save" Width="120" Height="40" Margin="5,0,5,0" 
+                    Background="#2980B9" Foreground="White" FontSize="14" FontWeight="Bold" BorderThickness="2" Click="SaveBtn_Click">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="5" BlurRadius="10"/>
+                </Button.Effect>
+            </Button>
+            <Button BorderBrush="White" Name="CancelBtn" Content="Cancel" Width="120" Height="40" 
+                    Background="#C0392B" Foreground="White" FontSize="14" FontWeight="Bold" BorderThickness="2" Click="CancelBtn_Click">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="5" BlurRadius="10"/>
+                </Button.Effect>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
