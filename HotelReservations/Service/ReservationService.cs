@@ -31,14 +31,9 @@ namespace HotelReservations.Service
             reservation.RoomNumber = room.RoomNumber;
 
             // checking is date equal for deciding what type reservation is. if its equal then its day, if its not equal then its night
-            if (reservation.StartDateTime == reservation.EndDateTime)
-            {
-                reservation.ReservationType = ReservationType.Day;
-            }
-            else
-            {
-                reservation.ReservationType = ReservationType.Night;
-            }
+            
+            reservation.ReservationType = ReservationType.Night;
+            
 
             // if reservation id is "0"(doesnt exist yet), then its adding
             if (reservation.Id == 0)
@@ -86,12 +81,36 @@ namespace HotelReservations.Service
 
         public double CountPrice(Reservation reservation)
         {
+            //var resType = reservation.ReservationType;
+            //int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
+
+            //Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
+
+            //Price price = priceService.GetAllPrices().Find(price => price.RoomType.ToString() == room.RoomType.ToString() && price.ReservationType == resType);
+
+            //if (price == null)
+            //{
+            //    throw new InvalidOperationException("Price not found for the given room type and reservation type.");
+            //}
+
+            //reservation.TotalPrice = dateDifference * price.PriceValue;
+            //return reservation.TotalPrice;
+
             var resType = reservation.ReservationType;
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
 
             Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
-            Price price = priceService.GetAllPrices().Find(price => price.RoomType.ToString() == room.RoomType.ToString() && price.ReservationType == resType);
+            LogAllPrices();
+            // Find the corresponding price
+            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType == room.RoomType);
 
+            // Check if price is null
+            if (price == null)
+            {
+                throw new InvalidOperationException($"Price not found for RoomType: {room.RoomType} and ReservationType: {resType}.");
+            }
+
+            // Calculate the total price
             reservation.TotalPrice = dateDifference * price.PriceValue;
             return reservation.TotalPrice;
         }
@@ -112,6 +131,15 @@ namespace HotelReservations.Service
             
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
+        }
+        public void LogAllPrices()
+        {
+            var prices = priceService.GetAllPrices();
+            foreach (var price in prices)
+            {
+                Console.WriteLine("testing...");
+                Console.WriteLine($"RoomType: {price.RoomType}, ReservationType: {price.ReservationType}, PriceValue: {price.PriceValue}");
+            }
         }
 
     }

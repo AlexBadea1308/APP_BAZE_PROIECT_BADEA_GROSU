@@ -603,11 +603,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\razva\\Downloads\\hotel-reservation-wpf\\HotelReservations\\HotelReservations.csproj",
+      "projectUniqueName": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
       "projectName": "HotelReservations",
-      "projectPath": "C:\\Users\\razva\\Downloads\\hotel-reservation-wpf\\HotelReservations\\HotelReservations.csproj",
+      "projectPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
       "packagesPath": "C:\\Users\\razva\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\razva\\Downloads\\hotel-reservation-wpf\\HotelReservations\\obj\\",
+      "outputPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\razva\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -666,24 +666,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
