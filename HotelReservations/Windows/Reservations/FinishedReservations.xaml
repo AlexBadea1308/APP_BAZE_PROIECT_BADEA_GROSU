@@ -1,0 +1,40 @@
+﻿<Window x:Class="HotelReservations.Windows.FinishedReservations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelReservations.Windows"
+        mc:Ignorable="d"
+        Title="Finished Reservations" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Label Content="Finished Reservations"></Label>
+        </StackPanel>
+
+        <DataGrid SelectionMode="Single" Grid.Row="1" Name="ReservationsDataGrid" IsReadOnly="True" AutoGenerateColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" />
+                <DataGridTextColumn Header="Reservation Type" Binding="{Binding ReservationType}" />
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateTime}" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateTime}" />
+                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice}" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" ItemsSource="{Binding Guests}">
+                        <DataGrid.Columns>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+
+    </Grid>
+</Window>
