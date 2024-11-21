@@ -604,19 +604,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
       "projectName": "HotelReservations",
       "projectPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
-      "projectName": "HotelReservations",
-      "projectPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
-      "packagesPath": "C:\\Users\\razva\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\",
->>>>>>> 4a89b1c3b1403e452c33d6c8a19f3942cbc8d697
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -690,5 +682,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

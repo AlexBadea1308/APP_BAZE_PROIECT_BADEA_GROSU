@@ -7,6 +7,9 @@
       "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -29,7 +32,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,12 +41,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAMcVAAAAAAAAAAAEwOgVAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-21T13:14:26.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "HotelReservations\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\MainWindow.xaml.cs",
               "RelativeToolTip": "HotelReservations\\MainWindow.xaml.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAcwDwAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAcwHIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-21T10:19:33.703Z",
               "EditorCaption": ""
@@ -62,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AddEditReservations.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddEditReservations.xaml.cs",
               "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\AddEditReservations.xaml.cs",
@@ -74,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AddEditReservations.xaml",
               "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddEditReservations.xaml",
               "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\AddEditReservations.xaml",
@@ -85,7 +101,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "dbo.reservation.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.reservation.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.reservation.sql",
