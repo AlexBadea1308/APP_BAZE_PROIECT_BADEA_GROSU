@@ -8,6 +8,10 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HotelReservations
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\
+=======
+build_property.ProjectDir = C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\
+>>>>>>> 4a89b1c3b1403e452c33d6c8a19f3942cbc8d697
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

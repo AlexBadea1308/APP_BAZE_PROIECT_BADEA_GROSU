@@ -15,7 +15,8 @@ namespace HotelReservations.Service
 
         public List<Price> GetAllPrices()
         {
-            return Hotel.GetInstance().Prices;
+            //return Hotel.GetInstance().Prices;
+            return Hotel.GetInstance().PriceList;
         }
 
         public void SavePrice(Price price)
