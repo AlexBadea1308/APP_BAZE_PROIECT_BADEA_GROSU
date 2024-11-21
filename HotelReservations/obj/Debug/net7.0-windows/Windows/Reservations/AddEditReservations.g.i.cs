@@ -157,8 +157,7 @@ namespace HotelReservations.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HotelReservations;V1.0.0.0;component/windows/reservations/addeditreservations.xa" +
-                    "ml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HotelReservations;component/windows/reservations/addeditreservations.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Windows\Reservations\AddEditReservations.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
