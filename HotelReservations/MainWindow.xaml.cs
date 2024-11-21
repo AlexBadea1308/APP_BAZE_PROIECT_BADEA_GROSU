@@ -6,16 +6,12 @@ using System.Windows.Input;
 
 namespace HotelReservations
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -61,9 +57,9 @@ namespace HotelReservations
             // Clear authentication details
             Hotel.GetInstance().loggedInUser = new User();
 
-            // Show the login screen and hide the menu
-            MainStackPanel.Visibility = Visibility.Visible;
-            GeneralMenu.Visibility = Visibility.Hidden;
+            // Show the login form and hide the dashboard
+            LoginGrid.Visibility = Visibility.Visible;
+            DashboardGrid.Visibility = Visibility.Hidden;
 
             // Clear login fields
             UsernameTextBox.Text = string.Empty;
@@ -84,9 +80,9 @@ namespace HotelReservations
             }
             else
             {
-                // Hide the login form and show the menu
-                MainStackPanel.Visibility = Visibility.Hidden;
-                GeneralMenu.Visibility = Visibility.Visible;
+                // Hide the login form and show the dashboard
+                LoginGrid.Visibility = Visibility.Hidden;
+                DashboardGrid.Visibility = Visibility.Visible;
 
                 // Check which menu items to show based on the user type
                 if (findUser.UserType == UserType.Administrator)

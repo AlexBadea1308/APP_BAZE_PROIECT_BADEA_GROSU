@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logo..png" />
+    <None Remove="logoMeniu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="bin\Debug\net7.0-windows\" />
   </ItemGroup>
 
@@ -15,6 +20,11 @@
     <PackageReference Include="Confluent.Kafka" Version="2.3.0" />
     <PackageReference Include="ServiceStack.Text" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="logo..png" />
+    <Resource Include="logoMeniu.png" />
   </ItemGroup>
 
 </Project>
