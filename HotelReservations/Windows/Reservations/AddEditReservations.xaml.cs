@@ -351,7 +351,7 @@ namespace HotelReservations.Windows
                 {
                     if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
                     {
-                        return false; // If there is an overlap, return false
+                        return false; // Dacă datele se suprapun, returnăm false
                     }
                 }
             }
@@ -379,29 +379,31 @@ namespace HotelReservations.Windows
 
         public void FillData(Reservation? res = null, Guest? newGuest = null)
         {
+            // Obține lista de oaspeți care sunt activi
             var guests = Hotel.GetInstance().Guests.Where(g => g.IsActive && g.ReservationId == 0);
 
             if (isEditing)
             {
-                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id && g.IsActive) ?? Enumerable.Empty<Guest>();
+                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id && g.IsActive)
+                          ?? Enumerable.Empty<Guest>();
             }
 
-            if (newGuest != null)
+            // Dacă există un oaspete nou, verifică dacă există deja în lista actuală
+            if (newGuest != null && !guests.Any(g => g.Id == newGuest.Id))
             {
-                guests = guests.Prepend(newGuest); // Temporarily add the new guest
+                guests = guests.Prepend(newGuest); // Adaugă temporar noul oaspete
             }
 
-            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
-
-            view = CollectionViewSource.GetDefaultView(guests);
-            GuestsDataGrid.ItemsSource = null;
+            // Reîmprospătează DataGrid-ul pentru oaspeți
+            view = CollectionViewSource.GetDefaultView(guests.ToList());
             GuestsDataGrid.ItemsSource = view;
             GuestsDataGrid.IsSynchronizedWithCurrentItem = true;
             GuestsDataGrid.SelectedItem = null;
 
+            // Reîmprospătează DataGrid-ul pentru camere
+            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
             view = CollectionViewSource.GetDefaultView(rooms);
             view.Filter = DoFilter;
-            RoomsDataGrid.ItemsSource = null;
             RoomsDataGrid.ItemsSource = view;
             RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
             RoomsDataGrid.SelectedItem = null;
@@ -490,8 +492,8 @@ namespace HotelReservations.Windows
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedRoom = RoomsDataGrid.SelectedItem as Room;
-            DateTime? startDate = StartDatePicker.SelectedDate;
-            DateTime? endDate = EndDatePicker.SelectedDate;
+            DateTime? startDate = CheckStartDate.SelectedDate;
+            DateTime? endDate = CheckEndDate.SelectedDate;
 
             if (selectedRoom == null)
             {
@@ -524,7 +526,7 @@ namespace HotelReservations.Windows
                 {
                     if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
                     {
-                        MessageBox.Show("Try with different dates, these are overlapping: " + r.StartDateTime + " - " + r.EndDateTime);
+                        MessageBox.Show($"Try with different dates, these are overlapping: {r.StartDateTime} - {r.EndDateTime}");
                         return;
                     }
                 }

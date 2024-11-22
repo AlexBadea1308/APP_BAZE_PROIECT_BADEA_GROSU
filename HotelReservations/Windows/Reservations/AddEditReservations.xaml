@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="AddEditReservations" Height="800" Width="1280">
-    <Grid>
+        Title="Add/Edit Reservations"
+        Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#34495E">
+        <!-- Fundal gri închis -->
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
@@ -17,48 +21,38 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0">
-            <Label Content="Rooms" VerticalContentAlignment="Center" Width="90"/>
-            <Label Content="Room type:" VerticalContentAlignment="Center" Width="70"/>
-            <ComboBox Name="RoomTypeComboBox" Width="150" Height="30" VerticalContentAlignment="Center" BorderBrush="Black"/>
-            <Label Content="Start:" VerticalContentAlignment="Center" Width="90"/>
-            <DatePicker Name="CheckStartDate" Margin="5,0,5,0" VerticalContentAlignment="Center"/>
-            <Label Content="End:" Width="90" VerticalContentAlignment="Center"/>
-            <DatePicker Name="CheckEndDate" Margin="5,0,5,0" VerticalContentAlignment="Center" />
-            <Button Name="CheckAvailableRoomsButton" Content="Check available rooms" BorderBrush="Black" Padding="5,0,5,0" Margin="105,0,0,0" 
-                    Click="CheckAvailableRoomsButton_Click"></Button>
+        <!-- ToolBar pentru camere -->
+        <ToolBar Grid.Row="0" Background="#2980B9">
+            <Label Content="Rooms" VerticalContentAlignment="Center" Width="90" Foreground="White"/>
+            <Label Content="Room type:" VerticalContentAlignment="Center" Width="70" Foreground="White"/>
+            <ComboBox Name="RoomTypeComboBox" Width="150" Height="30" VerticalContentAlignment="Center" BorderBrush="#1ABC9C" Background="#1ABC9C" Foreground="Black"/>
+            <Label Content="Start:" VerticalContentAlignment="Center" Width="90" Foreground="White"/>
+            <DatePicker Name="CheckStartDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
+            <Label Content="End:" Width="90" VerticalContentAlignment="Center" Foreground="White"/>
+            <DatePicker Name="CheckEndDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
+            <Button Name="CheckAvailableRoomsButton" Content="Check available rooms" BorderBrush="White" Padding="5,0,5,0" Margin="105,0,0,0" 
+                    Click="CheckAvailableRoomsButton_Click" Background="#3498DB" Foreground="White"/>
         </ToolBar>
 
-        <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn">
+        <!-- DataGrid pentru camere -->
+        <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"/>
 
-        </DataGrid>
-
-        <ToolBar Grid.Row="2">
-            <Label Content="Guests" Width="90"/>
-            <Button Name="AddGuestButton" Content="Add" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddGuestButton_Click"></Button>
-            <Button Name="EditGuestButton" Content="Edit" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditGuestButton_Click"></Button>
-            <Button Name="DeleteGuestButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteGuestButton_Click"></Button>
+        <!-- ToolBar pentru oaspeți -->
+        <ToolBar Grid.Row="2" Background="#2980B9">
+            <Label Content="Guests" Width="90" Foreground="White"/>
+            <Button Name="AddGuestButton" Content="Add" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddGuestButton_Click" Background="#3498DB" Foreground="White"/>
+            <Button Name="EditGuestButton" Content="Edit" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditGuestButton_Click" Background="#3498DB" Foreground="White"/>
+            <Button Name="DeleteGuestButton" Content="Delete" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteGuestButton_Click" Background="#3498DB" Foreground="White"/>
         </ToolBar>
 
-        <DataGrid SelectionMode="Single" Grid.Row="3" Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn">
+        <!-- DataGrid pentru oaspeți -->
+        <DataGrid SelectionMode="Single" Grid.Row="3" Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"/>
 
-        </DataGrid>
-
-        <ToolBar Grid.Row="4">
-            <Label Content="Date" Width="90"/>
-        </ToolBar>
-
-        <StackPanel Grid.Row="5" HorizontalAlignment="Left">
-            <Label Content="Start" Width="90"/>
-            <DatePicker Name="StartDatePicker" Margin="5,0,5,0" SelectedDate="{Binding StartDateTime}"/>
-            <Label Content="End" Width="90"/>
-            <DatePicker Name="EndDatePicker" Margin="5,0,5,0"  SelectedDate="{Binding EndDateTime}"/>
+        <!-- ToolBar pentru date -->
+        <!-- Butoane pentru salvare/anulare -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="10">
+            <Button BorderBrush="White" Name="SaveBtn" Content="Save" Width="80" Height="30" Margin="5,0,5,0" Click="SaveButton_Click" Background="#27AE60" Foreground="White"/>
+            <Button BorderBrush="White" Name="CancelBtn" Content="Cancel" Width="80" Height="30" Click="CancelButton_Click" Background="#C0392B" Foreground="White"/>
         </StackPanel>
-
-        <StackPanel Grid.Row="6" Orientation="Horizontal" FlowDirection="RightToLeft" >
-            <Button BorderBrush="Black" Name="SaveBtn" Content="Save" Width="80" Height="30" Margin="5,0,5,0" Click="SaveButton_Click"/>
-            <Button BorderBrush="Black" Name="CancelBtn" Content="Cancel" Width="80" Height="30" Click="CancelButton_Click" />
-        </StackPanel>
-
     </Grid>
 </Window>

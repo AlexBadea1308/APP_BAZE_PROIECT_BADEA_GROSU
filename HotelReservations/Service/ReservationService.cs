@@ -98,13 +98,18 @@ namespace HotelReservations.Service
 
             var resType = reservation.ReservationType;
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
-
+            if (dateDifference == 0)
+            {
+                resType = ReservationType.Day;
+            }
+            else
+                resType = ReservationType.Night;
             Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
             LogAllPrices();
             // Find the corresponding price
-            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType == room.RoomType);
+            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType == room.RoomType && p.ReservationType == resType);
 
-            // Check if price is null
+            // Dacă prețul este null, aruncăm o eroare
             if (price == null)
             {
                 throw new InvalidOperationException($"Price not found for RoomType: {room.RoomType} and ReservationType: {resType}.");
