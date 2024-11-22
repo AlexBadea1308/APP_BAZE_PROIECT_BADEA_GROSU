@@ -55,16 +55,27 @@ namespace HotelReservations.Repositories
 
         public int Insert(Reservation res)
         {
+            // Validate the StartDateTime and EndDateTime
+            if (res.StartDateTime < new DateTime(1753, 1, 1) || res.StartDateTime > new DateTime(9999, 12, 31))
+            {
+                throw new InvalidOperationException("StartDateTime is out of range for SQL Server DATETIME.");
+            }
+
+            if (res.EndDateTime < new DateTime(1753, 1, 1) || res.EndDateTime > new DateTime(9999, 12, 31))
+            {
+                throw new InvalidOperationException("EndDateTime is out of range for SQL Server DATETIME.");
+            }
+
             using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
             {
                 conn.Open();
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-                    INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active, reservation_is_finished)
-                    OUTPUT inserted.reservation_id
-                    VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active, @reservation_is_finished)
-                ";
+            INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active, reservation_is_finished)
+            OUTPUT inserted.reservation_id
+            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active, @reservation_is_finished)
+        ";
 
                 command.Parameters.Add(new SqlParameter("reservation_room_number", res.RoomNumber));
                 command.Parameters.Add(new SqlParameter("reservation_type", res.ReservationType.ToString()));
@@ -77,6 +88,7 @@ namespace HotelReservations.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
+
 
         public void Update(Reservation res)
         {

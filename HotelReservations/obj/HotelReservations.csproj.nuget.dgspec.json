@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj": {}
+    "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj": {
+    "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
+        "projectUniqueName": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
         "projectName": "HotelReservations",
-        "projectPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
-        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\",
+        "projectPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\HotelReservations.csproj",
+        "packagesPath": "C:\\Users\\razva\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\razva\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

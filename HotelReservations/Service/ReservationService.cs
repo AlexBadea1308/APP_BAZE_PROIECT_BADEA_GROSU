@@ -31,8 +31,7 @@ namespace HotelReservations.Service
             reservation.RoomNumber = room.RoomNumber;
 
             // checking is date equal for deciding what type reservation is. if its equal then its day, if its not equal then its night
-            
-            reservation.ReservationType = ReservationType.Night;
+       
             
 
             // if reservation id is "0"(doesnt exist yet), then its adding
@@ -78,23 +77,17 @@ namespace HotelReservations.Service
 
             reservationRepository.Delete(res.Id);
         }
-
+        public void LogAllPrices()
+        {
+            var prices = priceService.GetAllPrices();
+            foreach (var price in prices)
+            {
+                Console.WriteLine("testing...");
+                Console.WriteLine($"RoomType: {price.RoomType}, ReservationType: {price.ReservationType}, PriceValue: {price.PriceValue}");
+            }
+        }
         public double CountPrice(Reservation reservation)
         {
-            //var resType = reservation.ReservationType;
-            //int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
-
-            //Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
-
-            //Price price = priceService.GetAllPrices().Find(price => price.RoomType.ToString() == room.RoomType.ToString() && price.ReservationType == resType);
-
-            //if (price == null)
-            //{
-            //    throw new InvalidOperationException("Price not found for the given room type and reservation type.");
-            //}
-
-            //reservation.TotalPrice = dateDifference * price.PriceValue;
-            //return reservation.TotalPrice;
 
             var resType = reservation.ReservationType;
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
@@ -105,9 +98,29 @@ namespace HotelReservations.Service
             else
                 resType = ReservationType.Night;
             Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
-            LogAllPrices();
+
+            //System.Diagnostics.Debug.WriteLine($"Searching for RoomType: '{room.RoomType}'");
+            //System.Diagnostics.Debug.WriteLine($"Searching for ReservationType: '{resType}'");
+
+            //foreach (var p in priceService.GetAllPrices())
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"Available - RoomType: '{p.RoomType}', ReservationType: '{p.ReservationType}', PriceValue: {p.PriceValue}");
+
+            //    if (!p.RoomType.ToString().Equals(room.RoomType.ToString()))
+            //    {
+            //        System.Diagnostics.Debug.WriteLine($"RoomType mismatch. Expected: '{room.RoomType}', Found: '{p.RoomType}'");
+            //    }
+
+            //    if (!p.ReservationType.ToString().Trim().Equals(resType.ToString().Trim()))
+            //    {
+            //        System.Diagnostics.Debug.WriteLine($"ReservationType mismatch. Expected: '{resType}', Found: '{p.ReservationType}'");
+            //    }
+
+            //}
+
+
             // Find the corresponding price
-            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType == room.RoomType && p.ReservationType == resType);
+            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType.ToString().Equals(room.RoomType.ToString()) && p.ReservationType.ToString().Trim().Equals(resType.ToString().Trim()));
 
             // Dacă prețul este null, aruncăm o eroare
             if (price == null)
@@ -137,15 +150,7 @@ namespace HotelReservations.Service
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
         }
-        public void LogAllPrices()
-        {
-            var prices = priceService.GetAllPrices();
-            foreach (var price in prices)
-            {
-                Console.WriteLine("testing...");
-                Console.WriteLine($"RoomType: {price.RoomType}, ReservationType: {price.ReservationType}, PriceValue: {price.PriceValue}");
-            }
-        }
+    
 
     }
 }

@@ -9,5 +9,6 @@ namespace HotelReservations
             base.OnStartup(e);
             DataUtil.LoadData();
         }
+
     }
 }
