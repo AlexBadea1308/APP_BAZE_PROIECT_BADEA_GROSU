@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="Finished Reservations" Height="450" Width="800">
+        Title="Finished Reservations" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#34495E">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -14,12 +17,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <Label Content="Finished Reservations"></Label>
+            <Label Content="Finished Reservations" Background="#34495E"></Label>
         </StackPanel>
 
         <DataGrid SelectionMode="Single" Grid.Row="1" Name="ReservationsDataGrid" IsReadOnly="True" AutoGenerateColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" />
+                <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}"/>
                 <DataGridTextColumn Header="Reservation Type" Binding="{Binding ReservationType}" />
                 <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateTime}" />
                 <DataGridTextColumn Header="End Date" Binding="{Binding EndDateTime}" />

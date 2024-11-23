@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="Active Reservations" Height="450" Width="800">
+        Title="Active Reservations" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#34495E">
     <Grid>
 
         <Grid.RowDefinitions>

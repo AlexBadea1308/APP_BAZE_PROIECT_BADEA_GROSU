@@ -5,38 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="Reservations" Height="450" Width="800">
-    <Grid>
+        Title="Reservations" Height="800" Width="1000"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#2C3E50">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="Room number:" VerticalContentAlignment="Center" Width="90"/>
-            <TextBox Name="RoomNumberSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
-            <Label Content="Start date:" VerticalContentAlignment="Center" Width="70"/>
-            <TextBox Name="StartDateSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
-            <Label Content="End date:" VerticalContentAlignment="Center" Width="70"/>
-            <TextBox Name="EndDateSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#34495E">
+            <Label Content="Room number:" VerticalContentAlignment="Center" Width="90" Foreground="White"/>
+            <TextBox Name="RoomNumberSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" 
+                     Foreground="White" Background="#1C2833" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
+            <Label Content="Start date:" VerticalContentAlignment="Center" Width="70" Foreground="White"/>
+            <TextBox Name="StartDateSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" 
+                     Foreground="White" Background="#1C2833" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
+            <Label Content="End date:" VerticalContentAlignment="Center" Width="70" Foreground="White"/>
+            <TextBox Name="EndDateSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" 
+                     Foreground="White" Background="#1C2833" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
         </StackPanel>
 
-        <ToolBar Grid.Row="1">
-            <Button Name="AddReservationButton" Content="Add" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddReservationButton_Click"></Button>
-            <Button Name="EditReservationButton" Content="Edit" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditReservationButton_Click"></Button>
-            <Button Name="DeleteReservationButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteReservationButton_Click"></Button>
-            <Button Name="FinishReservationButton" Content="FINISH RESERVATION" Background="Green" Foreground="White" BorderBrush="Black" Padding="5,0,5,0" 
-                    Margin="5,0,0,0" Click="FinishReservationButton_Click"></Button>
-            <Button Name="ActiveReservationButton" Content="Check Active Reservations" Background="Gray" Foreground="White" BorderBrush="Black" 
-                    Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckActiveReservationButton_Click"></Button>
-            <Button Name="FinishedReservationButton" Content="Check Finished Reservations" Background="Gray" Foreground="White" BorderBrush="Black" 
-        Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckFinishedReservationButton_Click"></Button>
+        <ToolBar Grid.Row="1" Background="#2980B9">
+            <Button Name="AddReservationButton" Content="Add" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
+                    Foreground="White" Click="AddReservationButton_Click"/>
+            <Button Name="EditReservationButton" Content="Edit" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
+                    Foreground="White" Click="EditReservationButton_Click"/>
+            <Button Name="DeleteReservationButton" Content="Delete" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
+                    Foreground="White" Click="DeleteReservationButton_Click"/>
+            <Button Name="FinishReservationButton" Content="FINISH RESERVATION" Background="Green" Foreground="White" BorderBrush="White" 
+                    Padding="5,0,5,0" Margin="5,0,0,0" Click="FinishReservationButton_Click"/>
+            <Button Name="ActiveReservationButton" Content="Check Active Reservations" Background="Gray" Foreground="White" BorderBrush="White" 
+                    Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckActiveReservationButton_Click"/>
+            <Button Name="FinishedReservationButton" Content="Check Finished Reservations" Background="Gray" Foreground="White" BorderBrush="White" 
+                    Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckFinishedReservationButton_Click"/>
         </ToolBar>
 
-        <DataGrid SelectionMode="Single" Grid.Row="2" Name="ReservationsDataGrid" IsReadOnly="True" AutoGeneratingColumn="ReservationsDataGrid_AutoGeneratingColumn">
-
+        <DataGrid SelectionMode="Single" Grid.Row="2" Name="ReservationsDataGrid" IsReadOnly="True" 
+                  AutoGeneratingColumn="ReservationsDataGrid_AutoGeneratingColumn" Background="#1C2833" Foreground="Black" BorderBrush="#34495E">
         </DataGrid>
-
     </Grid>
 </Window>
