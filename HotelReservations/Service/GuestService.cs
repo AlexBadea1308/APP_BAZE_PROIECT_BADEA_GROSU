@@ -19,7 +19,6 @@ namespace HotelReservations.Service
             // this means guest will be in memory because reservation isn't created yet.
             if (guest.Id == 0 && editing == false)
             {
-                guest.ReservationId = 0;
                 Hotel.GetInstance().Guests.Add(guest);
             }
 
@@ -32,7 +31,7 @@ namespace HotelReservations.Service
                 Hotel.GetInstance().Guests[index] = guest;
 
                 guestRepository.Update(guest);
-                RefreshGuestsInReservation(guest.ReservationId);
+                //RefreshGuestsInReservation(guest.ReservationId);
             }
         }
 
@@ -53,28 +52,28 @@ namespace HotelReservations.Service
             makeGuestInactive.IsActive = false;
 
             guestRepository.Delete(guest.Id);
-            RefreshGuestsInReservation(guest.ReservationId);
+            //RefreshGuestsInReservation(guest.ReservationId);
         }
 
         // helper function for refresh in memory after database is updated/deleted :)
-        public void RefreshGuestsInReservation(int forThisReservationId)
-        {
-            foreach (var reservation in Hotel.GetInstance().Reservations)
-            {
-                if (reservation.Id == forThisReservationId)
-                {
-                    reservation.Guests = new List<Guest>();
+        //public void RefreshGuestsInReservation(int forThisReservationId)
+        //{
+        //    foreach (var reservation in Hotel.GetInstance().Reservations)
+        //    {
+        //        if (reservation.Id == forThisReservationId)
+        //        {
+        //            reservation.Guests = new List<Guest>();
 
-                    foreach (var guest in Hotel.GetInstance().Guests)
-                    {
-                        if (guest.ReservationId == reservation.Id)
-                        {
-                            reservation.Guests.Add(guest);
-                        }
-                    }
-                }
-            }
-        }
+        //            foreach (var guest in Hotel.GetInstance().Guests)
+        //            {
+        //                if (guest.ReservationId == reservation.Id)
+        //                {
+        //                    reservation.Guests.Add(guest);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
     }

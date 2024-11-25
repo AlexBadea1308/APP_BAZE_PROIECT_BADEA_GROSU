@@ -33,7 +33,7 @@ namespace HotelReservations.Windows
         public void FillData()
         {
             var reservationService = new ReservationService();
-            var reservations = Hotel.GetInstance().Reservations.Where(res => res.IsFinished).ToList();
+            var reservations = Hotel.GetInstance().Reservations.Where(res => res.IsActive).ToList();
 
             ReservationsDataGrid.ItemsSource = null; // Clear existing items
 

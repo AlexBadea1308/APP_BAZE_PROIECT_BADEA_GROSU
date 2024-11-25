@@ -32,11 +32,10 @@ namespace HotelReservations.Repositories
                             EndDateTime = (DateTime)row["end_date_time"], 
                             TotalPrice = (double)row["total_price"],
                             IsActive = (bool)row["reservation_is_active"],
-                            IsFinished = (bool)row["reservation_is_finished"],
                         };
                         if (Enum.TryParse<ReservationType>(row["reservation_type"]?.ToString(), out ReservationType reservationType))
                         {
-                            reservation.ReservationType = reservationType;
+                            reservation.ReservationType = reservationType.ToString();
                         }
 
                         reservations.Add(reservation);
@@ -72,9 +71,9 @@ namespace HotelReservations.Repositories
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-            INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active, reservation_is_finished)
+            INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active)
             OUTPUT inserted.reservation_id
-            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active, @reservation_is_finished)
+            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active)
         ";
 
                 command.Parameters.Add(new SqlParameter("reservation_room_number", res.RoomNumber));
@@ -83,7 +82,6 @@ namespace HotelReservations.Repositories
                 command.Parameters.Add(new SqlParameter("end_date_time", res.EndDateTime));
                 command.Parameters.Add(new SqlParameter("total_price", res.TotalPrice));
                 command.Parameters.Add(new SqlParameter("reservation_is_active", res.IsActive));
-                command.Parameters.Add(new SqlParameter("reservation_is_finished", res.IsFinished));
 
                 return (int)command.ExecuteScalar();
             }
@@ -111,7 +109,6 @@ namespace HotelReservations.Repositories
                 command.Parameters.Add(new SqlParameter("end_date_time", res.EndDateTime));
                 command.Parameters.Add(new SqlParameter("total_price", res.TotalPrice));
                 command.Parameters.Add(new SqlParameter("reservation_is_active", res.IsActive));
-                command.Parameters.Add(new SqlParameter("reservation_is_finished", res.IsFinished));
 
                 command.ExecuteNonQuery();
             }

@@ -19,6 +19,7 @@ namespace HotelReservations.Windows
     {
         private ReservationService reservationService;
         private Reservation contextReservation;
+        private GuestService guestService;
         private ICollectionView view;
         public bool isEditing;
 
@@ -41,6 +42,7 @@ namespace HotelReservations.Windows
             }
 
             reservationService = new ReservationService();
+            guestService= new GuestService();
             AdjustWindow(res);
             FillData(res);
             this.DataContext = contextReservation;
@@ -206,54 +208,6 @@ namespace HotelReservations.Windows
             Show();
         }
 
-        //private void SaveButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var selectedRoom = RoomsDataGrid.SelectedItem as Room;
-        //    DateTime? startDate = CheckStartDate.SelectedDate;
-        //    DateTime? endDate = CheckEndDate.SelectedDate;
-
-        //    if (selectedRoom == null)
-        //    {
-        //        MessageBox.Show("Please select a room.");
-        //        return;
-        //    }
-
-        //    if (!startDate.HasValue || !endDate.HasValue)
-        //    {
-        //        MessageBox.Show("Please select both start and end dates.");
-        //        return;
-        //    }
-
-        //    if (startDate < DateTime.Today)
-        //    {
-        //        MessageBox.Show("Start date cannot be in the past.");
-        //        return;
-        //    }
-
-        //    if (startDate > endDate)
-        //    {
-        //        MessageBox.Show("Start date must be equal to or earlier than end date.");
-        //        return;
-        //    }
-
-        //    var reservations = Hotel.GetInstance().Reservations;
-        //    foreach (Reservation r in reservations)
-        //    {
-        //        if (selectedRoom.RoomNumber == r.RoomNumber && !r.IsFinished && r.IsActive)
-        //        {
-        //            if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
-        //            {
-        //                MessageBox.Show($"Try with different dates, these are overlapping: {r.StartDateTime} - {r.EndDateTime}");
-        //                return;
-        //            }
-        //        }
-        //    }
-
-        //    reservationService.SaveReservation(contextReservation, selectedRoom);
-        //    DialogResult = true;
-        //    Close();
-        //}
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedRoom = RoomsDataGrid.SelectedItem as Room;
@@ -292,7 +246,7 @@ namespace HotelReservations.Windows
             var reservations = Hotel.GetInstance().Reservations;
             foreach (Reservation r in reservations)
             {
-                if (selectedRoom.RoomNumber == r.RoomNumber && !r.IsFinished && r.IsActive)
+                if (selectedRoom.RoomNumber == r.RoomNumber && r.IsActive==true)
                 {
                     if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
                     {
@@ -303,8 +257,22 @@ namespace HotelReservations.Windows
             }
 
             // Proceed to save the reservation if everything is valid
+            contextReservation.RoomNumber = selectedRoom.RoomNumber;
+            contextReservation.StartDateTime= (DateTime)startDate;
+            contextReservation.EndDateTime = (DateTime)endDate;
             reservationService.SaveReservation(contextReservation, selectedRoom);
-            DialogResult = true;
+
+            var selectedGuests = GuestsDataGrid.SelectedItems.Cast<Guest>().ToList();
+        
+            foreach (var guest in selectedGuests)
+            {
+                guest.IsActive = true;
+                guest.ReservationId = contextReservation.Id;
+                guestService.SaveGuest(guest);
+            }
+
+
+            DialogResult =false;
             Close();
         }
 

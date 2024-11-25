@@ -2,18 +2,9 @@
 using HotelReservations.Repositories;
 using HotelReservations.Service;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
@@ -25,6 +16,7 @@ namespace HotelReservations.Windows
         private GuestRepositoryDB guestRepository;
         private ReservationService reservationService;
         private Reservation resToDelete;
+
         public DeleteReservations(Reservation res)
         {
             InitializeComponent();
@@ -35,13 +27,22 @@ namespace HotelReservations.Windows
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            // add modal
+            // Adaugă modal de confirmare aici, dacă este necesar
+
+            // Marcați rezervarea ca inactivă
             reservationService.MakeReservationInactive(resToDelete);
-            foreach (Guest g in resToDelete.Guests)
+
+            // Căutăm oaspeții în baza de date care au acest ReservationId
+            var guestsToUpdate = guestRepository.GetGuestsByReservationId(resToDelete.Id);
+
+            // Actualizăm oaspeții găsiți
+            foreach (Guest guest in guestsToUpdate)
             {
-                g.IsActive = false;
-                guestRepository.Update(g);
+                guest.IsActive = false;
+                guestRepository.Update(guest);  // Actualizează fiecare oaspete
             }
+
+            // Confirmăm că acțiunea a fost realizată cu succes
             DialogResult = true;
             Close();
         }

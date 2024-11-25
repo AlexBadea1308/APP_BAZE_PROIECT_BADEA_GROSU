@@ -27,9 +27,9 @@
             <Label Content="Room type:" VerticalContentAlignment="Center" Width="70" Foreground="White"/>
             <ComboBox Name="RoomTypeComboBox" Width="150" Height="30" VerticalContentAlignment="Center" BorderBrush="#1ABC9C" Background="#1ABC9C" Foreground="Black"/>
             <Label Content="Start:" VerticalContentAlignment="Center" Width="90" Foreground="White"/>
-            <DatePicker Name="CheckStartDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
+            <DatePicker x:Name="CheckStartDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
             <Label Content="End:" Width="90" VerticalContentAlignment="Center" Foreground="White"/>
-            <DatePicker Name="CheckEndDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
+            <DatePicker x:Name="CheckEndDate" Margin="5,0,5,0" VerticalContentAlignment="Center" Background="#1ABC9C" Foreground="Black"/>
             <Button Name="CheckAvailableRoomsButton" Content="Check available rooms" BorderBrush="White" Padding="5,0,5,0" Margin="105,0,0,0" 
                     Click="CheckAvailableRoomsButton_Click" Background="#3498DB" Foreground="White"/>
         </ToolBar>
@@ -46,7 +46,7 @@
         </ToolBar>
 
         <!-- DataGrid pentru oaspeți -->
-        <DataGrid SelectionMode="Single" Grid.Row="3" Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"/>
+        <DataGrid SelectionMode="Extended" Grid.Row="3" x:Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"  SelectionUnit="FullRow" ItemsSource="{Binding Path=Guests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- ToolBar pentru date -->
         <!-- Butoane pentru salvare/anulare -->

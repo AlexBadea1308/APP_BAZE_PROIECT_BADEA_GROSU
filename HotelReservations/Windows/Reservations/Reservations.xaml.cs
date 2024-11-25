@@ -1,6 +1,7 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -10,44 +11,63 @@ using System.Windows.Input;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for Reservations.xaml
-    /// </summary>
     public partial class Reservations : Window
     {
+        private ReservationService _reservationService;
         private ICollectionView view;
+
         public Reservations()
         {
             InitializeComponent();
-            FillData();
+            _reservationService = new ReservationService(); // Instanțiem serviciul
+            DataContext = this;
+            FillData(); // Încărcăm rezervările
         }
 
         public void FillData()
         {
-            var reservationService = new ReservationService();
-            var reservations = Hotel.GetInstance().Reservations.Where(res => res.IsActive).ToList();
+            // Obținem toate rezervările din baza de date
+            var reservations = Hotel.GetInstance().Reservations.ToList();
 
+            // Dacă vrei să aplici un filtru, folosești o metodă similară cu `DoFilter` din exemplul tău
             view = CollectionViewSource.GetDefaultView(reservations);
-            view.Filter = DoFilter;
+            view.Filter = DoFilter; // Aplicăm filtrul (dacă ai unul definit)
 
+            // Setăm lista de rezervări pentru DataGrid
             ReservationsDataGrid.ItemsSource = null;
-            ReservationsDataGrid.ItemsSource = view;
+            ReservationsDataGrid.ItemsSource = reservations;
+
+            // Asigurăm sincronizarea cu item-ul selectat
             ReservationsDataGrid.IsSynchronizedWithCurrentItem = true;
+
+            // Deselează orice selecție anterioară
             ReservationsDataGrid.SelectedItem = null;
         }
+
+
+
 
         private bool DoFilter(object resObject)
         {
             var res = resObject as Reservation;
+            if (res == null) return false;
 
-            var roomNumberSearchParam = RoomNumberSearchTextBox.Text;
-            var startDateSearchParam = StartDateSearchTextBox.Text;
-            var endDateSearchParam = EndDateSearchTextBox.Text;
+            // Obținem valori din câmpurile de căutare
+            var roomNumberSearchParam = RoomNumberSearchTextBox.Text.Trim();
+            var startDateSearchParam = StartDateSearchTextBox.Text.Trim();
+            var endDateSearchParam = EndDateSearchTextBox.Text.Trim();
 
-            bool isRoomNumberMatch = res.RoomNumber.Contains(roomNumberSearchParam);
-            bool isStartDateMatch = res.StartDateTime.ToShortDateString().Contains(startDateSearchParam);
-            bool isEndDateMatch = res.EndDateTime.ToShortDateString().Contains(endDateSearchParam);
+            // Verificări pe baza căutării
+            bool isRoomNumberMatch = string.IsNullOrEmpty(roomNumberSearchParam) ||
+                                     res.RoomNumber.IndexOf(roomNumberSearchParam, StringComparison.OrdinalIgnoreCase) >= 0;
 
+            bool isStartDateMatch = string.IsNullOrEmpty(startDateSearchParam) ||
+                                    res.StartDateTime.ToShortDateString().Contains(startDateSearchParam);
+
+            bool isEndDateMatch = string.IsNullOrEmpty(endDateSearchParam) ||
+                                  res.EndDateTime.ToShortDateString().Contains(endDateSearchParam);
+
+            // Returnăm true doar dacă toate condițiile sunt îndeplinite
             return isRoomNumberMatch && isStartDateMatch && isEndDateMatch;
         }
 
@@ -57,10 +77,11 @@ namespace HotelReservations.Windows
             Hide();
             if (addReservationWindow.ShowDialog() == true)
             {
-                FillData();
+                FillData(); // Încărcăm din nou datele după ce adăugăm o rezervare
             }
             Show();
         }
+
         private void EditReservationButton_Click(object sender, RoutedEventArgs e)
         {
             Reservation chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
@@ -73,7 +94,7 @@ namespace HotelReservations.Windows
             Hide();
             if (editReservationWindow.ShowDialog() == true)
             {
-                FillData();
+                FillData(); // Încărcăm din nou datele după ce edităm o rezervare
             }
             Show();
         }
@@ -90,7 +111,7 @@ namespace HotelReservations.Windows
             Hide();
             if (deleteReservationsWindow.ShowDialog() == true)
             {
-                FillData();
+                FillData(); // Încărcăm din nou datele după ce ștergem o rezervare
             }
             Show();
         }
@@ -107,40 +128,19 @@ namespace HotelReservations.Windows
             Hide();
             if (finishReservationsWindow.ShowDialog() == true)
             {
-                FillData();
-            }
-            Show();
-        }
-
-        private void CheckActiveReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            var showActiveReservationWindow = new ActiveReservations();
-            Hide();
-            if (showActiveReservationWindow.ShowDialog() == true)
-            {
-                FillData();
-            }
-            Show();
-        }
-
-        private void CheckFinishedReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            var showFinishedReservationWindow = new FinishedReservations();
-            Hide();
-            if (showFinishedReservationWindow.ShowDialog() == true)
-            {
-                FillData();
+                FillData(); // Încărcăm din nou datele după ce finalizăm o rezervare
             }
             Show();
         }
 
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            view.Refresh();
+            view.Refresh(); // Reîmprospătăm datele pentru a aplica filtrul
         }
 
         private void ReservationsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            // Ascundem coloanele inutile
             if (e.PropertyName.ToLower() == "IsActive".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;

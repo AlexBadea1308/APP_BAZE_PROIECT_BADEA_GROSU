@@ -74,20 +74,6 @@ namespace HotelReservations
                     Hotel.GetInstance().Reservations = loadedReservationRepository;
                 }
 
-                // just adding guests to specific reservation
-                foreach (var reservation in Hotel.GetInstance().Reservations)
-                {
-                    reservation.Guests = new List<Guest>();
-
-                    foreach (var guest in Hotel.GetInstance().Guests)
-                    {
-                        if (guest.ReservationId == reservation.Id)
-                        {
-                            reservation.Guests.Add(guest);
-                        }
-                    }
-                }
-
             }
             catch (CouldntLoadResourceException)
             {

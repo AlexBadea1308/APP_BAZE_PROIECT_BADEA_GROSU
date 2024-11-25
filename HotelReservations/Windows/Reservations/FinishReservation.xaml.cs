@@ -27,11 +27,11 @@ namespace HotelReservations.Windows
 
             MessageBox.Show($"You must pay: {totalPrice}", "Payment Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            foreach(Guest g in resToFinish.Guests)
-            {
-                g.IsActive = false;
-                guestRepository.Update(g);
-            }
+            //foreach (Guest g in resToFinish.Guests)
+            //{
+            //    g.IsActive = false;
+            //    guestRepository.Update(g);
+            //}
 
             DialogResult = true;
             Close();

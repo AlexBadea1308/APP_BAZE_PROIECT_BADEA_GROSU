@@ -5,27 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="Users" Height="450" Width="800">
+        Title="Users" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#3498DB">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
+            <!-- Căutare -->
+            <RowDefinition Height="70" />
+            <!-- Bara de unelte -->
             <RowDefinition Height="*" />
+            <!-- Tabel utilizatori -->
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="Username:" VerticalContentAlignment="Center"/>
-            <TextBox Name="UsernameSearchTextBox" Height="24" Width="150" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="UsernameSearchTB_PreviewKeyUp"/>
+        <!-- Căutare după username -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,10,0">
+            <Label Content="Username:" Foreground="White" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <TextBox Name="UsernameSearchTextBox" Width="200" Height="30" VerticalContentAlignment="Center" FontSize="14"
+                     Margin="0,0,10,0" PreviewKeyUp="UsernameSearchTB_PreviewKeyUp"/>
         </StackPanel>
 
-        <ToolBar Grid.Row="1">
-            <Button Name="AddButton" Content="Add" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddButton_Click"></Button>
-            <Button Name="EditButton" Content="Edit" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditButton_Click"></Button>
-            <Button Name="DeleteButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteButton_Click"></Button>
+        <!-- Bara de unelte -->
+        <ToolBar Grid.Row="1" Background="#2980B9" Padding="10" VerticalAlignment="Center">
+            <Button Name="AddButton" Content="Add" Click="AddButton_Click" Width="100" Height="40"
+                    FontSize="14" Foreground="White" Background="#1ABC9C" Margin="5,0,0,0"/>
+            <Button Name="EditButton" Content="Edit" Click="EditButton_Click" Width="100" Height="40"
+                    FontSize="14" Foreground="White" Background="#F39C12" Margin="5,0,0,0"/>
+            <Button Name="DeleteButton" Content="Delete" Click="DeleteButton_Click" Width="100" Height="40"
+                    FontSize="14" Foreground="White" Background="#E74C3C" Margin="5,0,0,0"/>
         </ToolBar>
 
-        <DataGrid SelectionMode="Single" Grid.Row="2" Name="UsersDataGrid" IsReadOnly="True" AutoGeneratingColumn="UsersDataGrid_AutoGeneratingColumn">
-
-        </DataGrid>
+        <!-- Tabel utilizatori -->
+        <DataGrid Grid.Row="2" Name="UsersDataGrid" SelectionMode="Single" IsReadOnly="True"
+                  AutoGenerateColumns="True" AutoGeneratingColumn="UsersDataGrid_AutoGeneratingColumn"
+                  Background="White" Foreground="Black" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  FontSize="14" />
     </Grid>
 </Window>

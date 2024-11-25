@@ -31,8 +31,8 @@ namespace HotelReservations.Service
             reservation.RoomNumber = room.RoomNumber;
 
             // checking is date equal for deciding what type reservation is. if its equal then its day, if its not equal then its night
-       
-            
+
+
 
             // if reservation id is "0"(doesnt exist yet), then its adding
             if (reservation.Id == 0)
@@ -44,7 +44,7 @@ namespace HotelReservations.Service
 
                 // this will rewrite guests ID(because all have fake id(reservation not added yet so i have to rewrite all guest's reservation ID to this one ));
                 guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
-                reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
+                //reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
             }
 
             // otherwise, update reservation.
@@ -70,7 +70,7 @@ namespace HotelReservations.Service
             // so now if finish is true i will just update state otherwise i will delete(make inactive) :)
             if (finish == true)
             {
-                res.IsFinished = true;
+                res.IsActive=false;
                 reservationRepository.Update(res);
                 return;
             }
@@ -89,43 +89,23 @@ namespace HotelReservations.Service
         public double CountPrice(Reservation reservation)
         {
 
-            var resType = reservation.ReservationType;
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
             if (dateDifference == 0)
             {
-                resType = ReservationType.Day;
+                reservation.ReservationType=ReservationType.Day.ToString();
             }
             else
-                resType = ReservationType.Night;
+                reservation.ReservationType = ReservationType.Night.ToString();
             Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
-
-            //System.Diagnostics.Debug.WriteLine($"Searching for RoomType: '{room.RoomType}'");
-            //System.Diagnostics.Debug.WriteLine($"Searching for ReservationType: '{resType}'");
-
-            //foreach (var p in priceService.GetAllPrices())
-            //{
-            //    System.Diagnostics.Debug.WriteLine($"Available - RoomType: '{p.RoomType}', ReservationType: '{p.ReservationType}', PriceValue: {p.PriceValue}");
-
-            //    if (!p.RoomType.ToString().Equals(room.RoomType.ToString()))
-            //    {
-            //        System.Diagnostics.Debug.WriteLine($"RoomType mismatch. Expected: '{room.RoomType}', Found: '{p.RoomType}'");
-            //    }
-
-            //    if (!p.ReservationType.ToString().Trim().Equals(resType.ToString().Trim()))
-            //    {
-            //        System.Diagnostics.Debug.WriteLine($"ReservationType mismatch. Expected: '{resType}', Found: '{p.ReservationType}'");
-            //    }
-
-            //}
 
 
             // Find the corresponding price
-            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType.ToString().Equals(room.RoomType.ToString()) && p.ReservationType.ToString().Trim().Equals(resType.ToString().Trim()));
+            Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType.ToString().Equals(room.RoomType.ToString()) && p.ReservationType.ToString().Trim().Equals(reservation.ReservationType.ToString().Trim()));
 
             // Dacă prețul este null, aruncăm o eroare
             if (price == null)
             {
-                throw new InvalidOperationException($"Price not found for RoomType: {room.RoomType} and ReservationType: {resType}.");
+                throw new InvalidOperationException($"Price not found for RoomType: {room.RoomType} and ReservationType: {reservation.ReservationType}.");
             }
 
             // Calculate the total price
@@ -146,11 +126,21 @@ namespace HotelReservations.Service
             {
                 return 1;
             }
-            
+
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
         }
-    
 
+    public List<Reservation> GetActiveReservations()
+        {
+            // Returnează doar rezervările care sunt active
+            return Hotel.GetInstance().Reservations.Where(r => r.IsActive).ToList();
+        }
+
+        public List<Reservation> GetFinishedReservations()
+        {
+            // Returnează doar rezervările care sunt finalizate
+            return Hotel.GetInstance().Reservations.Where(r => r.IsActive = false).ToList();
+        }
     }
 }
