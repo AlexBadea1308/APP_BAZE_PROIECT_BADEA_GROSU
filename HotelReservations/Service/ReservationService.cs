@@ -39,12 +39,6 @@ namespace HotelReservations.Service
             {
                 Hotel.GetInstance().Reservations.Add(reservation);
                 reservation.TotalPrice = CountPrice(reservation);
-
-                reservation.Id = reservationRepository.Insert(reservation);
-
-                // this will rewrite guests ID(because all have fake id(reservation not added yet so i have to rewrite all guest's reservation ID to this one ));
-                guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
-                //reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
             }
 
             // otherwise, update reservation.
@@ -70,7 +64,7 @@ namespace HotelReservations.Service
             // so now if finish is true i will just update state otherwise i will delete(make inactive) :)
             if (finish == true)
             {
-                res.IsActive=false;
+                res.IsActive = false;
                 reservationRepository.Update(res);
                 return;
             }
@@ -92,7 +86,7 @@ namespace HotelReservations.Service
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
             if (dateDifference == 0)
             {
-                reservation.ReservationType=ReservationType.Day.ToString();
+                reservation.ReservationType = ReservationType.Day.ToString();
             }
             else
                 reservation.ReservationType = ReservationType.Night.ToString();
@@ -129,18 +123,6 @@ namespace HotelReservations.Service
 
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
-        }
-
-    public List<Reservation> GetActiveReservations()
-        {
-            // Returnează doar rezervările care sunt active
-            return Hotel.GetInstance().Reservations.Where(r => r.IsActive).ToList();
-        }
-
-        public List<Reservation> GetFinishedReservations()
-        {
-            // Returnează doar rezervările care sunt finalizate
-            return Hotel.GetInstance().Reservations.Where(r => r.IsActive = false).ToList();
         }
     }
 }

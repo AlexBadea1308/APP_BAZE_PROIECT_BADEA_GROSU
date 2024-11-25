@@ -1,5 +1,7 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Repositories;
+using HotelReservations.Windows;
+using ServiceStack;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,11 +16,12 @@ namespace HotelReservations.Service
             guestRepository = new GuestRepositoryDB();
         }
 
-        public void SaveGuest(Guest guest, bool editing = false)
+        public void SaveGuest(Guest guest,bool editing = false)
         {
             // this means guest will be in memory because reservation isn't created yet.
             if (guest.Id == 0 && editing == false)
             {
+                guest.IsActive= true;
                 Hotel.GetInstance().Guests.Add(guest);
             }
 

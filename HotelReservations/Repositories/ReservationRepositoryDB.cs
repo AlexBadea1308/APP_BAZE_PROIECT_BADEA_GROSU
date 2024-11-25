@@ -98,7 +98,7 @@ namespace HotelReservations.Repositories
                 command.CommandText = @"
                     UPDATE dbo.reservation
                     SET reservation_room_number=@reservation_room_number, reservation_type=@reservation_type, start_date_time=@start_date_time, end_date_time=@end_date_time,
-                        total_price=@total_price, reservation_is_active=@reservation_is_active, reservation_is_finished=@reservation_is_finished
+                        total_price=@total_price, reservation_is_active=@reservation_is_active
                     WHERE reservation_id=@reservation_id
                 ";
 

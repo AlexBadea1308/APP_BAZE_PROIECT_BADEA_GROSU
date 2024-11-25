@@ -42,7 +42,7 @@ namespace HotelReservations.Windows
             }
 
             reservationService = new ReservationService();
-            guestService= new GuestService();
+            guestService=new GuestService();
             AdjustWindow(res);
             FillData(res);
             this.DataContext = contextReservation;
@@ -117,7 +117,7 @@ namespace HotelReservations.Windows
             view = CollectionViewSource.GetDefaultView(guests.ToList());
             GuestsDataGrid.ItemsSource = view;
             GuestsDataGrid.IsSynchronizedWithCurrentItem = true;
-            GuestsDataGrid.SelectedItem = null;
+            //GuestsDataGrid.SelectedItem = null;
 
             // Reîmprospătează DataGrid-ul pentru camere
             var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
@@ -170,7 +170,7 @@ namespace HotelReservations.Windows
                 }
             }
 
-            Show();
+            ShowDialog();
         }
 
 
@@ -188,7 +188,7 @@ namespace HotelReservations.Windows
             {
                 FillData(contextReservation);
             }
-            Show();
+            ShowDialog();
         }
 
         private void DeleteGuestButton_Click(object sender, RoutedEventArgs e)
@@ -256,7 +256,7 @@ namespace HotelReservations.Windows
                 }
             }
 
-            // Proceed to save the reservation if everything is valid
+            //salvam rezervarea si adaugam guests in baza de date atribuindu le rezervationID ul curent
             contextReservation.RoomNumber = selectedRoom.RoomNumber;
             contextReservation.StartDateTime= (DateTime)startDate;
             contextReservation.EndDateTime = (DateTime)endDate;
@@ -266,13 +266,12 @@ namespace HotelReservations.Windows
         
             foreach (var guest in selectedGuests)
             {
-                guest.IsActive = true;
-                guest.ReservationId = contextReservation.Id;
+                guest.ReservationId = 5;
                 guestService.SaveGuest(guest);
             }
 
 
-            DialogResult =false;
+            DialogResult = false ;
             Close();
         }
 

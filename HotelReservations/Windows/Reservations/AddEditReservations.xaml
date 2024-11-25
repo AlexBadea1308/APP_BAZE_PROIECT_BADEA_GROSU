@@ -46,7 +46,7 @@
         </ToolBar>
 
         <!-- DataGrid pentru oaspeți -->
-        <DataGrid SelectionMode="Extended" Grid.Row="3" x:Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"  SelectionUnit="FullRow" ItemsSource="{Binding Path=Guests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <DataGrid SelectionMode="Extended" Grid.Row="3" x:Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"  SelectionUnit="FullRow"/>
 
         <!-- ToolBar pentru date -->
         <!-- Butoane pentru salvare/anulare -->

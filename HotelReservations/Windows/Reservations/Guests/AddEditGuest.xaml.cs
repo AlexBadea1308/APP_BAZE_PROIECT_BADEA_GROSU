@@ -63,14 +63,14 @@ namespace HotelReservations.Windows
             }
 
             // If validation passed
-            if (!isEditing)
-            {
-                guestService.SaveGuest(contextGuest);
-            }
-            else
-            {
-                guestService.SaveGuest(contextGuest, true);
-            }
+            //if (!isEditing)
+            //{
+            //    guestService.SaveGuest(contextGuest);
+            //}
+            //else
+            //{
+            //    guestService.SaveGuest(contextGuest,true);
+            //}
 
             // Set the SavedGuest property so it can be accessed by the parent window
             SavedGuest = contextGuest;
