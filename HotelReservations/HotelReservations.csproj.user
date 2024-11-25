@@ -7,12 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Windows\Reservations\FinishedReservations.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\Reservations\ActiveReservations.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Windows\Reservations\FinishReservation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,12 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Windows\Reservations\FinishedReservations.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Windows\Reservations\ActiveReservations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Reservations\FinishReservation.xaml">

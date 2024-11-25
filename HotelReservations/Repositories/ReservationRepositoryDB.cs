@@ -73,8 +73,7 @@ namespace HotelReservations.Repositories
                 command.CommandText = @"
             INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active)
             OUTPUT inserted.reservation_id
-            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active)
-        ";
+            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active)";
 
                 command.Parameters.Add(new SqlParameter("reservation_room_number", res.RoomNumber));
                 command.Parameters.Add(new SqlParameter("reservation_type", res.ReservationType.ToString()));

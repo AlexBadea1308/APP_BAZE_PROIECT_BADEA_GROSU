@@ -26,13 +26,8 @@ namespace HotelReservations.Windows
             var totalPrice = reservationService.FinishReservation(resToFinish);
 
             MessageBox.Show($"You must pay: {totalPrice}", "Payment Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //foreach (Guest g in resToFinish.Guests)
-            //{
-            //    g.IsActive = false;
-            //    guestRepository.Update(g);
-            //}
-
+            guestRepository.Delete(resToFinish.Id);
+            reservationService.GetReservationRepository().Delete(resToFinish.Id);
             DialogResult = true;
             Close();
         }

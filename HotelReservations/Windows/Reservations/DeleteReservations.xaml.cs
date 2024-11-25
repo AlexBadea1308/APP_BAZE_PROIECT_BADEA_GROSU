@@ -39,9 +39,9 @@ namespace HotelReservations.Windows
             foreach (Guest guest in guestsToUpdate)
             {
                 guest.IsActive = false;
-                guestRepository.Update(guest);  // Actualizează fiecare oaspete
+                guestRepository.Delete(guest.ReservationId);  // Actualizează fiecare oaspete
             }
-
+            reservationService.GetReservationRepository().Delete(resToDelete.Id);
             // Confirmăm că acțiunea a fost realizată cu succes
             DialogResult = true;
             Close();

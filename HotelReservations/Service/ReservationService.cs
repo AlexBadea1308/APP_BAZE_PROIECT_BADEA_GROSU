@@ -26,14 +26,14 @@ namespace HotelReservations.Service
             return Hotel.GetInstance().Reservations;
         }
 
+        public IReservationRepository GetReservationRepository()
+        {
+            return reservationRepository;
+        }
+
         public void SaveReservation(Reservation reservation, Room room)
         {
             reservation.RoomNumber = room.RoomNumber;
-
-            // checking is date equal for deciding what type reservation is. if its equal then its day, if its not equal then its night
-
-
-
             // if reservation id is "0"(doesnt exist yet), then its adding
             if (reservation.Id == 0)
             {

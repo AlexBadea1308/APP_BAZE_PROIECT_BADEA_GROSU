@@ -261,12 +261,13 @@ namespace HotelReservations.Windows
             contextReservation.StartDateTime= (DateTime)startDate;
             contextReservation.EndDateTime = (DateTime)endDate;
             reservationService.SaveReservation(contextReservation, selectedRoom);
+            int rezID = reservationService.GetReservationRepository().Insert(contextReservation);
 
             var selectedGuests = GuestsDataGrid.SelectedItems.Cast<Guest>().ToList();
         
             foreach (var guest in selectedGuests)
             {
-                guest.ReservationId = 5;
+                guest.ReservationId = rezID;
                 guestService.SaveGuest(guest);
             }
 

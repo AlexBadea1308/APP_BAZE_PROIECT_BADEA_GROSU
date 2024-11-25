@@ -21,8 +21,11 @@ namespace HotelReservations.Service
             // this means guest will be in memory because reservation isn't created yet.
             if (guest.Id == 0 && editing == false)
             {
-                guest.IsActive= true;
                 Hotel.GetInstance().Guests.Add(guest);
+
+
+
+                guestRepository.Insert(guest);
             }
 
             // otherwise, its editing guest
