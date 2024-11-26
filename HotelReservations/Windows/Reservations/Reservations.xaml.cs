@@ -96,7 +96,7 @@ namespace HotelReservations.Windows
             {
                 FillData(); // Încărcăm din nou datele după ce ștergem o rezervare
             }
-            Show();
+            ShowDialog();
         }
 
         private void FinishReservationButton_Click(object sender, RoutedEventArgs e)
@@ -113,7 +113,7 @@ namespace HotelReservations.Windows
             {
                 FillData(); // Încărcăm din nou datele după ce finalizăm o rezervare
             }
-            Show();
+            ShowDialog();
         }
 
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)

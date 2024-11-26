@@ -263,7 +263,7 @@ namespace HotelReservations.Windows
             }
 
 
-            DialogResult = false ;
+            DialogResult = true ;
             Close();
         }
 

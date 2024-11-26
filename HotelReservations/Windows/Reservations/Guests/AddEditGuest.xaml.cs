@@ -65,7 +65,6 @@ namespace HotelReservations.Windows
 
             
             SavedGuest = contextGuest;
-            guestService.SaveGuest(contextGuest);
             // Signal success by closing the window
             DialogResult = true;
             Close();

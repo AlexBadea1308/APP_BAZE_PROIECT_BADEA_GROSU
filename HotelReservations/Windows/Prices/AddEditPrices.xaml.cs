@@ -80,7 +80,7 @@ namespace HotelReservations.Windows
                 var allPrices = priceService.GetAllPrices().ToList();
                 foreach (var currentPrice in allPrices)
                 {
-                    if (currentPrice.ReservationType.ToString() == contextPrice.ReservationType.ToString() && currentPrice.RoomType.ToString() == contextPrice.RoomType.ToString())
+                    if (currentPrice.ReservationType.ToString() == contextPrice.ReservationType.ToString() && currentPrice.RoomType.Id == contextPrice.RoomType.Id)
                     {
                         MessageBox.Show("Price Combination for this RoomType and ReservationType already exist!", "Price Exist Error", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;

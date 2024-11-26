@@ -91,7 +91,11 @@ namespace HotelReservations.Service
             }
 
             // Calculate the total price
-            reservation.TotalPrice = dateDifference * price.PriceValue;
+            if (dateDifference == 0)
+                reservation.TotalPrice = price.PriceValue;
+            else
+                reservation.TotalPrice = dateDifference * price.PriceValue;
+
             return reservation.TotalPrice;
         }
 
@@ -105,7 +109,7 @@ namespace HotelReservations.Service
         {
             if (start.Date == end.Date)
             {
-                return 1;
+                return 0;
             }
 
             TimeSpan difference = end.Date - start.Date;
