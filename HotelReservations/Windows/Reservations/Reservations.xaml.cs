@@ -82,23 +82,6 @@ namespace HotelReservations.Windows
             ShowDialog();
         }
 
-        private void EditReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            Reservation chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
-            if (chosenReservation == null)
-            {
-                MessageBox.Show("Please select a Reservation.", "Select Reservation", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            var editReservationWindow = new AddEditReservations(chosenReservation);
-            Hide();
-            if (editReservationWindow.ShowDialog() == true)
-            {
-                FillData(); // Încărcăm din nou datele după ce edităm o rezervare
-            }
-            ShowDialog();
-        }
-
         private void DeleteReservationButton_Click(object sender, RoutedEventArgs e)
         {
             var chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
@@ -113,7 +96,7 @@ namespace HotelReservations.Windows
             {
                 FillData(); // Încărcăm din nou datele după ce ștergem o rezervare
             }
-            ShowDialog();
+            Show();
         }
 
         private void FinishReservationButton_Click(object sender, RoutedEventArgs e)
@@ -140,11 +123,6 @@ namespace HotelReservations.Windows
 
         private void ReservationsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            // Ascundem coloanele inutile
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
 
             if (e.PropertyName.ToLower() == "Guests".ToLower())
             {

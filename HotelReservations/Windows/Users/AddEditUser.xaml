@@ -69,8 +69,8 @@
 
             <!-- JMBG -->
             <StackPanel Orientation="Horizontal" Margin="0,10">
-                <Label Width="150" Content="JMBG:" Foreground="White"/>
-                <TextBox Style="{StaticResource ValidatableTextBox}" Name="JMBGTextBox" Text="{Binding Path=JMBG, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" />
+                <Label Width="150" Content="CNP:" Foreground="White"/>
+                <TextBox Style="{StaticResource ValidatableTextBox}" Name="CNPTextBox" Text="{Binding Path=CNP, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" />
             </StackPanel>
         </StackPanel>
 

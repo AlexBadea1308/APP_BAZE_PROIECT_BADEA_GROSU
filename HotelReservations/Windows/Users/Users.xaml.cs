@@ -34,7 +34,7 @@ namespace HotelReservations.Windows
         private void FillData()
         {
             userService = new UserService();
-            var users = Hotel.GetInstance().Users.Where(user => user.IsActive).ToList();
+            var users = Hotel.GetInstance().Users.ToList();
 
             view = CollectionViewSource.GetDefaultView(users);
             view.Filter = DoFilter;
@@ -94,10 +94,6 @@ namespace HotelReservations.Windows
 
         private void UsersDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
             if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;

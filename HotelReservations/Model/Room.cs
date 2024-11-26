@@ -29,7 +29,6 @@ namespace HotelReservations.Model
         public bool HasTV { get; set; }
         public bool HasMiniBar { get; set; }
         public RoomType? RoomType { get; set; } = null;
-        public bool IsActive { get; set; } = true;
 
         public override string ToString()
         {
@@ -45,8 +44,6 @@ namespace HotelReservations.Model
             clone.HasTV = HasTV;
             clone.HasMiniBar = HasMiniBar;
             clone.RoomType = RoomType;
-            clone.IsActive = IsActive;
-
             return clone;
         }
     }

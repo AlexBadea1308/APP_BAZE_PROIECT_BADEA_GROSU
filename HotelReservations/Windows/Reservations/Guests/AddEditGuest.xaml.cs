@@ -24,14 +24,14 @@ namespace HotelReservations.Windows
             {
                 contextGuest = new Guest();
                 isEditing = false;
-                JMBGTextBox.IsReadOnly = false;
+                CNPTextBox.IsReadOnly = false;
             }
 
             else
             {
                 contextGuest = guest.Clone();
                 isEditing = true;
-                JMBGTextBox.IsReadOnly = true;
+                CNPTextBox.IsReadOnly = true;
             }
 
             guestService = new GuestService();
@@ -56,25 +56,16 @@ namespace HotelReservations.Windows
             }
 
             // Validation for JMBG
-            if (string.IsNullOrEmpty(contextGuest.JMBG) || contextGuest.JMBG.Length != 13 || !contextGuest.JMBG.All(char.IsDigit))
+            if (string.IsNullOrEmpty(contextGuest.CNP) || contextGuest.CNP.Length != 13 || !contextGuest.CNP.All(char.IsDigit))
             {
-                MessageBox.Show("JMBG must be a 13-digit number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("CNP must be a 13-digit number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            // If validation passed
-            //if (!isEditing)
-            //{
-            //    guestService.SaveGuest(contextGuest);
-            //}
-            //else
-            //{
-            //    guestService.SaveGuest(contextGuest,true);
-            //}
 
-            // Set the SavedGuest property so it can be accessed by the parent window
+            
             SavedGuest = contextGuest;
-
+            guestService.SaveGuest(contextGuest);
             // Signal success by closing the window
             DialogResult = true;
             Close();
@@ -87,17 +78,8 @@ namespace HotelReservations.Windows
         }
 
         private void AdjustWindow(Guest? guest = null)
-        { 
-            if (guest != null)
-            {
-                Title = "Edit Guest";
-            }
-            else
-            {
-                Title = "Add Guest";
-            }
+        {
+            Title = "Add Guest";
         }
-
-       
     }
 }

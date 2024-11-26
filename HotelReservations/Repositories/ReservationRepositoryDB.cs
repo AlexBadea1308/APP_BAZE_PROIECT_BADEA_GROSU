@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
 
 namespace HotelReservations.Repositories
 {
-    public class ReservationRepositoryDB : IReservationRepository
+    public class ReservationRepositoryDB
     {
 
         public List<Reservation> GetAll()
@@ -31,7 +32,6 @@ namespace HotelReservations.Repositories
                             StartDateTime = (DateTime)row["start_date_time"], 
                             EndDateTime = (DateTime)row["end_date_time"], 
                             TotalPrice = (double)row["total_price"],
-                            IsActive = (bool)row["reservation_is_active"],
                         };
                         if (Enum.TryParse<ReservationType>(row["reservation_type"]?.ToString(), out ReservationType reservationType))
                         {
@@ -71,16 +71,15 @@ namespace HotelReservations.Repositories
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-            INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price, reservation_is_active)
+            INSERT INTO dbo.reservation (reservation_room_number, reservation_type, start_date_time, end_date_time, total_price)
             OUTPUT inserted.reservation_id
-            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price, @reservation_is_active)";
+            VALUES (@reservation_room_number, @reservation_type, @start_date_time, @end_date_time, @total_price)";
 
                 command.Parameters.Add(new SqlParameter("reservation_room_number", res.RoomNumber));
                 command.Parameters.Add(new SqlParameter("reservation_type", res.ReservationType.ToString()));
                 command.Parameters.Add(new SqlParameter("start_date_time", res.StartDateTime));
                 command.Parameters.Add(new SqlParameter("end_date_time", res.EndDateTime));
                 command.Parameters.Add(new SqlParameter("total_price", res.TotalPrice));
-                command.Parameters.Add(new SqlParameter("reservation_is_active", res.IsActive));
 
                 return (int)command.ExecuteScalar();
             }
@@ -97,7 +96,7 @@ namespace HotelReservations.Repositories
                 command.CommandText = @"
                     UPDATE dbo.reservation
                     SET reservation_room_number=@reservation_room_number, reservation_type=@reservation_type, start_date_time=@start_date_time, end_date_time=@end_date_time,
-                        total_price=@total_price, reservation_is_active=@reservation_is_active
+                        total_price=@total_price
                     WHERE reservation_id=@reservation_id
                 ";
 
@@ -107,7 +106,6 @@ namespace HotelReservations.Repositories
                 command.Parameters.Add(new SqlParameter("start_date_time", res.StartDateTime));
                 command.Parameters.Add(new SqlParameter("end_date_time", res.EndDateTime));
                 command.Parameters.Add(new SqlParameter("total_price", res.TotalPrice));
-                command.Parameters.Add(new SqlParameter("reservation_is_active", res.IsActive));
 
                 command.ExecuteNonQuery();
             }
@@ -121,14 +119,19 @@ namespace HotelReservations.Repositories
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-                    UPDATE dbo.reservation
-                    SET reservation_is_active = 0
-                    WHERE reservation_id = @reservation_id
+                    DELETE dbo.reservation
+                    WHERE reservation_id = @resId
                 ";
 
-                command.Parameters.Add(new SqlParameter("reservation_id", resId));
+                command.Parameters.Add(new SqlParameter("@resId", resId));
 
                 command.ExecuteNonQuery();
+            }
+
+            var reservation = Hotel.GetInstance().Reservations.FirstOrDefault(r => r.Id == resId);
+            if (reservation != null)
+            {
+                Hotel.GetInstance().Reservations.Remove(reservation);
             }
         }
 

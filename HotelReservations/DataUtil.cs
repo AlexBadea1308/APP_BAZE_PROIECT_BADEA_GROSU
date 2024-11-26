@@ -14,8 +14,8 @@ namespace HotelReservations
         {
             Hotel hotel = Hotel.GetInstance();
             hotel.Id = 1;
-            hotel.Name = "Hotel Park";
-            hotel.Address = "Kod Futoskog parka...";
+            hotel.Name = "Topolos Grand Resort";
+            hotel.Address ="Strada Apollo 13";
 
             var resTypeDay = ReservationType.Day;
             var resTypeNight = ReservationType.Night;
@@ -31,12 +31,12 @@ namespace HotelReservations
 
             try
             {
-                IRoomTypeRepository roomTypeRepository = new RoomTypeRepositoryDB();
-                IUserRepository usersRepository = new UserRepositoryDB();
-                IRoomRepository roomRepository = new RoomRepositoryDB();
-                IPriceRepository priceRepository = new PriceRepositoryDB();
-                IGuestRepository guestRepository = new GuestRepositoryDB();
-                IReservationRepository reservationRepository = new ReservationRepositoryDB();
+                RoomTypeRepositoryDB roomTypeRepository = new RoomTypeRepositoryDB();
+                UserRepositoryDB usersRepository = new UserRepositoryDB();
+                RoomRepositoryDB roomRepository = new RoomRepositoryDB();
+                PriceRepositoryDB priceRepository = new PriceRepositoryDB();
+                GuestRepositoryDB guestRepository = new GuestRepositoryDB();
+                ReservationRepositoryDB reservationRepository = new ReservationRepositoryDB();
 
                 var loadedRoomTypes = roomTypeRepository.GetAll();
                 if (loadedRoomTypes != null)

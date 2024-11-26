@@ -13,7 +13,7 @@ namespace HotelReservations.Windows
     /// </summary>
     public partial class DeleteReservations : Window
     {
-        private GuestRepositoryDB guestRepository;
+        private GuestService guestService;
         private ReservationService reservationService;
         private Reservation resToDelete;
 
@@ -21,29 +21,25 @@ namespace HotelReservations.Windows
         {
             InitializeComponent();
             reservationService = new ReservationService();
-            guestRepository = new GuestRepositoryDB();
+            guestService = new GuestService();
             resToDelete = res;
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Adaugă modal de confirmare aici, dacă este necesar
-
-            // Marcați rezervarea ca inactivă
-            reservationService.MakeReservationInactive(resToDelete);
 
             // Căutăm oaspeții în baza de date care au acest ReservationId
-            var guestsToUpdate = guestRepository.GetGuestsByReservationId(resToDelete.Id);
+            var guestsToUpdate = guestService.guestRepository.GetGuestsByReservationId(resToDelete.Id);
 
             // Actualizăm oaspeții găsiți
             foreach (Guest guest in guestsToUpdate)
             {
-                guest.IsActive = false;
-                guestRepository.Delete(guest.ReservationId);  // Actualizează fiecare oaspete
+                guestService.guestRepository.Delete(guest.ReservationId);  // Actualizează fiecare oaspete
             }
-            reservationService.GetReservationRepository().Delete(resToDelete.Id);
+            reservationService.DeleteRezervationFromDatabase(resToDelete);
             // Confirmăm că acțiunea a fost realizată cu succes
             DialogResult = true;
+
             Close();
         }
 

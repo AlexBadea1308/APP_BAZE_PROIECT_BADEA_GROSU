@@ -32,7 +32,7 @@ namespace HotelReservations.Windows
         public void FillData()
         {
             var roomTypeService = new RoomTypeService();
-            var roomTypes = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
+            var roomTypes = Hotel.GetInstance().RoomTypes.ToList();
 
             view = CollectionViewSource.GetDefaultView(roomTypes);
             view.Filter = DoFilter;
@@ -104,10 +104,6 @@ namespace HotelReservations.Windows
 
         private void RoomTypesDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
             if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;

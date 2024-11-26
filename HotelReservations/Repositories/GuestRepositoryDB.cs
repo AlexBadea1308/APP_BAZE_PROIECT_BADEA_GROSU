@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
 
 namespace HotelReservations.Repositories
 {
-    public class GuestRepositoryDB : IGuestRepository
+    public class GuestRepositoryDB
     {
         // Metoda pentru a obține oaspeții în funcție de ID-ul rezervării
         public List<Guest> GetGuestsByReservationId(int rezervationId)
@@ -19,7 +20,7 @@ namespace HotelReservations.Repositories
                 {
                     conn.Open();
                     var command = new SqlCommand(@"
-                        SELECT guest_id, guest_name, guest_surname, guest_jmbg, guest_is_active,reservationID 
+                        SELECT guest_id, guest_name, guest_surname, guest_cnp,reservationID 
                         FROM dbo.guest 
                         WHERE reservationID = @rezervationId", conn);
 
@@ -33,8 +34,7 @@ namespace HotelReservations.Repositories
                             Id = (int)reader["guest_id"],
                             Name = (string)reader["guest_name"],
                             Surname = (string)reader["guest_surname"],
-                            JMBG = (string)reader["guest_jmbg"],
-                            IsActive = (bool)reader["guest_is_active"],
+                            CNP = (string)reader["guest_cnp"],
                             ReservationId = (int)reader["reservationID"]
                         };
                         guests.Add(guest);
@@ -69,8 +69,7 @@ namespace HotelReservations.Repositories
                             Id = (int)reader["guest_id"],
                             Name = (string)reader["guest_name"],
                             Surname = (string)reader["guest_surname"],
-                            JMBG = (string)reader["guest_jmbg"],
-                            IsActive = (bool)reader["guest_is_active"],
+                            CNP = (string)reader["guest_cnp"],
                             ReservationId = (int)reader["reservationID"]
                         };
                         guests.Add(guest);
@@ -93,14 +92,13 @@ namespace HotelReservations.Repositories
                     conn.Open();
                     var command = conn.CreateCommand();
                     command.CommandText=@"
-                        INSERT INTO dbo.guest (guest_name, guest_surname, guest_jmbg, guest_is_active,reservationID)
+                        INSERT INTO dbo.guest (guest_name, guest_surname, guest_cnp,reservationID)
                         OUTPUT inserted.guest_id
-                        VALUES (@guest_name, @guest_surname, @guest_jmbg, @guest_is_active, @reservationID)";
+                        VALUES (@guest_name, @guest_surname, @guest_cnp,@reservationID)";
 
                     command.Parameters.Add(new SqlParameter("@guest_name", guest.Name));
                     command.Parameters.Add(new SqlParameter("@guest_surname", guest.Surname));
-                    command.Parameters.Add(new SqlParameter("@guest_jmbg", guest.JMBG));
-                    command.Parameters.Add(new SqlParameter("@guest_is_active", guest.IsActive));
+                    command.Parameters.Add(new SqlParameter("@guest_cnp", guest.CNP));
                     command.Parameters.Add(new SqlParameter("@reservationID", guest.ReservationId));
 
                     return (int)command.ExecuteScalar();
@@ -117,14 +115,13 @@ namespace HotelReservations.Repositories
                     conn.Open();
                     var command = new SqlCommand(@"
                         UPDATE dbo.guest
-                        SET guest_name=@guest_name, guest_surname=@guest_surname, guest_jmbg=@guest_jmbg, guest_is_active=@guest_is_active, reservationID=@reservationID
+                        SET guest_name=@guest_name, guest_surname=@guest_surname, guest_cnp=@guest_cnp,reservationID=@reservationID
                         WHERE guest_id=@guest_id", conn);
 
                     command.Parameters.Add(new SqlParameter("@guest_id", guest.Id));
                     command.Parameters.Add(new SqlParameter("@guest_name", guest.Name));
                     command.Parameters.Add(new SqlParameter("@guest_surname", guest.Surname));
-                    command.Parameters.Add(new SqlParameter("@guest_jmbg", guest.JMBG));
-                    command.Parameters.Add(new SqlParameter("@guest_is_active", guest.IsActive));
+                    command.Parameters.Add(new SqlParameter("@guest_jmbg", guest.CNP));
                     command.Parameters.Add(new SqlParameter("@reservationID", guest.ReservationId));
 
                     command.ExecuteNonQuery();
@@ -136,7 +133,7 @@ namespace HotelReservations.Repositories
             }
         }
 
-        // Metoda pentru a marca un oaspete ca inactiv (nu șterge din baza de date)
+        // Metoda pentru a marca un oaspete ca inactiv (șterge din baza de date)
         public void Delete(int rezervationId)
         {
             try
@@ -161,6 +158,12 @@ namespace HotelReservations.Repositories
             {
                 // Loghează eroarea pentru debug
                 Console.WriteLine($"Error deleting guest: {ex.Message}");
+            }
+
+            var guests = Hotel.GetInstance().Guests.FirstOrDefault(g => g.ReservationId == rezervationId);
+            if (guests != null)
+            {
+                Hotel.GetInstance().Guests.Remove(guests);
             }
         }
 

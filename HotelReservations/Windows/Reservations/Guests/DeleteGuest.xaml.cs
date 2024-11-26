@@ -21,7 +21,7 @@ namespace HotelReservations.Windows
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // add modal
-            guestService.MakeGuestInactive(guestToDelete);
+            guestService.DeletePriceFromDatabase(guestToDelete);
             DialogResult = true;
             Close();
         }

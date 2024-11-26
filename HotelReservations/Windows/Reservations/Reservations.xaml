@@ -27,8 +27,6 @@
         <ToolBar Grid.Row="1" Background="#2980B9">
             <Button Name="AddReservationButton" Content="Add" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
                     Foreground="White" Click="AddReservationButton_Click"/>
-            <Button Name="EditReservationButton" Content="Edit" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
-                    Foreground="White" Click="EditReservationButton_Click"/>
             <Button Name="DeleteReservationButton" Content="Delete" BorderBrush="White" Padding="5,0,5,0" Margin="5,0,0,0" 
                     Foreground="White" Click="DeleteReservationButton_Click"/>
             <Button Name="FinishReservationButton" Content="FINISH RESERVATION" Background="Green" Foreground="White" BorderBrush="White" 

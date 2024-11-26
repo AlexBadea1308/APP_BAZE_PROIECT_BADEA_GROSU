@@ -146,7 +146,7 @@ namespace HotelReservations
                     ReservationsMenuItem.Visibility = Visibility.Visible;
                 }
 
-                //MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Set the logged-in user for further operations
                 Hotel.GetInstance().loggedInUser = findUser;

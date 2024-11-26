@@ -35,7 +35,7 @@
         </ToolBar>
 
         <!-- DataGrid pentru camere -->
-        <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn" Background="#2C3E50" Foreground="Black"/>
+        <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" Background="#2C3E50" Foreground="Black"/>
 
         <!-- ToolBar pentru oaspeți -->
         <ToolBar Grid.Row="2" Background="#2980B9">

@@ -26,8 +26,6 @@ namespace HotelReservations.Model
                 name = value;
             }
         }
-        public bool IsActive { get; set; } = true;
-
         public override string ToString()
         {
             return Name;
@@ -38,7 +36,6 @@ namespace HotelReservations.Model
             var clone = new RoomType();
             clone.Id = Id;
             clone.Name = Name;
-            clone.IsActive = IsActive;
             return clone;
         }
     }

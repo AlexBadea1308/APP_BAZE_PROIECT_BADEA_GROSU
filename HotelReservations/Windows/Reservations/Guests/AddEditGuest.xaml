@@ -67,8 +67,8 @@
             <!-- JMBG -->
             <StackPanel Orientation="Horizontal">
                 <Label Height="30" Width="150" Content="CNP: " Foreground="White" FontSize="14" FontWeight="Bold"/>
-                <TextBox BorderBrush="White" Name="JMBGTextBox" Height="40" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"
-                         Text="{Binding Path=JMBG, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" 
+                <TextBox BorderBrush="White" Name="CNPTextBox" Height="40" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"
+                         Text="{Binding Path=CNP, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" 
                          Background="White" Foreground="Black" FontSize="14" FontWeight="Bold">
                     <Validation.ErrorTemplate>
                         <ControlTemplate>

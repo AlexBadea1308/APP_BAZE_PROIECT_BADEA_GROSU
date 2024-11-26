@@ -33,7 +33,7 @@ namespace HotelReservations.Windows
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             // add modal
-            roomService.MakeRoomInactive(roomToDelete);
+            roomService.DeleteRoomFromDatabase(roomToDelete);
             DialogResult = true;
             Close();
         }

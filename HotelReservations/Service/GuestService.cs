@@ -9,7 +9,7 @@ namespace HotelReservations.Service
 {
     public class GuestService
     {
-        IGuestRepository guestRepository;
+        public GuestRepositoryDB guestRepository;
 
         public GuestService()
         {
@@ -22,9 +22,6 @@ namespace HotelReservations.Service
             if (guest.Id == 0 && editing == false)
             {
                 Hotel.GetInstance().Guests.Add(guest);
-
-
-
                 guestRepository.Insert(guest);
             }
 
@@ -33,12 +30,16 @@ namespace HotelReservations.Service
             {
                 int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
                 guest.ReservationId = resId;
-                var index = Hotel.GetInstance().Guests.FindIndex(g => (g.Id == guest.Id)&&(g.JMBG == guest.JMBG));
+                var index = Hotel.GetInstance().Guests.FindIndex(g => (g.Id == guest.Id)&&(g.CNP == guest.CNP));
                 Hotel.GetInstance().Guests[index] = guest;
 
                 guestRepository.Update(guest);
-                //RefreshGuestsInReservation(guest.ReservationId);
             }
+        }
+
+        public void DeletePriceFromDatabase(Guest guest)
+        {
+            guestRepository.Delete(guest.Id);
         }
 
         public void RewriteGuestIdAfterReservationIsCreated(int newReservationId)
@@ -51,36 +52,5 @@ namespace HotelReservations.Service
                 guestRepository.Insert(guest);
             }
         }
-
-        public void MakeGuestInactive(Guest guest)
-        {
-            var makeGuestInactive = Hotel.GetInstance().Guests.Find(g => (g.Id == guest.Id) && (g.JMBG == guest.JMBG));
-            makeGuestInactive.IsActive = false;
-
-            guestRepository.Delete(guest.Id);
-            //RefreshGuestsInReservation(guest.ReservationId);
-        }
-
-        // helper function for refresh in memory after database is updated/deleted :)
-        //public void RefreshGuestsInReservation(int forThisReservationId)
-        //{
-        //    foreach (var reservation in Hotel.GetInstance().Reservations)
-        //    {
-        //        if (reservation.Id == forThisReservationId)
-        //        {
-        //            reservation.Guests = new List<Guest>();
-
-        //            foreach (var guest in Hotel.GetInstance().Guests)
-        //            {
-        //                if (guest.ReservationId == reservation.Id)
-        //                {
-        //                    reservation.Guests.Add(guest);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
     }
 }

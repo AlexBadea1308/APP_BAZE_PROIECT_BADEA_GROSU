@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System;
+using System.Linq;
+using static ServiceStack.Diagnostics.Events;
 
 namespace HotelReservations.Repositories
 {
-    public class RoomTypeRepositoryDB : IRoomTypeRepository
+    public class RoomTypeRepositoryDB
     {
         public List<RoomType> GetAll()
         {
@@ -27,7 +29,6 @@ namespace HotelReservations.Repositories
                         {
                             Id = (int)row["room_type_id"],
                             Name = (string)row["room_type_name"],
-                            IsActive = (bool)row["room_type_is_active"],
                         };
 
                         roomTypes.Add(roomType);
@@ -52,13 +53,12 @@ namespace HotelReservations.Repositories
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-                    INSERT INTO dbo.room_type (room_type_name, room_type_is_active)
+                    INSERT INTO dbo.room_type (room_type_name)
                     OUTPUT inserted.room_type_id
-                    VALUES (@room_type_name, @room_type_is_active)
+                    VALUES (@room_type_name)
                 ";
 
                 command.Parameters.Add(new SqlParameter("room_type_name", roomType.Name));
-                command.Parameters.Add(new SqlParameter("room_type_is_active", roomType.IsActive));
 
                 return (int)command.ExecuteScalar();
             }
@@ -73,13 +73,12 @@ namespace HotelReservations.Repositories
                 var command = conn.CreateCommand();
                 command.CommandText = @"
                     UPDATE dbo.room_type
-                    SET room_type_name=@room_type_name, room_type_is_active=@room_type_is_active
+                    SET room_type_name=@room_type_name
                     WHERE room_type_id = @room_type_id
                 ";
 
                 command.Parameters.Add(new SqlParameter("room_type_id", roomType.Id));
                 command.Parameters.Add(new SqlParameter("room_type_name", roomType.Name));
-                command.Parameters.Add(new SqlParameter("room_type_is_active", roomType.IsActive));
 
                 command.ExecuteNonQuery();
             }
@@ -92,8 +91,7 @@ namespace HotelReservations.Repositories
 
                 var command = conn.CreateCommand();
                 command.CommandText = @"
-                    UPDATE dbo.room_type
-                    SET room_type_is_active = 0
+                    DELETE dbo.room_type
                     WHERE room_type_id = @room_type_id
                 ";
 
@@ -102,6 +100,13 @@ namespace HotelReservations.Repositories
                 command.ExecuteNonQuery();
 
             }
+
+            var roomtype = Hotel.GetInstance().RoomTypes.FirstOrDefault(r => r.Id == roomTypeId);
+            if (roomtype != null)
+            {
+                Hotel.GetInstance().RoomTypes.Remove(roomtype);
+            }
+
         }
     }
 }

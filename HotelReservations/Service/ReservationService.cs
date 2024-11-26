@@ -8,7 +8,7 @@ namespace HotelReservations.Service
 {
     internal class ReservationService
     {
-        IReservationRepository reservationRepository;
+        public ReservationRepositoryDB reservationRepository;
         PriceService priceService;
         GuestService guestService;
         RoomService roomService;
@@ -26,11 +26,15 @@ namespace HotelReservations.Service
             return Hotel.GetInstance().Reservations;
         }
 
-        public IReservationRepository GetReservationRepository()
+        public void DeleteRezervationFromDatabase(Reservation rezervation)
+        {
+            reservationRepository.Delete(rezervation.Id);
+        }
+        
+        public ReservationRepositoryDB GetReservationRepository()
         {
             return reservationRepository;
         }
-
         public void SaveReservation(Reservation reservation, Room room)
         {
             reservation.RoomNumber = room.RoomNumber;
@@ -55,22 +59,6 @@ namespace HotelReservations.Service
             }
         }
 
-        // delete or finishing res;
-        public void MakeReservationInactive(Reservation reservation, bool finish = false)
-        {
-            var res = Hotel.GetInstance().Reservations.Find(r => r.Id == reservation.Id);
-            res.IsActive = false;
-
-            // so now if finish is true i will just update state otherwise i will delete(make inactive) :)
-            if (finish == true)
-            {
-                res.IsActive = false;
-                reservationRepository.Update(res);
-                return;
-            }
-
-            reservationRepository.Delete(res.Id);
-        }
         public void LogAllPrices()
         {
             var prices = priceService.GetAllPrices();
@@ -109,7 +97,6 @@ namespace HotelReservations.Service
 
         public double FinishReservation(Reservation reservation)
         {
-            MakeReservationInactive(reservation, true);
             return reservation.TotalPrice;
         }
 

@@ -24,7 +24,7 @@ namespace HotelReservations.Windows
         public void FillData()
         {
             var roomService = new RoomService();
-            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
+            var rooms = Hotel.GetInstance().Rooms.ToList();
 
             view = CollectionViewSource.GetDefaultView(rooms);
             view.Filter = DoFilter;
@@ -100,10 +100,6 @@ namespace HotelReservations.Windows
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
             if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;

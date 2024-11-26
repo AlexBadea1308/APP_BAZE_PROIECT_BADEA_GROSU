@@ -62,7 +62,7 @@ namespace HotelReservations.Windows
             }
             if(isEditing == false)
             {
-                bool roomTypeExists = roomTypeService.GetAllRoomTypes().Where(roomType => roomType.IsActive == true).Any(roomType => roomType.Name == contextRoomType.Name);
+                bool roomTypeExists = roomTypeService.GetAllRoomTypes().Any(roomType => roomType.Name == contextRoomType.Name);
                 if (roomTypeExists == true)
                 {
                     MessageBox.Show("RoomType Name already exists.", "RoomType Name Exists", MessageBoxButton.OK, MessageBoxImage.Information);

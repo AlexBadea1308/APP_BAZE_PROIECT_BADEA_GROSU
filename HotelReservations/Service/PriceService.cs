@@ -6,7 +6,7 @@ namespace HotelReservations.Service
 {
     public class PriceService
     {
-        IPriceRepository priceRepository;
+        public PriceRepositoryDB priceRepository;
 
         public PriceService()
         {
@@ -18,7 +18,6 @@ namespace HotelReservations.Service
             //return Hotel.GetInstance().Prices;
             return Hotel.GetInstance().Prices;
         }
-
         public void SavePrice(Price price)
         {
             if (price.Id == 0)
@@ -34,10 +33,8 @@ namespace HotelReservations.Service
             }
         }
 
-        public void MakePriceInactive(Price price)
+        public void DeletePriceFromDatabase(Price price)
         {
-            var makePriceInactive = Hotel.GetInstance().Prices.Find(p => p.Id == price.Id);
-            makePriceInactive.IsActive = false;
             priceRepository.Delete(price.Id);
         }
     }

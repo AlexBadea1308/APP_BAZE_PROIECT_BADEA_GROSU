@@ -37,7 +37,7 @@ namespace HotelReservations.Windows
 
         private void AdjustWindow(Price? price = null)
         {
-            var roomTypeList = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
+            var roomTypeList = Hotel.GetInstance().RoomTypes.ToList();
             var reservationTypeList = Hotel.GetInstance().ReservationTypes.ToList();
             RoomTypeCB.ItemsSource = roomTypeList;
             ReservationTypeCB.ItemsSource = reservationTypeList;
@@ -45,7 +45,7 @@ namespace HotelReservations.Windows
             if (price != null)
             {
                 Title = "Edit price";
-                RoomTypeCB.SelectedValue = roomTypeService.GetRoomTypeByName(price.RoomType.Name);
+                RoomTypeCB.SelectedValue = roomTypeService.GetRoomTypeByName(price.RoomType.Id);
                 RoomTypeCB.IsEnabled = false;
                 ReservationTypeCB.IsEnabled = false;
             }
@@ -77,7 +77,7 @@ namespace HotelReservations.Windows
             // this will be only if editing is false because while editing i will overwrite existing one
             if(!isEditing)
             {
-                var allPrices = priceService.GetAllPrices().Where(price => price.IsActive == true);
+                var allPrices = priceService.GetAllPrices().ToList();
                 foreach (var currentPrice in allPrices)
                 {
                     if (currentPrice.ReservationType.ToString() == contextPrice.ReservationType.ToString() && currentPrice.RoomType.ToString() == contextPrice.RoomType.ToString())

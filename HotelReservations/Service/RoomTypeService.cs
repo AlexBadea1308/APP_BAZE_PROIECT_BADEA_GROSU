@@ -7,7 +7,7 @@ namespace HotelReservations.Service
     public class RoomTypeService
     {
 
-        IRoomTypeRepository roomTypeRepository;
+        public RoomTypeRepositoryDB roomTypeRepository;
         RoomService roomService;
 
         public RoomTypeService()
@@ -49,16 +49,14 @@ namespace HotelReservations.Service
             }
         }
 
-        public RoomType GetRoomTypeByName(string roomTypeName)
+        public RoomType GetRoomTypeByName(int roomTypeID)
         {
-            var selectedRoomType = Hotel.GetInstance().RoomTypes.Find(rt => rt.Name == roomTypeName);
+            var selectedRoomType = Hotel.GetInstance().RoomTypes.Find(rt => rt.Id == roomTypeID);
             return selectedRoomType!;
         }
 
-        public void MakeRoomTypeInactive(RoomType roomType)
+        public void DeleteRoomTypeFromDatabase(RoomType roomType)
         {
-            var makeRoomTypeInactive = Hotel.GetInstance().RoomTypes.Find(r => r.Id == roomType.Id);
-            makeRoomTypeInactive.IsActive = false;
             roomTypeRepository.Delete(roomType.Id);
         }
 

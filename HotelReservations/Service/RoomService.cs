@@ -6,7 +6,7 @@ namespace HotelReservations.Service
 {
     public class RoomService
     {
-        IRoomRepository roomRepository;
+        public RoomRepositoryDB roomRepository;
         public RoomService() 
         { 
             roomRepository = new RoomRepositoryDB();
@@ -38,10 +38,8 @@ namespace HotelReservations.Service
             }
         }
 
-        public void MakeRoomInactive(Room room)
+        public void DeleteRoomFromDatabase(Room room)
         {
-            var makeRoomInactive = Hotel.GetInstance().Rooms.Find(r => r.Id == room.Id);
-            makeRoomInactive.IsActive = false;
             roomRepository.Delete(room.Id);
         }
     }

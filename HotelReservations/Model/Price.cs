@@ -13,8 +13,6 @@ namespace HotelReservations.Model
         public RoomType RoomType { get; set; }
         public ReservationType ReservationType { get; set; }
         public double PriceValue { get; set; } = 0;
-        public bool IsActive { get; set; } = true;
-
         public Price Clone()
         {
             var clone = new Price();
@@ -22,7 +20,6 @@ namespace HotelReservations.Model
             clone.RoomType = RoomType;
             clone.ReservationType = ReservationType;
             clone.PriceValue = PriceValue;
-            clone.IsActive = IsActive;
             return clone;
         }
     }

@@ -10,10 +10,9 @@ namespace HotelReservations.Model
         public DateTime StartDateTime { get; set; }  // Corespunde cu start_date_time
         public DateTime EndDateTime { get; set; }  // Corespunde cu end_date_time
         public double TotalPrice { get; set; }  // Corespunde cu total_price
-        public bool IsActive { get; set; }  // Corespunde cu reservation_is_active
 
         // Constructor pentru a putea crea o rezervare ușor
-        public Reservation(int id, string roomNumber, string reservationType, DateTime startDateTime, DateTime endDateTime, double totalPrice, bool isActive)
+        public Reservation(int id, string roomNumber, string reservationType, DateTime startDateTime, DateTime endDateTime, double totalPrice)
         {
             Id = id;
             RoomNumber = roomNumber;
@@ -21,7 +20,6 @@ namespace HotelReservations.Model
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
             TotalPrice = totalPrice;
-            IsActive = isActive;
         }
 
         // Constructor fără parametri pentru cazuri de inițializare implicită
@@ -39,7 +37,6 @@ namespace HotelReservations.Model
             clone.StartDateTime = StartDateTime;
             clone.EndDateTime = EndDateTime;
             clone.TotalPrice = TotalPrice;
-            clone.IsActive = IsActive;
             return clone;
         }
     }

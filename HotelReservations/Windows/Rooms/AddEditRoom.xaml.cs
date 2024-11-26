@@ -46,13 +46,13 @@ namespace HotelReservations.Windows
 
         public void AdjustWindow(Room? room = null)
         {
-            var roomTypeList = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
+            var roomTypeList = Hotel.GetInstance().RoomTypes.ToList();
             RoomTypeComboBox.ItemsSource = roomTypeList;
 
             if (room != null)
             {
                 Title = "Edit Room";
-                RoomTypeComboBox.SelectedValue = roomTypeService.GetRoomTypeByName(room.RoomType.Name);
+                RoomTypeComboBox.SelectedValue = roomTypeService.GetRoomTypeByName(room.Id);
             }
             else
             {
@@ -74,7 +74,7 @@ namespace HotelReservations.Windows
             }
             if(isEditing == false)
             {
-                bool roomExists = roomService.GetAllRooms().Where(room => room.IsActive == true).Any(room => room.RoomNumber == contextRoom.RoomNumber);
+                bool roomExists = roomService.GetAllRooms().Any(room => room.RoomNumber == contextRoom.RoomNumber);
                 if (roomExists == true)
                 {
                     MessageBox.Show("RoomNumber already exists.", "RoomNumber Exists", MessageBoxButton.OK, MessageBoxImage.Information);

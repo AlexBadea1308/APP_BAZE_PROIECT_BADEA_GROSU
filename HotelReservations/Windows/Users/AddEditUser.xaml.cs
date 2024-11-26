@@ -82,9 +82,9 @@ namespace HotelReservations.Windows
                 MessageBox.Show("Password can't be empty string.", "Password Empty", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (string.IsNullOrEmpty(contextUser.JMBG) || contextUser.JMBG.Length != 13 || !contextUser.JMBG.All(char.IsDigit))
+            if (string.IsNullOrEmpty(contextUser.CNP) || contextUser.CNP.Length != 13 || !contextUser.CNP.All(char.IsDigit))
             {
-                MessageBox.Show("Wrong format for JMBG", "JMBG Format", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Wrong format for CNP", "CNP Format", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (contextUser.UserType == null)
@@ -96,13 +96,13 @@ namespace HotelReservations.Windows
             // if editing i need to avoid these validations because it will overwrite
             if(isEditing == false)
             {
-                bool jmbgExists = userService.GetAllUsers().Where(user=> user.IsActive == true).Any(user => user.JMBG == contextUser.JMBG);
-                if (jmbgExists == true)
+                bool cnpExists = userService.GetAllUsers().Any(user => user.CNP == contextUser.CNP);
+                if (cnpExists == true)
                 {
-                    MessageBox.Show("JMBG already exists.", "JMBG Exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("CNP already exists.", "CNP Exists", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
-                bool usernameExists = userService.GetAllUsers().Where(user => user.IsActive == true).Any(user => user.Username == contextUser.Username);
+                bool usernameExists = userService.GetAllUsers().Any(user => user.Username == contextUser.Username);
                 if (usernameExists == true)
                 {
                     MessageBox.Show("Username already exists.", "Username Exists", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -12,7 +12,7 @@ namespace HotelReservations.Model
         public int Id { get; set; }
         private string name = string.Empty;
         private string surname = string.Empty;
-        private string jmbg = string.Empty;
+        private string cnp = string.Empty;
         private string password = string.Empty;
         private string username = string.Empty;
 
@@ -41,16 +41,16 @@ namespace HotelReservations.Model
                 surname = value;
             }
         }
-        public string JMBG
+        public string CNP
         {
-            get { return jmbg; }
+            get { return cnp; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("JMBG is required");
+                    throw new ArgumentException("CNP is required");
                 }
-                jmbg = value;
+                cnp = value;
             }
         }
         public string Username
@@ -82,8 +82,6 @@ namespace HotelReservations.Model
 
         public UserType UserType { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
         public User Clone()
         {
             var clone = new User();
@@ -91,7 +89,7 @@ namespace HotelReservations.Model
             clone.Username = Username;
             clone.Name = Name;
             clone.Surname = Surname;
-            clone.JMBG = JMBG;
+            clone.cnp =CNP;
             clone.Password = Password;
             clone.UserType = UserType;
             return clone;

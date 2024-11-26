@@ -90,7 +90,7 @@ namespace HotelReservations.Windows
 
         private void AdjustWindow(Reservation? res = null)
         {
-            var roomTypeList = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
+            var roomTypeList = Hotel.GetInstance().RoomTypes.ToList();
             RoomTypeComboBox.ItemsSource = roomTypeList;
 
             Title = res != null ? "Edit Reservation" : "Add Reservation";
@@ -99,11 +99,11 @@ namespace HotelReservations.Windows
         public void FillData(Reservation? res = null, Guest? newGuest = null)
         {
             // Obține lista de oaspeți care sunt activi
-            var guests = Hotel.GetInstance().Guests.Where(g => g.IsActive && g.ReservationId == 0);
+            var guests = Hotel.GetInstance().Guests.Where(g => g.ReservationId == 0);
 
             if (isEditing)
             {
-                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id && g.IsActive)
+                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id)
                           ?? Enumerable.Empty<Guest>();
             }
 
@@ -120,26 +120,17 @@ namespace HotelReservations.Windows
             //GuestsDataGrid.SelectedItem = null;
 
             // Reîmprospătează DataGrid-ul pentru camere
-            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
+            var rooms = Hotel.GetInstance().Rooms.ToList();
             view = CollectionViewSource.GetDefaultView(rooms);
             view.Filter = DoFilter;
             RoomsDataGrid.ItemsSource = view;
             RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
             RoomsDataGrid.SelectedItem = null;
-        }
-
-        private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if (e.PropertyName.Equals("IsActive", StringComparison.OrdinalIgnoreCase))
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
-        }
+        } 
 
         private void GuestsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName.Equals("IsActive", StringComparison.OrdinalIgnoreCase) ||
-                e.PropertyName.Equals("Id", StringComparison.OrdinalIgnoreCase) ||
+            if (e.PropertyName.Equals("Id", StringComparison.OrdinalIgnoreCase) ||
                 e.PropertyName.Equals("ReservationId", StringComparison.OrdinalIgnoreCase))
             {
                 e.Column.Visibility = Visibility.Collapsed;
@@ -246,7 +237,7 @@ namespace HotelReservations.Windows
             var reservations = Hotel.GetInstance().Reservations;
             foreach (Reservation r in reservations)
             {
-                if (selectedRoom.RoomNumber == r.RoomNumber && r.IsActive==true)
+                if (selectedRoom.RoomNumber == r.RoomNumber)
                 {
                     if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
                     {

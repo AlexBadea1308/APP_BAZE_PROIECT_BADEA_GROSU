@@ -10,8 +10,7 @@ namespace HotelReservations.Model
     {
         private string name = string.Empty;
         private string surname = string.Empty;
-        private string jmbg = string.Empty;
-        public bool IsActive { get; set; } = true;
+        private string cnp = string.Empty;
         public int Id { get; set; }
         public int ReservationId { get; set; }
 
@@ -40,16 +39,16 @@ namespace HotelReservations.Model
                 surname = value;
             }
         }
-        public string JMBG
+        public string CNP
         {
-            get { return jmbg; }
+            get { return cnp; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("JMBG is required");
+                    throw new ArgumentException("CNP is required");
                 }
-                jmbg = value;
+                cnp = value;
             }
         }
 
@@ -59,7 +58,7 @@ namespace HotelReservations.Model
             clone.Id = Id;
             clone.Name = Name;
             clone.Surname = Surname;
-            clone.JMBG = JMBG;
+            clone.CNP =CNP;
             return clone;
         }
     }

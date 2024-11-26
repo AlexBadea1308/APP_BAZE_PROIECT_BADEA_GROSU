@@ -25,14 +25,14 @@ namespace HotelReservations.Windows
         private PriceService priceService;
         private ICollectionView view;
         public Prices()
-        {
+        {  
             InitializeComponent();
             FillData();
         }
         private void FillData()
         {
             priceService = new PriceService();
-            var prices = Hotel.GetInstance().Prices.Where(price => price.IsActive).ToList();
+            var prices = Hotel.GetInstance().Prices.ToList();
 
             view = CollectionViewSource.GetDefaultView(prices);
 

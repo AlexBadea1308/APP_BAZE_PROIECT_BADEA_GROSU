@@ -6,7 +6,7 @@ namespace HotelReservations.Service
 {
     public class UserService
     {
-        IUserRepository userRepository;
+        public UserRepositoryDB userRepository;
         public UserService()
         {
             userRepository = new UserRepositoryDB();
@@ -32,10 +32,8 @@ namespace HotelReservations.Service
             }
         }
 
-        public void MakeUserInactive(User user)
+        public void DeleteUserFromDatabase(User user)
         {
-            var makeUserInactive = Hotel.GetInstance().Users.Find(u => u.Id == user.Id);
-            makeUserInactive.IsActive = false;
             userRepository.Delete(user.Id);
         }
     }

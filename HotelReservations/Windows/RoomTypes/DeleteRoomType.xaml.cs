@@ -1,5 +1,7 @@
 ﻿using HotelReservations.Model;
+using HotelReservations.Repositories;
 using HotelReservations.Service;
+using ServiceStack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +25,12 @@ namespace HotelReservations.Windows
     {
         private RoomTypeService roomTypeService;
         private RoomType roomTypeToDelete;
+        private PriceService priceService;
         public DeleteRoomType(RoomType roomType)
         {
             InitializeComponent();
             roomTypeService = new RoomTypeService();
+            priceService= new PriceService();
             roomTypeToDelete = roomType;
         }
 
@@ -35,7 +39,12 @@ namespace HotelReservations.Windows
             var check = roomTypeService.IsRoomTypeInUse(roomTypeToDelete);
             if (!check)
             {
-                roomTypeService.MakeRoomTypeInactive(roomTypeToDelete);
+                var prices_to_delete=priceService.priceRepository.GetPricesByRoomTypesID(roomTypeToDelete.Id);
+                foreach(Price price in prices_to_delete)
+                {
+                    priceService.DeletePriceFromDatabase(price);
+                }
+                roomTypeService.DeleteRoomTypeFromDatabase(roomTypeToDelete);
             } else
             {
                 MessageBox.Show("This RoomType is in use and cannot be deleted.", "Room In Use", MessageBoxButton.OK, MessageBoxImage.Information);
