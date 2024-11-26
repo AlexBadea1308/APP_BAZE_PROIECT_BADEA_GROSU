@@ -60,6 +60,9 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Windows\Guests\Guests.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Windows\Reservations\FinishReservation.xaml">
       <SubType>Designer</SubType>
     </Page>

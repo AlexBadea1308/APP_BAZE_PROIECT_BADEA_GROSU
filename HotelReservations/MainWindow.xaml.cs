@@ -59,6 +59,11 @@ namespace HotelReservations
             reservationsWindow.Show();
         }
 
+        private void GuestsItem_Click(object sender, RoutedEventArgs e)
+        {
+            var reservationsWindow = new Guests();
+            reservationsWindow.Show();
+        }
         private void PopulateImages()
         {
             // Adăugăm imaginile disponibile în listă
@@ -136,6 +141,7 @@ namespace HotelReservations
                     UsersMenuItem.Visibility = Visibility.Visible;
                     PricesMenuItem.Visibility = Visibility.Visible;
                     ReservationsMenuItem.Visibility = Visibility.Hidden;
+                    GuestsItem.Visibility = Visibility.Hidden;
                 }
                 else if (findUser.UserType == UserType.Receptionist)
                 {
@@ -144,6 +150,7 @@ namespace HotelReservations
                     UsersMenuItem.Visibility = Visibility.Hidden;
                     PricesMenuItem.Visibility = Visibility.Hidden;
                     ReservationsMenuItem.Visibility = Visibility.Visible;
+                    GuestsItem.Visibility = Visibility.Visible;
                 }
 
                 MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);

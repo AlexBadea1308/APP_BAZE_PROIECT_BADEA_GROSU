@@ -35,7 +35,6 @@
 
         <!-- DataGrid pentru afișarea rezervărilor -->
         <DataGrid SelectionMode="Single" Grid.Row="2" Name="ReservationsDataGrid" IsReadOnly="True"
-          AutoGeneratingColumn="ReservationsDataGrid_AutoGeneratingColumn"
           Background="#1C2833" Foreground="Black" BorderBrush="#34495E" ItemsSource="{Binding ReservationsList}" Margin="10">
         </DataGrid>
 

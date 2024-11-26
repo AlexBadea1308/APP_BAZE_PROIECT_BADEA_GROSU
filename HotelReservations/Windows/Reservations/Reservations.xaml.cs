@@ -44,9 +44,6 @@ namespace HotelReservations.Windows
             ReservationsDataGrid.SelectedItem = null;
         }
 
-
-
-
         private bool DoFilter(object resObject)
         {
             var res = resObject as Reservation;
@@ -79,7 +76,7 @@ namespace HotelReservations.Windows
             {
                 FillData(); // Încărcăm din nou datele după ce adăugăm o rezervare
             }
-            ShowDialog();
+            Show();
         }
 
         private void DeleteReservationButton_Click(object sender, RoutedEventArgs e)
@@ -118,26 +115,8 @@ namespace HotelReservations.Windows
 
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            view.Refresh(); // Reîmprospătăm datele pentru a aplica filtrul
+            view.Refresh(); // Refresh la tabel cand facem search
         }
 
-        private void ReservationsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-
-            if (e.PropertyName.ToLower() == "Guests".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
-
-            if (e.PropertyName.ToLower() == "IsFinished".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
-
-            if (e.PropertyName.ToLower() == "Id".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
-        }
     }
 }

@@ -177,7 +177,7 @@ namespace HotelReservations.Windows
             Hide();
             if (editGuestWindow.ShowDialog() == true)
             {
-                FillData(contextReservation);
+                FillData(contextReservation,chosenGuest);
             }
             ShowDialog();
         }
@@ -191,12 +191,13 @@ namespace HotelReservations.Windows
                 return;
             }
             var deleteGuestWindow = new DeleteGuest(chosenGuest);
+        
             Hide();
             if (deleteGuestWindow.ShowDialog() == true)
             {
                 FillData(contextReservation);
             }
-            Show();
+            ShowDialog();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

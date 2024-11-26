@@ -44,6 +44,7 @@
                     <Button Content="Users" Name="UsersMenuItem" Click="UsersMenuItem_Click" Background="Transparent" Foreground="White" Margin="5" BorderBrush="Black"/>
                     <Button Content="Prices" Name="PricesMenuItem" Click="PricesMenuItem_Click" Background="Transparent" Foreground="White" Margin="5" BorderBrush="Black"/>
                     <Button Content="Reservations" Name="ReservationsMenuItem" Click="ReservationsMenuItem_Click" Background="Transparent" Foreground="White" Margin="5" BorderBrush="Black"/>
+                    <Button Content="Guest" Name="GuestsItem" Click="GuestsItem_Click" Background="Transparent" Foreground="White" Margin="5" BorderBrush="Black"/>
                     <Button Content="Logout" Name="LogoutMenuItem" Click="LogoutMenuItem_Click" Background="Transparent" Foreground="White" Margin="5" BorderBrush="Black"/>
                 </StackPanel>
 

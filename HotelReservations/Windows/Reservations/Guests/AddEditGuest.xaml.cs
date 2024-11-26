@@ -1,4 +1,5 @@
 ﻿using HotelReservations.Model;
+using HotelReservations.Repositories;
 using HotelReservations.Service;
 using System;
 using System.Linq;
@@ -6,9 +7,6 @@ using System.Windows;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddEditGuest.xaml
-    /// </summary>
     public partial class AddEditGuest : Window
     {
         private GuestService guestService;
@@ -19,28 +17,28 @@ namespace HotelReservations.Windows
         public AddEditGuest(Guest? guest = null)
         {
             InitializeComponent();
-
+            //daca nu am inserat niciun guest
             if (guest == null)
             {
                 contextGuest = new Guest();
                 isEditing = false;
                 CNPTextBox.IsReadOnly = false;
             }
-
+            //daca vrem sa l modificam (editguest)
             else
             {
-                contextGuest = guest.Clone();
+                contextGuest = guest;
                 isEditing = true;
                 CNPTextBox.IsReadOnly = true;
             }
-
-            guestService = new GuestService();
             this.DataContext = contextGuest;
+            guestService = new GuestService();
             AdjustWindow(guest);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
+        {   
+ 
             // Validation for Name
             if (string.IsNullOrWhiteSpace(contextGuest.Name))
             {
@@ -55,17 +53,18 @@ namespace HotelReservations.Windows
                 return;
             }
 
-            // Validation for JMBG
+            // Validation for CNP
             if (string.IsNullOrEmpty(contextGuest.CNP) || contextGuest.CNP.Length != 13 || !contextGuest.CNP.All(char.IsDigit))
             {
                 MessageBox.Show("CNP must be a 13-digit number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
-
             
-            SavedGuest = contextGuest;
-            // Signal success by closing the window
+            //daca e false inseamna ca lucram direct cu guest si nu mai trebuie sa l salvam
+            if(isEditing==false)
+            {
+             SavedGuest = contextGuest;
+            }
             DialogResult = true;
             Close();
         }

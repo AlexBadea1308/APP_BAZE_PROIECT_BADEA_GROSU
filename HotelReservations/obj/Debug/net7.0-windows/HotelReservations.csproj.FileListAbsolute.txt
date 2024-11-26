@@ -186,3 +186,5 @@ C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservati
 C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.pdb
 C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.genruntimeconfig.cache
 C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\ref\HotelReservations.dll
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\Guests.baml
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\Guests.g.cs

@@ -15,13 +15,10 @@ namespace HotelReservations.Windows
         {
             InitializeComponent();
             guestService = new GuestService();
-            guestToDelete = guest;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // add modal
-            guestService.DeletePriceFromDatabase(guestToDelete);
             DialogResult = true;
             Close();
         }
