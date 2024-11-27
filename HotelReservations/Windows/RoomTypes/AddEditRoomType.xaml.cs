@@ -68,6 +68,7 @@ namespace HotelReservations.Windows
             }
 
             roomTypeService.SaveRoomType(contextRoomType);
+
             DialogResult = true;
             Close();
         }

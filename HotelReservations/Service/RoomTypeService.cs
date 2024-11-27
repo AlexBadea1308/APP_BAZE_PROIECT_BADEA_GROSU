@@ -1,6 +1,7 @@
 ﻿using HotelReservations.Repositories;
 using HotelReservations.Model;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace HotelReservations.Service
 {
@@ -57,7 +58,7 @@ namespace HotelReservations.Service
 
         public void DeleteRoomTypeFromDatabase(RoomType roomType)
         {
-            roomTypeRepository.Delete(roomType.Id);
+                roomTypeRepository.Delete(roomType.Id);
         }
 
        //verificam daca roomtype exista deja in database
@@ -65,7 +66,7 @@ namespace HotelReservations.Service
         {
             foreach (Room room in Hotel.GetInstance().Rooms)
             {
-                if (room.RoomType == roomType)
+                if (room.RoomType.Name.ToString() == roomType.Name.ToString())
                 {
                     return true;
                 }

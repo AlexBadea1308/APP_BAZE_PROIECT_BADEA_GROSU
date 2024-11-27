@@ -1,24 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\",
+  "WorkspaceRootPath": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\reservations\\addreservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\reservations\\addreservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\razva\\downloads\\git_ap_baze\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\prices\\prices.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\prices\\prices.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\reservations\\addreservations.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\reservations\\addreservations.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\razva\\downloads\\git_ap_baze\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\roomtypes\\addeditroomtype.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\roomtypes\\addeditroomtype.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.reservation.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\razva\\downloads\\git_ap_baze\\app_baze_proiect_badea_grosu\\hotelreservations\\service\\priceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\service\\priceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.guest.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\razva\\downloads\\git_ap_baze\\app_baze_proiect_badea_grosu\\hotelreservations\\service\\roomtypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\service\\roomtypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\reservations\\reservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\reservations\\reservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\razva\\downloads\\git_ap_baze\\app_baze_proiect_badea_grosu\\hotelreservations\\service\\roomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\service\\roomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,68 +30,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "dbo.reservation [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.reservation.sql",
-              "ToolTip": "dbo.reservation [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-11-27T06:35:41.37Z",
+              "DocumentIndex": 0,
+              "Title": "Prices.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Prices\\Prices.xaml.cs",
+              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Prices\\Prices.xaml.cs",
+              "ToolTip": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Prices\\Prices.xaml.cs",
+              "RelativeToolTip": "HotelReservations\\Windows\\Prices\\Prices.xaml.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAwF0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:47:47.9Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "dbo.guest [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/./HotelReservations/True/SqlTable/dbo.guest.sql",
-              "ToolTip": "dbo.guest [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-11-27T06:35:22.956Z",
+              "DocumentIndex": 2,
+              "Title": "PriceService.cs",
+              "DocumentMoniker": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\PriceService.cs",
+              "RelativeDocumentMoniker": "HotelReservations\\Service\\PriceService.cs",
+              "ToolTip": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\PriceService.cs",
+              "RelativeToolTip": "HotelReservations\\Service\\PriceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:42:30.572Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AddReservations.xaml",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddReservations.xaml",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\AddReservations.xaml",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddReservations.xaml",
-              "RelativeToolTip": "HotelReservations\\Windows\\Reservations\\AddReservations.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-27T06:23:45.308Z",
+              "Title": "AddEditRoomType.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\RoomTypes\\AddEditRoomType.xaml.cs",
+              "RelativeDocumentMoniker": "HotelReservations\\Windows\\RoomTypes\\AddEditRoomType.xaml.cs",
+              "ToolTip": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\RoomTypes\\AddEditRoomType.xaml.cs",
+              "RelativeToolTip": "HotelReservations\\Windows\\RoomTypes\\AddEditRoomType.xaml.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:39:49.506Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AddReservations.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddReservations.xaml.cs",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\AddReservations.xaml.cs",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\AddReservations.xaml.cs",
-              "RelativeToolTip": "HotelReservations\\Windows\\Reservations\\AddReservations.xaml.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAvwHYAAAA+AAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "RoomTypeService.cs",
+              "DocumentMoniker": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\RoomTypeService.cs",
+              "RelativeDocumentMoniker": "HotelReservations\\Service\\RoomTypeService.cs",
+              "ToolTip": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\RoomTypeService.cs",
+              "RelativeToolTip": "HotelReservations\\Service\\RoomTypeService.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAgwDAAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T06:22:46.229Z",
+              "WhenOpened": "2024-11-27T07:24:22.662Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Reservations.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "RelativeToolTip": "HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAuwEYAAAA9AAAAAAAAAA==",
+              "Title": "RoomService.cs",
+              "DocumentMoniker": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\RoomService.cs",
+              "RelativeDocumentMoniker": "HotelReservations\\Service\\RoomService.cs",
+              "ToolTip": "C:\\Users\\razva\\Downloads\\git_ap_baze\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Service\\RoomService.cs",
+              "RelativeToolTip": "HotelReservations\\Service\\RoomService.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAgwBcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T06:18:58.022Z",
+              "WhenOpened": "2024-11-27T07:30:13.464Z",
               "EditorCaption": ""
             }
           ]

@@ -88,10 +88,6 @@ namespace HotelReservations.Windows
 
         private void PricesDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
             if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
