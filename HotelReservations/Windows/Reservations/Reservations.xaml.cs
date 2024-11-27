@@ -1,4 +1,5 @@
 ﻿using HotelReservations.Model;
+using HotelReservations.Repositories;
 using HotelReservations.Service;
 using System;
 using System.Collections.ObjectModel;
@@ -27,6 +28,11 @@ namespace HotelReservations.Windows
         public void FillData()
         {
             // Obtinem toate rezervarile din baza de date
+            var loadedReservationRepository = _reservationService.reservationRepository.GetAll();
+            if (loadedReservationRepository != null)
+            {
+                Hotel.GetInstance().Reservations = loadedReservationRepository;
+            }
             var reservations = Hotel.GetInstance().Reservations.ToList();
 
             view = CollectionViewSource.GetDefaultView(reservations);

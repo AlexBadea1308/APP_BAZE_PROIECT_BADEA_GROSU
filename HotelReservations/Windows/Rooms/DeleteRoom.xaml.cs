@@ -29,7 +29,16 @@ namespace HotelReservations.Windows
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            roomService.DeleteRoomFromDatabase(roomToDelete);
+            var check = roomService.IsRoomInUse(roomToDelete);
+            if (!check)
+            {
+                roomService.DeleteRoomFromDatabase(roomToDelete);
+            }
+            else
+            {
+                MessageBox.Show("This Room is in use and cannot be deleted.", "Room In Use", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
             DialogResult = true;
             Close();
         }

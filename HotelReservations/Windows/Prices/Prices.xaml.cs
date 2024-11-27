@@ -1,4 +1,5 @@
 ﻿using HotelReservations.Model;
+using HotelReservations.Repositories;
 using HotelReservations.Service;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace HotelReservations.Windows
         private void FillData()
         {
             priceService = new PriceService();
+            var loadedPriceRepository = priceService.priceRepository.GetAll();
+            if (loadedPriceRepository != null)
+            {
+                Hotel.GetInstance().Prices = loadedPriceRepository;
+            }
             var prices = Hotel.GetInstance().Prices.ToList();
 
             view = CollectionViewSource.GetDefaultView(prices);

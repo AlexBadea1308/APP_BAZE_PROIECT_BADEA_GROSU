@@ -42,5 +42,17 @@ namespace HotelReservations.Service
         {
             roomRepository.Delete(room.Id);
         }
+
+        public bool IsRoomInUse(Room room)
+        {
+            foreach (Reservation reservation in Hotel.GetInstance().Reservations)
+            {
+                if (reservation.RoomNumber.ToString()== room.RoomNumber.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
