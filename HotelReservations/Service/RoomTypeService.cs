@@ -35,7 +35,7 @@ namespace HotelReservations.Service
                 var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
                 Hotel.GetInstance().RoomTypes[index] = roomType;
 
-                // just in memory refresher.
+                //refresh la roomtype
                 foreach (var room in rooms)
                 {
                     if(room.RoomType.Id == roomType.Id)
@@ -60,7 +60,7 @@ namespace HotelReservations.Service
             roomTypeRepository.Delete(roomType.Id);
         }
 
-        // validation method for checking does roomtype already exist ( i could do that in validate block but i wanted to make it more clean
+       //verificam daca roomtype exista deja in database
         public bool IsRoomTypeInUse(RoomType roomType)
         {
             foreach (Room room in Hotel.GetInstance().Rooms)

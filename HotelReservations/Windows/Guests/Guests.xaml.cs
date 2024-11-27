@@ -22,18 +22,18 @@ namespace HotelReservations.Windows
 
         public void FillData()
         {
-            // Obținem toți oaspeții din baza de date
+            // Obtinem toti guests din baza de date
             var guests = Hotel.GetInstance().Guests.ToList();
 
             // Configurăm CollectionViewSource pentru filtrare
             view = CollectionViewSource.GetDefaultView(guests);
             view.Filter = DoFilter;
 
-            // Setăm sursa de date pentru DataGrid
+            // Setam sursa de date pentru DataGrid
             GuestDataGrid.ItemsSource = view;
             GuestDataGrid.IsSynchronizedWithCurrentItem = true;
 
-            // Deselează orice selecție anterioară
+            // Deselectam orice selectie anterioara
             GuestDataGrid.SelectedItem = null;
         }
 
@@ -43,17 +43,16 @@ namespace HotelReservations.Windows
             if (guest == null) 
                 return false;
 
-            // Obține parametrii din câmpul de căutare
             var guestNameSearchParam = GuestNameSearchTextBox.Text.Trim();
 
-            // Verifică dacă numele se potrivește
+           //verificam daca numele se potriveste
             return string.IsNullOrEmpty(guestNameSearchParam) ||
                    guest.Name.IndexOf(guestNameSearchParam, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            view.Refresh(); // Reîmprospătează vizualizarea pentru aplicarea filtrului
+            view.Refresh(); // Refresh filtru de cautare
         }
 
         private void EditGuestButton_Click(object sender, RoutedEventArgs e)
@@ -65,10 +64,10 @@ namespace HotelReservations.Windows
                 return;
             }
 
-            var editGuestWindow = new AddEditGuest(selectedGuest); // Presupunem că ai o fereastră separată pentru editare
+            var editGuestWindow = new EditGuest(selectedGuest); 
             if (editGuestWindow.ShowDialog() == true)
             {
-                FillData(); // Reîncarcă datele după editare
+                FillData(); // Reincarca datele dupa editare
             }
         }
 

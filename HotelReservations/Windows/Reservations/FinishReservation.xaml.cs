@@ -7,9 +7,6 @@ using static ServiceStack.Diagnostics.Events;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for FinishReservation.xaml
-    /// </summary>
     public partial class FinishReservation : Window
     {
         private GuestService guestService;
@@ -27,10 +24,10 @@ namespace HotelReservations.Windows
         {
             var guestsToUpdate = guestService.guestRepository.GetGuestsByReservationId(resToFinish.Id);
 
-            // Actualizăm oaspeții găsiți
+            // Actualizam lista de guests
             foreach (Guest guest in guestsToUpdate)
             {
-                guestService.guestRepository.Delete(guest.ReservationId);  // stergem fiecare oaspete
+                guestService.guestRepository.Delete(guest.ReservationId);  // stergem guest care era corespondent rezervarii
             }
             reservationService.GetReservationRepository().Delete(resToFinish.Id);
 

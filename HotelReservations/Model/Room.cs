@@ -17,7 +17,6 @@ namespace HotelReservations.Model
             get { return roomNumber; }
             set
             {
-                //if (value == null || value == "")
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("It's required");
@@ -32,7 +31,6 @@ namespace HotelReservations.Model
 
         public override string ToString()
         {
-            //return "Room number: " + RoomNumber; // ...
             return $"Room number: {RoomNumber}";
         }
 

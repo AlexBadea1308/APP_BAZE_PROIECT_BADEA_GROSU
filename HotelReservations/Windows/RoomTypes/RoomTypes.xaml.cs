@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for RoomTypes.xaml
-    /// </summary>
     public partial class RoomTypes : Window
     {
         private ICollectionView view;

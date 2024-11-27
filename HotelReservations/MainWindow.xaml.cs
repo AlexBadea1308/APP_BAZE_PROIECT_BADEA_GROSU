@@ -22,10 +22,10 @@ namespace HotelReservations
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // Check if the Enter key is pressed
+            // verific daca apas enter
             if (e.Key == Key.Enter)
             {
-                LoginButton_Click(sender, e); // Call the LoginButton_Click method when Enter is pressed
+                LoginButton_Click(sender, e);
             }
         }
 
@@ -66,7 +66,7 @@ namespace HotelReservations
         }
         private void PopulateImages()
         {
-            // Adăugăm imaginile disponibile în listă
+            // adaug imaginile disponibile in lista
             imagePaths.Add("/Images/1.jpg");
             imagePaths.Add("/Images/2.jpg");
             imagePaths.Add("/Images/3.jpg");
@@ -82,7 +82,7 @@ namespace HotelReservations
             imagePaths.Add("/Images/15.jpg");
             imagePaths.Add("/Images/16.jpg");
             imagePaths.Add("/Images/17.jpg");
-            // Setează prima imagine
+            // setez prima imagine
             if (imagePaths.Count > 0)
             {
                 currentImageIndex = 0;
@@ -103,7 +103,7 @@ namespace HotelReservations
         {
             if (imagePaths.Count > 0)
             {
-                currentImageIndex = (currentImageIndex + 1) % imagePaths.Count; // Rotire circulară
+                currentImageIndex = (currentImageIndex + 1) % imagePaths.Count; // rotire circulara
                 SetCarouselImage();
             }
         }
@@ -112,7 +112,7 @@ namespace HotelReservations
         {
             if (imagePaths.Count > 0)
             {
-                currentImageIndex = (currentImageIndex - 1 + imagePaths.Count) % imagePaths.Count; // Rotire circulară
+                currentImageIndex = (currentImageIndex - 1 + imagePaths.Count) % imagePaths.Count; //rotire circulara
                 SetCarouselImage();
             }
         }
@@ -129,11 +129,11 @@ namespace HotelReservations
             }
             else
             {
-                // Hide the login form and show the dashboard
+                // ascunde login-ul si apare dashboard
                 LoginGrid.Visibility = Visibility.Hidden;
                 DashboardGrid.Visibility = Visibility.Visible;
 
-                // Check which menu items to show based on the user type
+                // verifica ce tip de meniu sa afiseze in fct de user
                 if (findUser.UserType == UserType.Administrator)
                 {
                     RoomsMenuItem.Visibility = Visibility.Visible;
@@ -155,21 +155,20 @@ namespace HotelReservations
 
                 MessageBox.Show("Logged in. Welcome " + username + ".", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Set the logged-in user for further operations
+                //seteaza user
                 Hotel.GetInstance().loggedInUser = findUser;
             }
         }
 
         private void LogoutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Clear authentication details
+            //clear
             Hotel.GetInstance().loggedInUser = new User();
 
-            // Show the login form and hide the dashboard
+          
             LoginGrid.Visibility = Visibility.Visible;
             DashboardGrid.Visibility = Visibility.Hidden;
 
-            // Clear login fields
             UsernameTextBox.Text = string.Empty;
             PasswordBox.Password = string.Empty;
 

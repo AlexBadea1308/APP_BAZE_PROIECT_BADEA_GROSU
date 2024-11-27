@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for DeleteRoom.xaml
-    /// </summary>
     public partial class DeleteRoom : Window
     {
         private RoomService roomService;
@@ -32,7 +29,6 @@ namespace HotelReservations.Windows
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            // add modal
             roomService.DeleteRoomFromDatabase(roomToDelete);
             DialogResult = true;
             Close();

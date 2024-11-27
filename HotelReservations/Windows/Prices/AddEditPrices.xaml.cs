@@ -6,9 +6,6 @@ using System.Windows;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddEditPrices.xaml
-    /// </summary>
     public partial class AddEditPrices : Window
     {
         private PriceService priceService;
@@ -57,7 +54,6 @@ namespace HotelReservations.Windows
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            // basic validations
             if (contextPrice.RoomType == null)
             {
                 MessageBox.Show("Please select RoomType.", "RoomType Not Selected", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -74,7 +70,7 @@ namespace HotelReservations.Windows
                 return;
             }
 
-            // this will be only if editing is false because while editing i will overwrite existing one
+            // verificam daca exista pretul deja in database pentru tipul de rezervare
             if(!isEditing)
             {
                 var allPrices = priceService.GetAllPrices().ToList();
@@ -87,8 +83,6 @@ namespace HotelReservations.Windows
                     }
                 }
             }
-
-            // validation passed
             priceService.SavePrice(contextPrice);
             DialogResult = true;
             Close();

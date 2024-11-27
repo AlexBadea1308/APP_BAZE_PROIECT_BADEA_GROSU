@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for Prices.xaml
-    /// </summary>
     public partial class Prices : Window
     {
         private PriceService priceService;

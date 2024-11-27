@@ -18,10 +18,7 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for Users.xaml
-    /// </summary>
-    public partial class Users : Window
+   public partial class Users : Window
     {
         private UserService userService;
         private ICollectionView view;

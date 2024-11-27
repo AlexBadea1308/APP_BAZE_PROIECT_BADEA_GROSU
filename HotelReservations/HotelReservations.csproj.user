@@ -10,7 +10,7 @@
     <Compile Update="Windows\Reservations\FinishReservation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\AddEditReservations.xaml.cs">
+    <Compile Update="Windows\Reservations\AddReservations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Reservations\Guests\AddEditGuest.xaml.cs">
@@ -60,13 +60,16 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Windows\Guests\EditGuest.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Windows\Guests\Guests.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Reservations\FinishReservation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\AddEditReservations.xaml">
+    <Page Update="Windows\Reservations\AddReservations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Reservations\Guests\AddEditGuest.xaml">

@@ -4,9 +4,6 @@ using System.Windows;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for DeleteGuest.xaml
-    /// </summary>
     public partial class DeleteGuest : Window
     {
         private GuestService guestService;

@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddEditUser.xaml
-    /// </summary>
     public partial class AddEditUser : Window
     {
         private UserService userService;
@@ -61,7 +58,6 @@ namespace HotelReservations.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // basic validation
             if (contextUser.Username == "")
             {
                 MessageBox.Show("Username can't be empty string.", "Username Empty", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -93,7 +89,7 @@ namespace HotelReservations.Windows
                 return;
             }
 
-            // if editing i need to avoid these validations because it will overwrite
+            // datele exista deja in database deci afisam un mesaj de warning
             if(isEditing == false)
             {
                 bool cnpExists = userService.GetAllUsers().Any(user => user.CNP == contextUser.CNP);
@@ -110,7 +106,6 @@ namespace HotelReservations.Windows
                 }
             }
 
-            // validation passed
             userService.SaveUser(contextUser);
             DialogResult = true;
             Close();

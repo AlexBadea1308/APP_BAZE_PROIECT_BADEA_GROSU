@@ -18,14 +18,11 @@ namespace HotelReservations.Service
 
         public void SaveGuest(Guest guest,bool editing = false)
         {
-            // this means guest will be in memory because reservation isn't created yet.
             if (guest.Id == 0 && editing == false)
             {
                 Hotel.GetInstance().Guests.Add(guest);
                 guestRepository.Insert(guest);
             }
-
-            // otherwise, its editing guest
             else
             {
                 int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
@@ -48,7 +45,7 @@ namespace HotelReservations.Service
             foreach (Guest guest in guestsToRewriteId)
             {
                 guest.ReservationId = newReservationId;
-                // it will be added to database after getting real reservation id(after reservation is created).
+                //va adauga guest in database doar dupa ce rezervarea este adaugata pentru a ne asigura ca datele rezervarii sunt valide
                 guestRepository.Insert(guest);
             }
         }

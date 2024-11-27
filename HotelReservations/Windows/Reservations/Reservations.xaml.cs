@@ -19,28 +19,27 @@ namespace HotelReservations.Windows
         public Reservations()
         {
             InitializeComponent();
-            _reservationService = new ReservationService(); // Instanțiem serviciul
+            _reservationService = new ReservationService(); 
             DataContext = this;
-            FillData(); // Încărcăm rezervările
+            FillData(); // Incarcam rezervarile Hotel
         }
 
         public void FillData()
         {
-            // Obținem toate rezervările din baza de date
+            // Obtinem toate rezervarile din baza de date
             var reservations = Hotel.GetInstance().Reservations.ToList();
 
-            // Dacă vrei să aplici un filtru, folosești o metodă similară cu `DoFilter` din exemplul tău
             view = CollectionViewSource.GetDefaultView(reservations);
-            view.Filter = DoFilter; // Aplicăm filtrul (dacă ai unul definit)
+            view.Filter = DoFilter; //Aplicam filtrul pentru validarea datelor
 
-            // Setăm lista de rezervări pentru DataGrid
+            // Setam lista de rezervari pentru DataGrid
             ReservationsDataGrid.ItemsSource = null;
             ReservationsDataGrid.ItemsSource = reservations;
 
-            // Asigurăm sincronizarea cu item-ul selectat
+            // Asiguram sincronizarea cu item-ul selectat
             ReservationsDataGrid.IsSynchronizedWithCurrentItem = true;
 
-            // Deselează orice selecție anterioară
+            // Deselectam orice selectie anterioara
             ReservationsDataGrid.SelectedItem = null;
         }
 
@@ -49,12 +48,12 @@ namespace HotelReservations.Windows
             var res = resObject as Reservation;
             if (res == null) return false;
 
-            // Obținem valori din câmpurile de căutare
+            // Luam valorile din campurile Data Gridului
             var roomNumberSearchParam = RoomNumberSearchTextBox.Text.Trim();
             var startDateSearchParam = StartDateSearchTextBox.Text.Trim();
             var endDateSearchParam = EndDateSearchTextBox.Text.Trim();
 
-            // Verificări pe baza căutării
+            // Verificam daca sunt valide
             bool isRoomNumberMatch = string.IsNullOrEmpty(roomNumberSearchParam) ||
                                      res.RoomNumber.IndexOf(roomNumberSearchParam, StringComparison.OrdinalIgnoreCase) >= 0;
 
@@ -64,17 +63,16 @@ namespace HotelReservations.Windows
             bool isEndDateMatch = string.IsNullOrEmpty(endDateSearchParam) ||
                                   res.EndDateTime.ToShortDateString().Contains(endDateSearchParam);
 
-            // Returnăm true doar dacă toate condițiile sunt îndeplinite
             return isRoomNumberMatch && isStartDateMatch && isEndDateMatch;
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            var addReservationWindow = new AddEditReservations();
+            var addReservationWindow = new AddReservations();
             Hide();
             if (addReservationWindow.ShowDialog() == true)
             {
-                FillData(); // Încărcăm din nou datele după ce adăugăm o rezervare
+                FillData(); //Daca am reusit sa inseram cu succes o rezervare reincarcam tabelul cu rezervari
             }
             Show();
         }
@@ -91,7 +89,7 @@ namespace HotelReservations.Windows
             Hide();
             if (deleteReservationsWindow.ShowDialog() == true)
             {
-                FillData(); // Încărcăm din nou datele după ce ștergem o rezervare
+                FillData();  //Daca am reusit sa stergem cu succes o rezervare reincarcam tabelul cu rezervari
             }
             ShowDialog();
         }
@@ -108,7 +106,7 @@ namespace HotelReservations.Windows
             Hide();
             if (finishReservationsWindow.ShowDialog() == true)
             {
-                FillData(); // Încărcăm din nou datele după ce finalizăm o rezervare
+                FillData();  //Daca am reusit sa finalizam cu succes o rezervare reincarcam tabelul cu rezervari
             }
             ShowDialog();
         }

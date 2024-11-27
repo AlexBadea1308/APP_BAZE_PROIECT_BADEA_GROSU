@@ -38,14 +38,12 @@ namespace HotelReservations.Service
         public void SaveReservation(Reservation reservation, Room room)
         {
             reservation.RoomNumber = room.RoomNumber;
-            // if reservation id is "0"(doesnt exist yet), then its adding
+            //verificam daca rezervarea nu exista atunci o adaugam else o actualizam
             if (reservation.Id == 0)
             {
                 Hotel.GetInstance().Reservations.Add(reservation);
                 reservation.TotalPrice = CountPrice(reservation);
             }
-
-            // otherwise, update reservation.
             else
             {
                 reservation.TotalPrice = CountPrice(reservation);
@@ -81,16 +79,16 @@ namespace HotelReservations.Service
             Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
 
 
-            // Find the corresponding price
+            // Aflam pretul corespondent tipului de rezervare Day/Night
             Price? price = priceService.GetAllPrices().FirstOrDefault(p => p.RoomType.ToString().Equals(room.RoomType.ToString()) && p.ReservationType.ToString().Trim().Equals(reservation.ReservationType.ToString().Trim()));
 
-            // Dacă prețul este null, aruncăm o eroare
+            // Daca pretul este null aruncam o eroare
             if (price == null)
             {
                 throw new InvalidOperationException($"Price not found for RoomType: {room.RoomType} and ReservationType: {reservation.ReservationType}.");
             }
 
-            // Calculate the total price
+            // Calculam pretul total
             if (dateDifference == 0)
                 reservation.TotalPrice = price.PriceValue;
             else
@@ -104,7 +102,7 @@ namespace HotelReservations.Service
             return reservation.TotalPrice;
         }
 
-        // count date difference for reservation
+         //calculam cate zile va sta guest   
         public int GetDateDifference(DateTime start, DateTime end)
         {
             if (start.Date == end.Date)

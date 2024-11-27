@@ -9,7 +9,6 @@ namespace HotelReservations.Repositories
 {
     public class GuestRepositoryDB
     {
-        // Metoda pentru a obține oaspeții în funcție de ID-ul rezervării
         public List<Guest> GetGuestsByReservationId(int rezervationId)
         {
             var guests = new List<Guest>();
@@ -49,7 +48,6 @@ namespace HotelReservations.Repositories
             return guests;
         }
 
-        // Metoda pentru a obține toți oaspeții
         public List<Guest> GetAll()
         {
             var guests = new List<Guest>();
@@ -84,7 +82,6 @@ namespace HotelReservations.Repositories
             return guests;
         }
 
-        // Metoda pentru a adăuga un oaspete nou
         public int Insert(Guest guest)
         {
                 using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
@@ -105,7 +102,6 @@ namespace HotelReservations.Repositories
                 }
         }
 
-        // Metoda pentru a actualiza un oaspete existent
         public void Update(Guest guest)
         {
             try
@@ -121,7 +117,7 @@ namespace HotelReservations.Repositories
                     command.Parameters.Add(new SqlParameter("@guest_id", guest.Id));
                     command.Parameters.Add(new SqlParameter("@guest_name", guest.Name));
                     command.Parameters.Add(new SqlParameter("@guest_surname", guest.Surname));
-                    command.Parameters.Add(new SqlParameter("@guest_jmbg", guest.CNP));
+                    command.Parameters.Add(new SqlParameter("@guest_cnp", guest.CNP));
                     command.Parameters.Add(new SqlParameter("@reservationID", guest.ReservationId));
 
                     command.ExecuteNonQuery();
@@ -133,7 +129,6 @@ namespace HotelReservations.Repositories
             }
         }
 
-        // Metoda pentru a marca un oaspete ca inactiv (șterge din baza de date)
         public void Delete(int rezervationId)
         {
             try
@@ -142,21 +137,17 @@ namespace HotelReservations.Repositories
                 {
                     conn.Open();
 
-                    // Comanda SQL corectă
                     var command = new SqlCommand(@"
                 DELETE FROM dbo.guest
                 WHERE reservationID = @rezervationId", conn);
 
-                    // Adaugă parametrul pentru comanda SQL
                     command.Parameters.AddWithValue("@rezervationId", rezervationId);
 
-                    // Execută comanda
                     command.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                // Loghează eroarea pentru debug
                 Console.WriteLine($"Error deleting guest: {ex.Message}");
             }
 

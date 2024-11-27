@@ -42,7 +42,6 @@ C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\n
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\AddEditPrices.g.cs
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\DeletePrices.g.cs
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\Prices.g.cs
-C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\AddEditReservations.g.cs
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\DeleteReservations.g.cs
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\FinishReservation.g.cs
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\Guests\AddEditGuest.g.cs
@@ -63,7 +62,6 @@ C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\n
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\AddEditPrices.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\DeletePrices.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\Prices.baml
-C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\AddEditReservations.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\DeleteReservations.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\FinishReservation.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\Guests\AddEditGuest.baml
@@ -188,3 +186,7 @@ C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservati
 C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\ref\HotelReservations.dll
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\Guests.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\Guests.g.cs
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\EditGuest.g.cs
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Guests\EditGuest.baml
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\AddReservations.g.cs
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\AddReservations.baml

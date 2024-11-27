@@ -9,9 +9,6 @@ using System.Windows.Input;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for Rooms.xaml
-    /// </summary>  
     public partial class Rooms : Window
     {
         private ICollectionView view;

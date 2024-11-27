@@ -8,9 +8,6 @@ using System.Windows.Controls;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for DeleteReservations.xaml
-    /// </summary>
     public partial class DeleteReservations : Window
     {
         private GuestService guestService;
@@ -28,18 +25,17 @@ namespace HotelReservations.Windows
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            // Căutăm oaspeții în baza de date care au acest ReservationId
+            // Cautam guests in baza de date care au acest ReservationId
             var guestsToUpdate = guestService.guestRepository.GetGuestsByReservationId(resToDelete.Id);
 
             // Actualizăm oaspeții găsiți
             foreach (Guest guest in guestsToUpdate)
             {
-                guestService.guestRepository.Delete(guest.ReservationId);  // Actualizează fiecare oaspete
+                guestService.guestRepository.Delete(guest.ReservationId);  // Stergem guest ul care are acest RezervationID
             }
             reservationService.DeleteRezervationFromDatabase(resToDelete);
-            // Confirmăm că acțiunea a fost realizată cu succes
-            DialogResult = true;
 
+            DialogResult = true;
             Close();
         }
 

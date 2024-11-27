@@ -4,14 +4,13 @@ namespace HotelReservations.Model
 {
     public class Reservation
     {
-        public int Id { get; set; }  // Corespunde cu reservation_id
-        public string RoomNumber { get; set; }  // Corespunde cu reservation_room_number
-        public string ReservationType { get; set; }  // Corespunde cu reservation_type
-        public DateTime StartDateTime { get; set; }  // Corespunde cu start_date_time
-        public DateTime EndDateTime { get; set; }  // Corespunde cu end_date_time
-        public double TotalPrice { get; set; }  // Corespunde cu total_price
+        public int Id { get; set; } 
+        public string RoomNumber { get; set; } 
+        public string ReservationType { get; set; }  
+        public DateTime StartDateTime { get; set; } 
+        public DateTime EndDateTime { get; set; } 
+        public double TotalPrice { get; set; } 
 
-        // Constructor pentru a putea crea o rezervare ușor
         public Reservation(int id, string roomNumber, string reservationType, DateTime startDateTime, DateTime endDateTime, double totalPrice)
         {
             Id = id;
@@ -22,12 +21,8 @@ namespace HotelReservations.Model
             TotalPrice = totalPrice;
         }
 
-        // Constructor fără parametri pentru cazuri de inițializare implicită
-        public Reservation()
-        {
-        }
+        public Reservation(){}
 
-        // Metoda de clonare a rezervării
         public Reservation Clone()
         {
             var clone = new Reservation();

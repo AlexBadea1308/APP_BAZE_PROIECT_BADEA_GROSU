@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for DeletePrices.xaml
-    /// </summary>
     public partial class DeletePrices : Window
     {
         private PriceService priceService;
@@ -32,7 +29,6 @@ namespace HotelReservations.Windows
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // add modal
             priceService.DeletePriceFromDatabase(priceToDelete);
             DialogResult = true;
             Close();

@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddEditRoom.xaml
-    /// </summary>
     public partial class AddEditRoom : Window
     {
         private RoomTypeService roomTypeService;
@@ -81,7 +78,7 @@ namespace HotelReservations.Windows
                     return;
                 }
             }
-            // validation passed
+
             roomService.SaveRoom(contextRoom);
             DialogResult = true;
             Close();

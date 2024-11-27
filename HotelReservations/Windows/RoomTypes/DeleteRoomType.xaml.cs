@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for DeleteRoomType.xaml
-    /// </summary>
     public partial class DeleteRoomType : Window
     {
         private RoomTypeService roomTypeService;

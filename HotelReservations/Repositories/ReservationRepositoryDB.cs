@@ -54,7 +54,7 @@ namespace HotelReservations.Repositories
 
         public int Insert(Reservation res)
         {
-            // Validate the StartDateTime and EndDateTime
+            // Validam start date si end date
             if (res.StartDateTime < new DateTime(1753, 1, 1) || res.StartDateTime > new DateTime(9999, 12, 31))
             {
                 throw new InvalidOperationException("StartDateTime is out of range for SQL Server DATETIME.");

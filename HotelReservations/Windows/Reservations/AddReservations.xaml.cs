@@ -12,10 +12,7 @@ using System.Windows.Data;
 
 namespace HotelReservations.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddEditReservations.xaml
-    /// </summary>
-    public partial class AddEditReservations : Window
+    public partial class AddReservations : Window
     {
         private ReservationService reservationService;
         private Reservation contextReservation;
@@ -23,8 +20,7 @@ namespace HotelReservations.Windows
         private ICollectionView view;
         public bool isEditing;
 
-        // Constructor for creating or editing a reservation
-        public AddEditReservations(Reservation? res = null)
+        public AddReservations(Reservation? res = null)
         {
             InitializeComponent();
 
@@ -57,7 +53,7 @@ namespace HotelReservations.Windows
             DateTime? startDate = CheckStartDate.SelectedDate;
             DateTime? endDate = CheckEndDate.SelectedDate;
 
-            if (roomTypeValue != null && roomTypeValue != "")
+            if (roomTypeValue != null)
             {
                 bool roomType = room.RoomType.ToString() == roomTypeValue.ToString();
 
@@ -70,7 +66,7 @@ namespace HotelReservations.Windows
                 {
                     if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
                     {
-                        return false; // Dacă datele se suprapun, returnăm false
+                        return false; // Daca datele se suprapun returnam false
                     }
                 }
             }
@@ -82,7 +78,7 @@ namespace HotelReservations.Windows
         {
             if (!start1.HasValue || !end1.HasValue || !start2.HasValue || !end2.HasValue)
             {
-                return false; // If any dates are null, consider them not overlapping
+                return false; 
             }
 
             return (start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2);
@@ -93,12 +89,12 @@ namespace HotelReservations.Windows
             var roomTypeList = Hotel.GetInstance().RoomTypes.ToList();
             RoomTypeComboBox.ItemsSource = roomTypeList;
 
-            Title = res != null ? "Edit Reservation" : "Add Reservation";
+            Title = "Add Reservation";
         }
 
         public void FillData(Reservation? res = null, Guest? newGuest = null)
         {
-            // Obține lista de oaspeți care sunt activi
+            //Luam lista de guests din baza de date
             var guests = Hotel.GetInstance().Guests.Where(g => g.ReservationId == 0);
 
             if (isEditing)
@@ -107,19 +103,18 @@ namespace HotelReservations.Windows
                           ?? Enumerable.Empty<Guest>();
             }
 
-            // Dacă există un oaspete nou, verifică dacă există deja în lista actuală
+            // Verifica daca guestul nou exista deja in lista actuala
             if (newGuest != null && !guests.Any(g => g.Id == newGuest.Id))
             {
-                guests = guests.Prepend(newGuest); // Adaugă temporar noul oaspete
+                guests = guests.Prepend(newGuest); // Adauga temporar noul oaspete
             }
 
-            // Reîmprospătează DataGrid-ul pentru oaspeți
+            // Reimprospatam DataGrid-ul pentru guests
             view = CollectionViewSource.GetDefaultView(guests.ToList());
             GuestsDataGrid.ItemsSource = view;
             GuestsDataGrid.IsSynchronizedWithCurrentItem = true;
-            //GuestsDataGrid.SelectedItem = null;
 
-            // Reîmprospătează DataGrid-ul pentru camere
+            // Reimprospatam DataGrid-ul pentru camere
             var rooms = Hotel.GetInstance().Rooms.ToList();
             view = CollectionViewSource.GetDefaultView(rooms);
             view.Filter = DoFilter;
@@ -139,20 +134,18 @@ namespace HotelReservations.Windows
 
         private void AddGuestButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create the AddEditGuest window without passing contextReservation if it's not needed
+            
             var addGuestWindow = new AddEditGuest();
 
             Hide();
 
-            // ShowDialog to handle the addition
             if (addGuestWindow.ShowDialog() == true)
             {
-                // Check if the guest was successfully saved
+              
                 var newGuest = addGuestWindow.SavedGuest;
 
                 if (newGuest != null)
                 {
-                    // Add the new guest and refresh data
                     FillData(contextReservation, newGuest);
                 }
                 else
@@ -206,35 +199,35 @@ namespace HotelReservations.Windows
             DateTime? startDate = CheckStartDate.SelectedDate;
             DateTime? endDate = CheckEndDate.SelectedDate;
 
-            // Check if a room is selected
+            // Veriificam daca am selectat o camera
             if (selectedRoom == null)
             {
                 MessageBox.Show("Please select a room.");
                 return;
             }
 
-            // Validate that both start and end dates are selected
+            //Verifica daca am selectat cele doua dati
             if (!startDate.HasValue || !endDate.HasValue)
             {
                 MessageBox.Show("Please select both start and end dates.");
                 return;
             }
 
-            // Validate that the start date is not in the past
+            // Verifica daca start date este in trecut
             if (startDate < DateTime.Today)
             {
                 MessageBox.Show("Start date cannot be in the past.");
                 return;
             }
 
-            // Validate that the start date is before the end date
+            // Verifica daca start date este inainte de end date
             if (startDate > endDate)
             {
                 MessageBox.Show("Start date must be equal to or earlier than the end date.");
                 return;
             }
 
-            // Check if any reservations overlap with the selected dates
+            // Verifica daca datile se suprapun cu celelalte rezervari
             var reservations = Hotel.GetInstance().Reservations;
             foreach (Reservation r in reservations)
             {
@@ -248,7 +241,8 @@ namespace HotelReservations.Windows
                 }
             }
 
-            //salvam rezervarea si adaugam guests in baza de date atribuindu le rezervationID ul curent
+            //Salvam rezervarea si adaugam guests in baza de date atribuindu le rezervationID ul curent
+
             contextReservation.RoomNumber = selectedRoom.RoomNumber;
             contextReservation.StartDateTime= (DateTime)startDate;
             contextReservation.EndDateTime = (DateTime)endDate;

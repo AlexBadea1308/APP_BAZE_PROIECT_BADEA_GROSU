@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\reservations\\reservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\reservations\\reservations.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\guests\\guests.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\guests\\guests.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\windows\\guests\\guests.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\windows\\guests\\guests.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|c:\\users\\alex\\desktop\\app_baze_proiect_badea_grosu\\hotelreservations\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{3CF37C9A-707E-46C4-9061-9506BD598691}|HotelReservations\\HotelReservations.csproj|solutionrelative:hotelreservations\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,61 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Reservations.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "RelativeToolTip": "HotelReservations\\Windows\\Reservations\\Reservations.xaml.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAcwHUAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T20:46:22.777Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "HotelReservations\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\MainWindow.xaml",
-              "RelativeToolTip": "HotelReservations\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-26T20:41:11.697Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Guests.xaml",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Guests\\Guests.xaml",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Guests\\Guests.xaml",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Guests\\Guests.xaml",
-              "RelativeToolTip": "HotelReservations\\Windows\\Guests\\Guests.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-26T20:31:33.653Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Guests.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Guests\\Guests.xaml.cs",
-              "RelativeDocumentMoniker": "HotelReservations\\Windows\\Guests\\Guests.xaml.cs",
-              "ToolTip": "C:\\Users\\Alex\\Desktop\\APP_BAZE_PROIECT_BADEA_GROSU\\HotelReservations\\Windows\\Guests\\Guests.xaml.cs",
-              "RelativeToolTip": "HotelReservations\\Windows\\Guests\\Guests.xaml.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAiwFAAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T20:30:58.616Z",
-              "EditorCaption": ""
             }
           ]
         }
