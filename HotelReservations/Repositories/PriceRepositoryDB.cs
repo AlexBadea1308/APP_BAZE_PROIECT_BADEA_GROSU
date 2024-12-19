@@ -136,7 +136,7 @@ namespace HotelReservations.Repositories
                 ";
 
                 command.Parameters.Add(new SqlParameter("price_id", price.Id));
-                command.Parameters.Add(new SqlParameter("room_type_id", price.RoomType));
+                command.Parameters.Add(new SqlParameter("room_type_id", price.RoomType.Id));
                 command.Parameters.Add(new SqlParameter("price_reservation_type", price.ReservationType.ToString()));
                 command.Parameters.Add(new SqlParameter("price_value", price.PriceValue));
 

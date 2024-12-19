@@ -7,52 +7,46 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Windows\Reservations\FinishReservation.xaml.cs">
+    <Compile Update="View\Reservations\FinishReservation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\AddReservations.xaml.cs">
+    <Compile Update="View\Reservations\AddReservations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\Guests\AddEditGuest.xaml.cs">
+    <Compile Update="View\Reservations\DeleteReservations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\Guests\DeleteGuest.xaml.cs">
+    <Compile Update="View\Prices\AddEditPrices.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\DeleteReservations.xaml.cs">
+    <Compile Update="View\Prices\DeletePrices.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Prices\AddEditPrices.xaml.cs">
+    <Compile Update="View\Prices\Prices.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Prices\DeletePrices.xaml.cs">
+    <Compile Update="View\Reservations\Reservations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Prices\Prices.xaml.cs">
+    <Compile Update="View\Users\AddEditUser.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Reservations\Reservations.xaml.cs">
+    <Compile Update="View\Users\DeleteUser.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Users\AddEditUser.xaml.cs">
+    <Compile Update="View\RoomTypes\AddEditRoomType.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Users\DeleteUser.xaml.cs">
+    <Compile Update="View\RoomTypes\DeleteRoomType.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\RoomTypes\AddEditRoomType.xaml.cs">
+    <Compile Update="View\Rooms\DeleteRoom.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\RoomTypes\DeleteRoomType.xaml.cs">
+    <Compile Update="View\RoomTypes\RoomTypes.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Rooms\DeleteRoom.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\RoomTypes\RoomTypes.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\Users\Users.xaml.cs">
+    <Compile Update="View\Users\Users.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -60,64 +54,58 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Guests\EditGuest.xaml">
+    <Page Update="View\Guests\EditGuest.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Guests\Guests.xaml">
+    <Page Update="View\Guests\Guests.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\FinishReservation.xaml">
+    <Page Update="View\Reservations\FinishReservation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\AddReservations.xaml">
+    <Page Update="View\Reservations\AddReservations.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\Guests\AddEditGuest.xaml">
+    <Page Update="View\Reservations\DeleteReservations.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\Guests\DeleteGuest.xaml">
+    <Page Update="View\Prices\AddEditPrices.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\DeleteReservations.xaml">
+    <Page Update="View\Prices\DeletePrices.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Prices\AddEditPrices.xaml">
+    <Page Update="View\Prices\Prices.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Prices\DeletePrices.xaml">
+    <Page Update="View\Reservations\Reservations.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Prices\Prices.xaml">
+    <Page Update="View\Users\AddEditUser.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\Reservations.xaml">
+    <Page Update="View\Users\DeleteUser.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Users\AddEditUser.xaml">
+    <Page Update="View\RoomTypes\AddEditRoomType.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Users\DeleteUser.xaml">
+    <Page Update="View\RoomTypes\DeleteRoomType.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\RoomTypes\AddEditRoomType.xaml">
+    <Page Update="View\Rooms\AddEditRoom.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\RoomTypes\DeleteRoomType.xaml">
+    <Page Update="View\Rooms\DeleteRoom.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Rooms\AddEditRoom.xaml">
+    <Page Update="View\Rooms\Rooms.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Rooms\DeleteRoom.xaml">
+    <Page Update="View\RoomTypes\RoomTypes.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Rooms\Rooms.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Windows\RoomTypes\RoomTypes.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Windows\Users\Users.xaml">
+    <Page Update="View\Users\Users.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

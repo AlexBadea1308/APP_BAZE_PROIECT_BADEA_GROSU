@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net7.0-windows\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,16 +97,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Windows\Guests\EditGuest.xaml.cs">
+    <Compile Update="View\Guests\EditGuest.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Guests\Guests.xaml.cs">
+    <Compile Update="View\Guests\Guests.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Windows\Guests\EditGuest.xaml">
+    <Page Update="View\Guests\EditGuest.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

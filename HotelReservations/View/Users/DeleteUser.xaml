@@ -1,0 +1,53 @@
+﻿<Window x:Class="HotelReservations.Windows.DeleteUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:HotelReservations.ViewModels"
+        mc:Ignorable="d"
+        Title="Delete User" Height="800" Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#3498DB">
+
+
+    <Grid  DataContext="{Binding Source={StaticResource ViewModel}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Margin="332,259,0,0" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Label Height="30" Width="345" 
+                       Content="Are you sure you want to delete this user?" 
+                       HorizontalContentAlignment="Center" 
+                       Foreground="White" 
+                       FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
+                <Button BorderBrush="Black" 
+                        Content="Cancel" 
+                        Width="100" 
+                        Height="40" 
+                        Command="{Binding CancelCommand}"
+                        Background="#16A085" 
+                        Foreground="White" 
+                        FontSize="16" 
+                        FontWeight="Bold" 
+                        Margin="5,0"/>
+                <Button BorderBrush="Black" 
+                        Content="Delete" 
+                        Width="100" 
+                        Height="40" 
+                        Margin="5,0,5,0" 
+                        Command="{Binding DeleteCommand}"
+                        Background="#E74C3C" 
+                        Foreground="White" 
+                        FontSize="16" 
+                        FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

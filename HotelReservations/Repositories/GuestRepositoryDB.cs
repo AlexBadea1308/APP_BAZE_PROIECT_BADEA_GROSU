@@ -129,7 +129,7 @@ namespace HotelReservations.Repositories
             }
         }
 
-        public void Delete(int rezervationId)
+        public void Delete(int guestID)
         {
             try
             {
@@ -139,9 +139,9 @@ namespace HotelReservations.Repositories
 
                     var command = new SqlCommand(@"
                 DELETE FROM dbo.guest
-                WHERE reservationID = @rezervationId", conn);
+                WHERE guest_id = @guestId", conn);
 
-                    command.Parameters.AddWithValue("@rezervationId", rezervationId);
+                    command.Parameters.AddWithValue("guestId", guestID);
 
                     command.ExecuteNonQuery();
                 }
@@ -151,7 +151,7 @@ namespace HotelReservations.Repositories
                 Console.WriteLine($"Error deleting guest: {ex.Message}");
             }
 
-            var guests = Hotel.GetInstance().Guests.FirstOrDefault(g => g.ReservationId == rezervationId);
+            var guests = Hotel.GetInstance().Guests.FirstOrDefault(g => g.Id == guestID);
             if (guests != null)
             {
                 Hotel.GetInstance().Guests.Remove(guests);

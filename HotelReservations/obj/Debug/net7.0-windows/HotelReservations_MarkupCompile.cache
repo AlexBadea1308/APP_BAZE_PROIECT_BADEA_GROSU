@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\App.xaml
-21-2056098066
+211107360394
 
-48-1375127621
+71559231360
 2011230825288
-MainWindow.xaml;Windows\Guests\EditGuest.xaml;Windows\Guests\Guests.xaml;Windows\Prices\AddEditPrices.xaml;Windows\Prices\DeletePrices.xaml;Windows\Prices\Prices.xaml;Windows\Reservations\AddReservations.xaml;Windows\Reservations\DeleteReservations.xaml;Windows\Reservations\FinishReservation.xaml;Windows\Reservations\Guests\AddEditGuest.xaml;Windows\Reservations\Guests\DeleteGuest.xaml;Windows\Reservations\Reservations.xaml;Windows\Rooms\AddEditRoom.xaml;Windows\Rooms\DeleteRoom.xaml;Windows\Rooms\Rooms.xaml;Windows\RoomTypes\AddEditRoomType.xaml;Windows\RoomTypes\DeleteRoomType.xaml;Windows\RoomTypes\RoomTypes.xaml;Windows\Users\AddEditUser.xaml;Windows\Users\DeleteUser.xaml;Windows\Users\Users.xaml;
+MainWindow.xaml;View\Guests\EditGuest.xaml;View\Guests\Guests.xaml;View\Prices\AddEditPrices.xaml;View\Prices\DeletePrices.xaml;View\Prices\Prices.xaml;View\Reservations\AddReservations.xaml;View\Reservations\DeleteReservations.xaml;View\Reservations\FinishReservation.xaml;View\Reservations\Guests\AddEditGuest.xaml;View\Reservations\Guests\DeleteGuest.xaml;View\Reservations\Reservations.xaml;View\Rooms\AddEditRoom.xaml;View\Rooms\DeleteRoom.xaml;View\Rooms\Rooms.xaml;View\RoomTypes\AddEditRoomType.xaml;View\RoomTypes\DeleteRoomType.xaml;View\RoomTypes\RoomTypes.xaml;View\Users\AddEditUser.xaml;View\Users\DeleteUser.xaml;View\Users\Users.xaml;
 
 False
 

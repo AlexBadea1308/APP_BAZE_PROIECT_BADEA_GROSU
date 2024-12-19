@@ -13,6 +13,7 @@ namespace HotelReservations.Model
         public int Id { get; set; }
 
         private string name = string.Empty;
+
         public string Name
         {
             get { return name; }

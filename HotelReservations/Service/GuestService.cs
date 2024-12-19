@@ -34,7 +34,7 @@ namespace HotelReservations.Service
             }
         }
 
-        public void DeletePriceFromDatabase(Guest guest)
+        public void DeleteGuestFromDatabase(Guest guest)
         {
             guestRepository.Delete(guest.Id);
         }
