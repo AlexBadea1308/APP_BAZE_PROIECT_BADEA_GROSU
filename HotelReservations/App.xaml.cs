@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HotelReservations.ConfigApp;
+using System.Windows;
 
 namespace HotelReservations
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelReservations
+namespace HotelReservations.ConfigApp
 {
     public static class Config
     {

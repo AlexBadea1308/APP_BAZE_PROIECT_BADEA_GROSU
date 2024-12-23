@@ -30,7 +30,7 @@ namespace HotelReservations.ViewModels
             var check = roomTypeService.IsRoomTypeInUse(RoomTypeToDelete);
             if (!check)
             {
-                var prices_to_delete = priceService.priceRepository.GetPricesByRoomTypesID(RoomTypeToDelete.Id);
+                var prices_to_delete = priceService.priceRepository.GetPricesByRoomTypeId(RoomTypeToDelete.Id);
                 foreach (var price in prices_to_delete)
                 {
                     priceService.DeletePriceFromDatabase(price);

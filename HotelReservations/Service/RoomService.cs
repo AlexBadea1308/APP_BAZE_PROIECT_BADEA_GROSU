@@ -1,58 +1,63 @@
-﻿using HotelReservations.Model;
-using HotelReservations.Repository;
+﻿using HotelReservations.Data;
+using HotelReservations.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HotelReservations.Service
 {
     public class RoomService
     {
-        public RoomRepositoryDB roomRepository;
-        public RoomService() 
-        { 
-            roomRepository = new RoomRepositoryDB();
-        }
-
         public List<Room> GetAllRooms()
         {
-            return Hotel.GetInstance().Rooms;
+            using (var context = new HotelDbContext())
+            {
+                return context.Rooms.ToList();
+            }
         }
 
         public Room GetRoomByRoomNumber(string roomNumber)
         {
-            Room room = Hotel.GetInstance().Rooms.Find(rn => rn.RoomNumber == roomNumber);
-            return room;
+            using (var context = new HotelDbContext())
+            {
+                return context.Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber);
+            }
         }
 
         public void SaveRoom(Room room)
         {
-            if (room.Id == 0)
+            using (var context = new HotelDbContext())
             {
-                Hotel.GetInstance().Rooms.Add(room);
-                room.Id = roomRepository.Insert(room);
-            }
-            else
-            {
-                var index = Hotel.GetInstance().Rooms.FindIndex(r => r.Id == room.Id);
-                Hotel.GetInstance().Rooms[index] = room;
-                roomRepository.Update(room);
+                if (room.Id == 0)
+                {
+                    context.Rooms.Add(room);
+                }
+                else
+                {
+                    context.Entry(room).State = System.Data.Entity.EntityState.Modified;
+                }
+                context.SaveChanges();
             }
         }
 
         public void DeleteRoomFromDatabase(Room room)
         {
-            roomRepository.Delete(room.Id);
+            using (var context = new HotelDbContext())
+            {
+                var existingRoom = context.Rooms.Find(room.Id);
+                if (existingRoom != null)
+                {
+                    context.Rooms.Remove(existingRoom);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public bool IsRoomInUse(Room room)
         {
-            foreach (Reservation reservation in Hotel.GetInstance().Reservations)
+            using (var context = new HotelDbContext())
             {
-                if (reservation.RoomNumber.ToString()== room.RoomNumber.ToString())
-                {
-                    return true;
-                }
+                return context.Reservations.Any(reservation => reservation.RoomNumber == room.RoomNumber);
             }
-            return false;
         }
     }
 }

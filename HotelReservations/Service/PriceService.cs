@@ -1,6 +1,8 @@
-﻿using HotelReservations.Model;
+﻿using HotelReservations.Data;
+using HotelReservations.Model;
 using HotelReservations.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HotelReservations.Service
 {
@@ -15,22 +17,34 @@ namespace HotelReservations.Service
 
         public List<Price> GetAllPrices()
         {
-            return Hotel.GetInstance().Prices;
+            using (var context = new HotelDbContext())
+            {
+                return context.Prices.ToList();
+            }
         }
+
         public void SavePrice(Price price)
         {
-            if (price.Id == 0)
+            using (var context = new HotelDbContext())
             {
-                Hotel.GetInstance().Prices.Add(price);
-                price.Id = priceRepository.Insert(price);
-            }
-            else
-            {
-                var index = Hotel.GetInstance().Prices.FindIndex(p => p.Id == price.Id);
-                Hotel.GetInstance().Prices[index] = price;
-                priceRepository.Update(price);
+                if (price.Id == 0)
+                {
+                    context.Prices.Add(price);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    var existingPrice = context.Prices.FirstOrDefault(p => p.Id == price.Id);
+                    if (existingPrice != null)
+                    {
+                        existingPrice = price;
+
+                        context.SaveChanges();
+                    }
+                }
             }
         }
+
 
         public void DeletePriceFromDatabase(Price price)
         {

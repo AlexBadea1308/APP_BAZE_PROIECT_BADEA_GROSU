@@ -15,11 +15,9 @@ namespace HotelReservations.ViewModel
 {
     public class RoomsViewModel : INotifyPropertyChanged
     {
-        private readonly RoomService _roomService;
         private ObservableCollection<Room> _rooms;
         private ICollectionView _roomsView;
         private string _roomNumberSearchParam = "";
-        private string _roomTypeSearchParam = "";
         private Room _selectedRoom;
 
         // Integrarea RoomTypesViewModel
@@ -58,18 +56,6 @@ namespace HotelReservations.ViewModel
                 RoomsView?.Refresh();
             }
         }
-
-        public string RoomTypeSearchParam
-        {
-            get => _roomTypeSearchParam;
-            set
-            {
-                _roomTypeSearchParam = value;
-                OnPropertyChanged();
-                RoomsView?.Refresh();
-            }
-        }
-
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -88,24 +74,33 @@ namespace HotelReservations.ViewModel
 
         // Constructor
         public RoomsViewModel()
-        {
-            _roomService = new RoomService();
-            _roomTypesViewModel = new RoomTypesViewModel(); // Inițializare RoomTypesViewModel
+        { 
+            _roomTypesViewModel = new RoomTypesViewModel();
 
             // Inițializare comenzi
             AddCommand = new RelayCommand(AddRoom);
-            EditCommand = new RelayCommand(EditRoom, CanEditRoom);
-            DeleteCommand = new RelayCommand(DeleteRoom, CanDeleteRoom);
+            EditCommand = new RelayCommand(EditRoom);
+            DeleteCommand = new RelayCommand(DeleteRoom);
 
             LoadRooms();
         }
 
         private void LoadRooms()
         {
-            var rooms = Hotel.GetInstance().Rooms.ToList();
-            Rooms = new ObservableCollection<Room>(rooms);
-            UpdateView();
+            using (var context = new HotelDbContext())
+            {
+                var rooms = context.Rooms.ToList();
+                var roomTypes = context.RoomTypes.ToList();
+                foreach (var room in rooms)
+                {
+                    room.RoomType = roomTypes.FirstOrDefault(rt => rt.Id == room.RoomTypeId);
+                }
+                Rooms = new ObservableCollection<Room>(rooms);
+                UpdateView();
+            }
         }
+
+
 
         private void UpdateView()
         {
@@ -117,16 +112,12 @@ namespace HotelReservations.ViewModel
         {
             var room = roomObject as Room;
 
-            // Obține RoomType.Name corect
             var roomTypeName = room.RoomType?.Name ?? "";
 
             bool isRoomNumberMatch = string.IsNullOrEmpty(RoomNumberSearchParam) ||
                 room.RoomNumber.Contains(RoomNumberSearchParam, StringComparison.OrdinalIgnoreCase);
 
-            bool isRoomTypeMatch = string.IsNullOrEmpty(RoomTypeSearchParam) ||
-                roomTypeName.Contains(RoomTypeSearchParam, StringComparison.OrdinalIgnoreCase);
-
-            return isRoomNumberMatch && isRoomTypeMatch;
+            return isRoomNumberMatch;
         }
 
         private void AddRoom(object parameter)
@@ -136,11 +127,6 @@ namespace HotelReservations.ViewModel
             {
                 LoadRooms();
             }
-        }
-
-        private bool CanEditRoom(object parameter)
-        {
-            return SelectedRoom != null;
         }
 
         private void EditRoom(object parameter)
@@ -161,11 +147,6 @@ namespace HotelReservations.ViewModel
             {
                 LoadRooms();
             }
-        }
-
-        private bool CanDeleteRoom(object parameter)
-        {
-            return SelectedRoom != null;
         }
 
         private void DeleteRoom(object parameter)

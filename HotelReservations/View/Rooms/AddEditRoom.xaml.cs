@@ -6,10 +6,14 @@ namespace HotelReservations.Windows
 {
     public partial class AddEditRoom : Window
     {
-        public AddEditRoom(Room? room = null)
+        private readonly AddEditRoomViewModel _viewModel;
+
+        public AddEditRoom(Room room = null)
         {
             InitializeComponent();
-            DataContext = new AddEditRoomViewModel(room);
+            _viewModel = new AddEditRoomViewModel(room);
+            DataContext = _viewModel;
+            Closed += (s, e) => _viewModel.Dispose();
         }
     }
 }

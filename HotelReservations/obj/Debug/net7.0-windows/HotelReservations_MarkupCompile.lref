@@ -1,5 +1,6 @@
 ﻿
 
+FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\MainWindow.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Guests\EditGuest.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Prices\AddEditPrices.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Prices\DeletePrices.xaml;;
@@ -7,6 +8,10 @@ FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Price
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\AddReservations.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\DeleteReservations.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\FinishReservation.xaml;;
+FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Guests\AddEditGuest.xaml;;
+FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Guests\DeleteGuest.xaml;;
+FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Reservations.xaml;;
+FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Rooms\AddEditRoom.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Rooms\DeleteRoom.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Rooms\Rooms.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\RoomTypes\AddEditRoomType.xaml;;
@@ -15,9 +20,4 @@ FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\RoomT
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Users\AddEditUser.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Users\DeleteUser.xaml;;
 FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Users\Users.xaml;;
-FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Rooms\AddEditRoom.xaml;;
-FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Guests\AddEditGuest.xaml;;
-FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Guests\DeleteGuest.xaml;;
-FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\View\Reservations\Reservations.xaml;;
-FC:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\MainWindow.xaml;;
 

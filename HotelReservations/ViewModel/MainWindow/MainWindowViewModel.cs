@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -8,7 +9,7 @@ using HotelReservations.Model;
 using HotelReservations.Views;
 using HotelReservations.Windows;
 
-namespace HotelReservations.ViewModels
+namespace HotelReservations.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
@@ -182,64 +183,69 @@ namespace HotelReservations.ViewModels
 
         private void ExecuteLogin(object parameter)
         {
-            var findUser = Hotel.GetInstance().Users.Find(user =>
-                user.Username == Username && user.Password == PassWord);
-
-            if (findUser == null)
+            using (var context = new HotelDbContext())
             {
-                MessageBox.Show("Invalid credentials. Please try again.",
-                    "Login Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                var findUser = context.Users
+                    .FirstOrDefault(user => user.Username == Username && user.Password == PassWord);
+
+                if (findUser == null)
+                {
+                    MessageBox.Show("Invalid credentials. Please try again.",
+                        "Login Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                LoginGridVisibility = Visibility.Hidden;
+                DashboardGridVisibility = Visibility.Visible;
+
+                UpdateMenuVisibility(findUser.UserType);
+
+                MessageBox.Show($"Logged in. Welcome {findUser.Username}.",
+                    "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Actualizează utilizatorul logat folosind contextul EF
+                LoggedInUser = findUser;
             }
-
-            LoginGridVisibility = Visibility.Hidden;
-            DashboardGridVisibility = Visibility.Visible;
-
-            UpdateMenuVisibility(findUser.UserType);
-
-            MessageBox.Show($"Logged in. Welcome {Username}.",
-                "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            Hotel.GetInstance().loggedInUser = findUser;
         }
 
-        private void UpdateMenuVisibility(UserType userType)
+        private void UpdateMenuVisibility(string userType)
         {
-            if (userType == UserType.Administrator)
-            {
-                RoomsMenuVisibility = Visibility.Visible;
-                RoomTypeMenuVisibility = Visibility.Visible;
-                UsersMenuVisibility = Visibility.Visible;
-                PricesMenuVisibility = Visibility.Visible;
-                ReservationsMenuVisibility = Visibility.Hidden;
-                GuestsMenuVisibility = Visibility.Hidden;
-            }
-            else if (userType == UserType.Receptionist)
-            {
-                RoomsMenuVisibility = Visibility.Hidden;
-                RoomTypeMenuVisibility = Visibility.Hidden;
-                UsersMenuVisibility = Visibility.Hidden;
-                PricesMenuVisibility = Visibility.Hidden;
-                ReservationsMenuVisibility = Visibility.Visible;
-                GuestsMenuVisibility = Visibility.Visible;
-            }
+            RoomsMenuVisibility = userType == UserType.Administrator.ToString() ? Visibility.Visible : Visibility.Hidden;
+            RoomTypeMenuVisibility = userType == UserType.Administrator.ToString() ? Visibility.Visible : Visibility.Hidden;
+            UsersMenuVisibility = userType == UserType.Administrator.ToString() ? Visibility.Visible : Visibility.Hidden;
+            PricesMenuVisibility = userType == UserType.Administrator.ToString() ? Visibility.Visible : Visibility.Hidden;
+            ReservationsMenuVisibility = userType == UserType.Receptionist.ToString() ? Visibility.Visible : Visibility.Hidden;
+            GuestsMenuVisibility = userType == UserType.Receptionist.ToString() ? Visibility.Visible : Visibility.Hidden;
         }
 
         public void ExecuteLogout(object parameter)
         {
-            Hotel.GetInstance().loggedInUser = new User();
+            LoggedInUser = null;
 
             LoginGridVisibility = Visibility.Visible;
             DashboardGridVisibility = Visibility.Hidden;
 
             Username = string.Empty;
-            PassWord =string.Empty;
+            PassWord = string.Empty;
 
+            // Golește PasswordBox-ul din UI
             (Application.Current.MainWindow as MainWindow)?.ClearPasswordBox();
 
             MessageBox.Show("Logged out", "Logout Success",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        private User _loggedInUser;
+        public User LoggedInUser
+        {
+            get => _loggedInUser;
+            set
+            {
+                _loggedInUser = value;
+                OnPropertyChanged(nameof(LoggedInUser));
+            }
+        }
+
 
         private void NextImage()
         {

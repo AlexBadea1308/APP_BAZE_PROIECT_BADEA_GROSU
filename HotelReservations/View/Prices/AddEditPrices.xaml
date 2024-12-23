@@ -9,8 +9,6 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="#34495E">
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

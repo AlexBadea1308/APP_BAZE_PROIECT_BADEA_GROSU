@@ -191,3 +191,6 @@ C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\n
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\View\Users\DeleteUser.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\View\Users\Users.baml
 C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\bin\Debug\net7.0-windows\EntityFramework.SqlServer.dll
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\bin\Debug\net7.0-windows\EntityFramework.dll
+C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\bin\Debug\net7.0-windows\HotelReservations.dll.config

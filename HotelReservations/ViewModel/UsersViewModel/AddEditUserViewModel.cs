@@ -1,5 +1,6 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
+using ServiceStack;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,28 +15,10 @@ namespace HotelReservations.ViewModels
     {
         private UserService _userService;
         private User _currentUser;
-        private ObservableCollection<UserType> _userTypes;
+        private ObservableCollection<string> _userTypes;
         private bool _isEditing;
 
-        public User CurrentUser
-        {
-            get => _currentUser;
-            set
-            {
-                _currentUser = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<UserType> UserTypes
-        {
-            get => _userTypes;
-            set
-            {
-                _userTypes = value;
-                OnPropertyChanged();
-            }
-        }
+     
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -43,7 +26,9 @@ namespace HotelReservations.ViewModels
         public AddEditUserViewModel(User? user = null)
         {
             _userService = new UserService();
-            _userTypes = new ObservableCollection<UserType>(Hotel.GetInstance().UserTypes.ToList());
+            _userTypes = new ObservableCollection<string>(Enum.GetValues(typeof(UserType)).Cast<UserType>()
+                                                       .Select(e => Enum.GetName(typeof(UserType), e)));
+
 
             if (user == null)
             {
@@ -56,11 +41,32 @@ namespace HotelReservations.ViewModels
                 CurrentUser = user.Clone();
                 _isEditing = true;
                 Title = "Edit User";
-                IsUserTypeEnabled = false;
+                CurrentUser.UserType = user.UserType;
             }
 
             SaveCommand = new RelayCommand(SaveUser, CanSaveUser);
             CancelCommand = new RelayCommand(Cancel);
+        }
+
+
+        public User CurrentUser
+        {
+            get => _currentUser;
+            set
+            {
+                _currentUser = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> UserTypes
+        {
+            get => _userTypes;
+            set
+            {
+                _userTypes = value;
+                OnPropertyChanged();
+            }
         }
 
         private string _title;
@@ -73,18 +79,6 @@ namespace HotelReservations.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private bool _isUserTypeEnabled = true;
-        public bool IsUserTypeEnabled
-        {
-            get => _isUserTypeEnabled;
-            set
-            {
-                _isUserTypeEnabled = value;
-                OnPropertyChanged();
-            }
-        }
-
         private bool CanSaveUser(object parameter)
         {
             return !string.IsNullOrWhiteSpace(CurrentUser.Username) &&

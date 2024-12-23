@@ -10,8 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Background="#3498DB">
 
-
-    <Grid  DataContext="{Binding Source={StaticResource ViewModel}}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />

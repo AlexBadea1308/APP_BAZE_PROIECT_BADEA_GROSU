@@ -78,7 +78,7 @@ namespace HotelReservations.ViewModel
         {
             var addRoomTypeWindow = new AddEditRoomType();
             addRoomTypeWindow.ShowDialog();
-           LoadData();
+            LoadData();
         }
 
         private void EditRoomType(object parameter)
@@ -93,7 +93,6 @@ namespace HotelReservations.ViewModel
             editRoomWindow.ShowDialog();
             LoadData();
         }
-
 
         private void DeleteRoomType(object parameter)
         {
@@ -110,14 +109,15 @@ namespace HotelReservations.ViewModel
 
         private void LoadData()
         {
-            _roomTypes = Hotel.GetInstance().RoomTypes.ToList(); 
-            _roomTypes = _roomTypes.OrderBy(rt => rt.Id).ToList();
-
+            using (var context = new HotelDbContext())
+            {
+                _roomTypes = context.RoomTypes.OrderBy(rt => rt.Id).ToList();
+            }
             View = CollectionViewSource.GetDefaultView(_roomTypes);
             View.Filter = FilterRoomTypes;
-
             View.Refresh();
         }
+
 
         private bool CanEditOrDelete(object parameter)
         {

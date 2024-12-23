@@ -1,10 +1,13 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
 using HotelReservations.ViewModel;
+using HotelReservations.Windows;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,8 +15,6 @@ namespace HotelReservations.ViewModels
 {
     public class AddEditPricesViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        private readonly PriceService _priceService;
-        private readonly RoomTypeService _roomTypeService;
         private Price _contextPrice;
         private bool _isEditing;
 
@@ -27,22 +28,43 @@ namespace HotelReservations.ViewModels
             }
         }
 
-        public ObservableCollection<RoomType> RoomTypes { get; }
-        public ObservableCollection<ReservationType> ReservationTypes { get; }
+        private ObservableCollection<RoomType> _roomTypes;
+        private ObservableCollection<string> _reservationTypes;
 
+        public ObservableCollection<RoomType> RoomTypes
+        {
+            get => _roomTypes;
+            set
+            {
+                _roomTypes = value;
+                OnPropertyChanged2();
+            }
+        }
+
+        public ObservableCollection<string> ReservationTypes
+        {
+            get => _reservationTypes;
+            set
+            {
+                _reservationTypes=value;
+                OnPropertyChanged2();
+            }
+        }
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
         public AddEditPricesViewModel(Price price = null)
         {
-            _priceService = new PriceService();
-            _roomTypeService = new RoomTypeService();
+            using (var context = new HotelDbContext())
+            {
+                // Se preiau tipurile de camere
+                RoomTypes = new ObservableCollection<RoomType>(context.RoomTypes.ToList());
 
-            // Initialize collections
-            RoomTypes = new ObservableCollection<RoomType>(Hotel.GetInstance().RoomTypes);
-            ReservationTypes = new ObservableCollection<ReservationType>(Hotel.GetInstance().ReservationTypes);
+                // Convertește enum-ul ReservationType în lista de șiruri
+                ReservationTypes = new ObservableCollection<string>(Enum.GetNames(typeof(ReservationType)));
+            }
 
-            // Initialize context price
+            // Se inițializează prețul contextului
             if (price == null)
             {
                 ContextPrice = new Price();
@@ -52,9 +74,11 @@ namespace HotelReservations.ViewModels
             {
                 ContextPrice = price.Clone();
                 _isEditing = true;
+
+                ContextPrice.RoomType = RoomTypes.FirstOrDefault(rt => rt.Id == ContextPrice.RoomType.Id);
             }
 
-            // Initialize commands
+            // Inițializarea comenzilor
             SaveCommand = new RelayCommand(ExecuteSave, CanExecuteSave);
             CancelCommand = new RelayCommand(ExecuteCancel);
         }
@@ -68,29 +92,62 @@ namespace HotelReservations.ViewModels
         {
             if (ValidatePrice())
             {
-                // Check if price combination already exists
-                if (!_isEditing)
+                using (var context = new HotelDbContext())
                 {
-                    var allPrices = _priceService.GetAllPrices().ToList();
-                    if (allPrices.Any(p =>
-                        p.ReservationType.ToString() == ContextPrice.ReservationType.ToString() &&
-                        p.RoomType.Id == ContextPrice.RoomType.Id))
+                    if (!_isEditing)
                     {
-                        MessageBox.Show("Price Combination for this RoomType and ReservationType already exists!","Try another!", MessageBoxButton.OK,MessageBoxImage.Information);
+                        ContextPrice.RoomTypeId=ContextPrice.RoomType.Id;
+                        
+                        // Adaugă un preț nou
+                        if (context.Prices.Any(p =>
+                            p.ReservationType == ContextPrice.ReservationType &&
+                            p.RoomType.Id == ContextPrice.RoomType.Id))
+                        {
+                            MessageBox.Show("Price combination for this RoomType and ReservationType already exists!", "Try another!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        ContextPrice.RoomType = null;
+                        context.Prices.Add(ContextPrice);
                     }
                     else
                     {
-                        _priceService.SavePrice(ContextPrice);
-                        OnRequestClose(true);
+                        // Editare preț existent
+                        var duplicatePrice = context.Prices
+                            .Include(p => p.RoomType)
+                            .FirstOrDefault(p =>
+                                p.ReservationType == ContextPrice.ReservationType &&
+                                p.RoomType.Id == ContextPrice.RoomType.Id &&
+                                p.Id != ContextPrice.Id);
+
+                        if (duplicatePrice != null)
+                        {
+                            MessageBox.Show("Price combination for this RoomType and ReservationType already exists!", "Try another!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+
+                        var existingPrice = context.Prices.FirstOrDefault(p => p.Id == ContextPrice.Id);
+
+                        if (existingPrice != null)
+                        {
+                            // Actualizează câmpurile prețului existent
+                            existingPrice.RoomType = context.RoomTypes.FirstOrDefault(rt => rt.Id == ContextPrice.RoomType.Id);
+                            existingPrice.ReservationType = ContextPrice.ReservationType;
+                            existingPrice.PriceValue = ContextPrice.PriceValue;
+                        }
+                        else
+                        {
+                            MessageBox.Show("The price could not be found in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
                     }
-                }
-                else
-               {
-                    _priceService.SavePrice(ContextPrice);
+
+                    context.SaveChanges();
                     OnRequestClose(true);
-               }
+                }
             }
         }
+
+
 
         private void ExecuteCancel(object obj)
         {
@@ -109,6 +166,11 @@ namespace HotelReservations.ViewModels
         public event RequestCloseEventHandler RequestClose;
 
         protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnPropertyChanged2([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -144,7 +206,6 @@ namespace HotelReservations.ViewModels
             }
         }
     }
-
     // Custom Event Args for closing the window
     public class RequestCloseEventArgs : EventArgs
     {

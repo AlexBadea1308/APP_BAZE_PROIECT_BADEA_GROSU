@@ -1,4 +1,5 @@
-﻿using HotelReservations.Model;
+﻿using HotelReservations.Data;
+using HotelReservations.Model;
 using HotelReservations.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,21 @@ namespace HotelReservations.Service
     {
         public ReservationRepositoryDB reservationRepository;
         PriceService priceService;
-        GuestService guestService;
         RoomService roomService;
 
         public ReservationService()
         {
             reservationRepository = new ReservationRepositoryDB();
-            guestService = new GuestService();
             priceService = new PriceService();
             roomService = new RoomService();
         }
 
         public List<Reservation> GetAllReservations()
         {
-            return Hotel.GetInstance().Reservations;
+            using (var context = new HotelDbContext())
+            {
+                return context.Reservations.ToList();
+            }
         }
 
         public void DeleteRezervationFromDatabase(Reservation rezervation)
@@ -38,24 +40,32 @@ namespace HotelReservations.Service
         public void SaveReservation(Reservation reservation, Room room)
         {
             reservation.RoomNumber = room.RoomNumber;
-            //verificam daca rezervarea nu exista atunci o adaugam else o actualizam
-            if (reservation.Id == 0)
+            using (var context = new HotelDbContext())
             {
-                Hotel.GetInstance().Reservations.Add(reservation);
-                reservation.TotalPrice = CountPrice(reservation);
-            }
-            else
-            {
-                reservation.TotalPrice = CountPrice(reservation);
-                var r = Hotel.GetInstance().Reservations.First(r => r.Id == reservation.Id);
+                // Verificăm dacă rezervarea nu există, atunci o adăugăm, altfel o actualizăm
+                if (reservation.Id == 0)
+                {
+                    reservation.TotalPrice = CountPrice(reservation);
+                    context.Reservations.Add(reservation);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    reservation.TotalPrice = CountPrice(reservation);
+                    var existingReservation = context.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
 
-                r.TotalPrice = reservation.TotalPrice;
-                r.StartDateTime = reservation.StartDateTime;
-                r.EndDateTime = reservation.EndDateTime;
+                    if (existingReservation != null)
+                    {
+                        existingReservation.TotalPrice = reservation.TotalPrice;
+                        existingReservation.StartDateTime = reservation.StartDateTime;
+                        existingReservation.EndDateTime = reservation.EndDateTime;
 
-                reservationRepository.Update(reservation);
+                        context.SaveChanges();
+                    }
+                }
             }
         }
+
 
         public void LogAllPrices()
         {

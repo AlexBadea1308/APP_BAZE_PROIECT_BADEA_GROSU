@@ -1,19 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelReservations.Model
 {
+    [Table("guest")]
     public class Guest
     {
         private string name = string.Empty;
         private string surname = string.Empty;
         private string cnp = string.Empty;
+
+        [Key]
+        [Column("guest_id")]
         public int Id { get; set; }
+
+        [Column("reservationID")]
         public int ReservationId { get; set; }
 
+        public Reservation Reservation { get; set; }
+
+        [Column("guest_name")]
+        [Required]
         public string Name
         {
             get { return name; }
@@ -23,10 +31,12 @@ namespace HotelReservations.Model
                 {
                     throw new ArgumentException("Name is required");
                 }
-
                 name = value;
             }
         }
+
+        [Column("guest_surname")]
+        [Required]
         public string Surname
         {
             get { return surname; }
@@ -39,6 +49,9 @@ namespace HotelReservations.Model
                 surname = value;
             }
         }
+
+        [Column("guest_cnp")]
+        [Required]
         public string CNP
         {
             get { return cnp; }
@@ -58,7 +71,7 @@ namespace HotelReservations.Model
             clone.Id = Id;
             clone.Name = Name;
             clone.Surname = Surname;
-            clone.CNP =CNP;
+            clone.CNP = CNP;
             return clone;
         }
     }

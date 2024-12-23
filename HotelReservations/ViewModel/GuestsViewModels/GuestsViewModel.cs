@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Data; // Necesită această referință pentru ICollectionView
 
 namespace HotelReservations.ViewModels
 {
@@ -13,6 +14,7 @@ namespace HotelReservations.ViewModels
     {
         private string _searchText;
         private ObservableCollection<Guest> _guestList;
+        private ICollectionView _guestsView;
         private Guest _selectedGuest;
 
         public string SearchText
@@ -39,6 +41,16 @@ namespace HotelReservations.ViewModels
             }
         }
 
+        public ICollectionView GuestsView
+        {
+            get => _guestsView;
+            private set
+            {
+                _guestsView = value;
+                OnPropertyChanged(nameof(GuestsView));
+            }
+        }
+
         public Guest SelectedGuest
         {
             get => _selectedGuest;
@@ -56,14 +68,27 @@ namespace HotelReservations.ViewModels
 
         public GuestsViewModel()
         {
-            // Inițializează lista cu toți oaspeții
-            GuestList = new ObservableCollection<Guest>(Hotel.GetInstance().Guests.ToList());
+            LoadGuests();
+            EditGuestCommand = new RelayCommand(ExecuteEditGuest, CanExecuteEditGuest);
+        }
 
-            // Comanda pentru Edit Guest cu verificarea posibilității de editare
-            EditGuestCommand = new RelayCommand(
-                ExecuteEditGuest,
-                CanExecuteEditGuest
-            );
+        private void LoadGuests()
+        {
+            using (var context = new HotelDbContext())
+            {
+                var guests = context.Guests.ToList();
+                var reservations = context.Reservations.ToList();
+
+                foreach (var guest in guests)
+                {
+                    guest.Reservation = reservations.FirstOrDefault(r => r.Id == guest.ReservationId);
+                }
+
+                GuestList = new ObservableCollection<Guest>(guests);
+
+                // Creează ICollectionView pentru filtrare și sortare
+                GuestsView = CollectionViewSource.GetDefaultView(GuestList);
+            }
         }
 
         private void ExecuteEditGuest(object parameter)
@@ -76,6 +101,7 @@ namespace HotelReservations.ViewModels
                 // Reîmprospătează lista după editare
                 if (result == true)
                 {
+                    LoadGuests();
                     FilterGuests();
                 }
             }
@@ -88,15 +114,14 @@ namespace HotelReservations.ViewModels
 
         private void FilterGuests()
         {
-            var filteredGuests = Hotel.GetInstance().Guests
-                .Where(g => string.IsNullOrEmpty(SearchText) ||
-                            g.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-
-            GuestList.Clear();
-            foreach (var guest in filteredGuests)
+            if (GuestsView != null)
             {
-                GuestList.Add(guest);
+                GuestsView.Filter = (obj) =>
+                {
+                    var guest = obj as Guest;
+                    return string.IsNullOrEmpty(SearchText) ||
+                           guest.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                };
             }
         }
 

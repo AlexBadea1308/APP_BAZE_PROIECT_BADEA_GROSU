@@ -64,40 +64,56 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Guests ToolBar -->
+        <!-- Guest ToolBar -->
         <ToolBar Grid.Row="2" Background="#2980B9">
-            <Label Content="Guests" Width="90" Foreground="White"/>
-            <Button Content="Add" BorderBrush="White"
+            <Label Content="Guest Details" Width="90" Foreground="White"/>
+            <Button Content="Add Guest" BorderBrush="White"
                     Padding="5,0,5,0" Margin="5,0,0,0"
                     Background="#3498DB" Foreground="White"
                     Command="{Binding AddGuestCommand}"/>
-            <Button Content="Edit" BorderBrush="White"
+            <Button Content="Edit Guest" BorderBrush="White"
                     Padding="5,0,5,0" Margin="5,0,0,0"
                     Background="#3498DB" Foreground="White"
                     Command="{Binding EditGuestCommand}"/>
-            <Button Content="Delete" BorderBrush="White"
+            <Button Content="Delete Guest" BorderBrush="White"
                     Padding="5,0,5,0" Margin="5,0,0,0"
                     Background="#3498DB" Foreground="White"
                     Command="{Binding DeleteGuestCommand}"/>
         </ToolBar>
 
-        <!-- Guests DataGrid -->
-        <DataGrid Grid.Row="3"
-                  SelectionMode="Extended"
-                  IsReadOnly="True"
-                  Background="#2C3E50"
-                  Foreground="Black"
-                  ItemsSource="{Binding Guests}"
-                  SelectedItem="{Binding SelectedGuest}"
-                  SelectionUnit="FullRow"
-                  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Header="CNP" Binding="{Binding CNP}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- Guest Details GroupBox -->
+        <GroupBox Grid.Row="3" Header="Guest Information" 
+                 Foreground="White" BorderBrush="#2980B9">
+            <Grid Background="#2C3E50" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" 
+                          Foreground="White" Margin="5"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" 
+                          Text="{Binding SavedGuest.Name}" 
+                          Foreground="White" Margin="5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Surname:" 
+                          Foreground="White" Margin="5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" 
+                          Text="{Binding SavedGuest.Surname}" 
+                          Foreground="White" Margin="5"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="CNP:" 
+                          Foreground="White" Margin="5"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" 
+                          Text="{Binding SavedGuest.CNP}" 
+                          Foreground="White" Margin="5"/>
+            </Grid>
+        </GroupBox>
 
         <!-- Save/Cancel Buttons -->
         <StackPanel Grid.Row="5" Orientation="Horizontal"

@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelReservations.Model
 {
-    [Serializable]
+    [Table("room")]
     public class Room
     {
+        private string roomNumber = string.Empty;
+
+        [Key]
+        [Column("room_id")]
         public int Id { get; set; }
 
-        private string roomNumber = string.Empty;
+        [Column("room_number")]
+        [Required]
         public string RoomNumber
         {
             get { return roomNumber; }
@@ -19,16 +22,23 @@ namespace HotelReservations.Model
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("It's required");
+                    throw new ArgumentException("Room number is required");
                 }
-
                 roomNumber = value;
             }
         }
-        public bool HasTV { get; set; }
-        public bool HasMiniBar { get; set; }
-        public RoomType? RoomType { get; set; } = null;
 
+        [Column("has_Tv")]
+        [Required]
+        public bool HasTV { get; set; }
+
+        [Column("has_mini_bar")]
+        [Required]
+        public bool HasMiniBar { get; set; }
+
+        [Column("room_type_id")]
+        public int? RoomTypeId { get; set; }
+        public virtual RoomType RoomType { get; set; }
         public override string ToString()
         {
             return $"Room number: {RoomNumber}";
@@ -36,12 +46,15 @@ namespace HotelReservations.Model
 
         public Room Clone()
         {
-            var clone = new Room();
-            clone.Id = Id;
-            clone.RoomNumber = RoomNumber;
-            clone.HasTV = HasTV;
-            clone.HasMiniBar = HasMiniBar;
-            clone.RoomType = RoomType;
+            var clone = new Room
+            {
+                Id = Id,
+                RoomNumber = RoomNumber,
+                HasTV = HasTV,
+                HasMiniBar = HasMiniBar,
+                RoomTypeId = RoomTypeId,
+                RoomType = RoomType
+            };
             return clone;
         }
     }

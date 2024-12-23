@@ -1,10 +1,6 @@
 ﻿using HotelReservations.Model;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System;
 using System.Linq;
-using static ServiceStack.Diagnostics.Events;
 
 namespace HotelReservations.Repositories
 {
@@ -12,101 +8,46 @@ namespace HotelReservations.Repositories
     {
         public List<RoomType> GetAll()
         {
-            try
+            using (var context = new HotelDbContext())
             {
-                var roomTypes = new List<RoomType>();
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
-                {
-                    var commandText = "SELECT * FROM dbo.room_type";
-                    SqlDataAdapter adapter = new SqlDataAdapter(commandText, conn);
-
-                    DataSet dataSet = new DataSet();
-                    adapter.Fill(dataSet, "room_type");
-
-                    foreach (DataRow row in dataSet.Tables["room_type"]!.Rows)
-                    {
-                        var roomType = new RoomType()
-                        {
-                            Id = (int)row["room_type_id"],
-                            Name = (string)row["room_type_name"],
-                        };
-
-                        roomTypes.Add(roomType);
-                    }
-                }
-
-                return roomTypes;
-
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
+                return context.RoomTypes.ToList();
             }
-            
         }
 
         public int Insert(RoomType roomType)
         {
-            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            using (var context = new HotelDbContext())
             {
-                conn.Open();
-
-                var command = conn.CreateCommand();
-                command.CommandText = @"
-                    INSERT INTO dbo.room_type (room_type_name)
-                    OUTPUT inserted.room_type_id
-                    VALUES (@room_type_name)
-                ";
-
-                command.Parameters.Add(new SqlParameter("room_type_name", roomType.Name));
-
-                return (int)command.ExecuteScalar();
+                context.RoomTypes.Add(roomType);
+                context.SaveChanges();
+                return roomType.Id;
             }
         }
 
         public void Update(RoomType roomType)
         {
-            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            using (var context = new HotelDbContext())
             {
-                conn.Open();
-
-                var command = conn.CreateCommand();
-                command.CommandText = @"
-                    UPDATE dbo.room_type
-                    SET room_type_name=@room_type_name
-                    WHERE room_type_id = @room_type_id
-                ";
-
-                command.Parameters.Add(new SqlParameter("room_type_id", roomType.Id));
-                command.Parameters.Add(new SqlParameter("room_type_name", roomType.Name));
-
-                command.ExecuteNonQuery();
+                var existingRoomType = context.RoomTypes.SingleOrDefault(rt => rt.Id == roomType.Id);
+                if (existingRoomType != null)
+                {
+                    existingRoomType.Name = roomType.Name;
+                    context.SaveChanges();
+                }
             }
         }
+
         public void Delete(int roomTypeId)
         {
-            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            using (var context = new HotelDbContext())
             {
-                conn.Open();
-
-                var command = conn.CreateCommand();
-                command.CommandText = @"
-                    DELETE dbo.room_type
-                    WHERE room_type_id = @room_type_id
-                ";
-
-                command.Parameters.Add(new SqlParameter("room_type_id", roomTypeId));
-
-                command.ExecuteNonQuery();
-
+                var roomType = context.RoomTypes.SingleOrDefault(rt => rt.Id == roomTypeId);
+                if (roomType != null)
+                {
+                    context.RoomTypes.Remove(roomType);
+                    context.SaveChanges();
+                }
             }
-
-            var roomtype = Hotel.GetInstance().RoomTypes.FirstOrDefault(r => r.Id == roomTypeId);
-            if (roomtype != null)
-            {
-                Hotel.GetInstance().RoomTypes.Remove(roomtype);
-            }
-
         }
     }
 }

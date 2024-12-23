@@ -6,55 +6,25 @@ using System.Windows;
 using HotelReservations.Model;
 using HotelReservations.Service;
 using System;
+using HotelReservations.Windows;
+using System.Collections.ObjectModel;
 
 namespace HotelReservations.ViewModels
 {
     public class AddEditGuestViewModel : INotifyPropertyChanged
     {
-        private readonly GuestService _guestService;
         private Guest _guest;
         private bool _isEditing;
         public bool IsCNPReadOnly => _isEditing;
         public string WindowTitle => "Add Guest";
 
-        public Guest? SavedGuest { get; private set; }
-
-        public string Name
+        public Guest SavedGuest
         {
-            get => _guest.Name;
+            get => _guest;
             set
             {
-                if (_guest.Name != value)
-                {
-                    _guest.Name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Surname
-        {
-            get => _guest.Surname;
-            set
-            {
-                if (_guest.Surname != value)
-                {
-                    _guest.Surname = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string CNP
-        {
-            get => _guest.CNP;
-            set
-            {
-                if (_guest.CNP != value)
-                {
-                    _guest.CNP = value;
-                    OnPropertyChanged();
-                }
+                _guest = value;
+                OnPropertyChanged(nameof(Prices));
             }
         }
 
@@ -63,7 +33,6 @@ namespace HotelReservations.ViewModels
 
         public AddEditGuestViewModel(Guest? guest = null)
         {
-            _guestService = new GuestService();
             _guest = guest ?? new Guest();
             _isEditing = guest != null;
 
@@ -79,21 +48,21 @@ namespace HotelReservations.ViewModels
         private void ExecuteSave(object? parameter)
         {
             // Validation for Name
-            if (string.IsNullOrWhiteSpace(Name))
+            if (string.IsNullOrWhiteSpace(SavedGuest.Name))
             {
                 MessageBox.Show("Name can't be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             // Validation for Surname
-            if (string.IsNullOrWhiteSpace(Surname))
+            if (string.IsNullOrWhiteSpace(SavedGuest.Surname))
             {
                 MessageBox.Show("Surname can't be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             // Validation for CNP
-            if (string.IsNullOrEmpty(CNP) || CNP.Length != 13 || !CNP.All(char.IsDigit))
+            if (string.IsNullOrEmpty(SavedGuest.CNP) || SavedGuest.CNP.Length != 13 || !SavedGuest.CNP.All(char.IsDigit))
             {
                 MessageBox.Show("CNP must be a 13-digit number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;

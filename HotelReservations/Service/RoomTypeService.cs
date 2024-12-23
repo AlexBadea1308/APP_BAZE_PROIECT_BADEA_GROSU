@@ -1,77 +1,86 @@
 ﻿using HotelReservations.Repositories;
 using HotelReservations.Model;
 using System.Collections.Generic;
-using System.Windows;
+using System.Linq;
 
 namespace HotelReservations.Service
 {
     public class RoomTypeService
     {
-
         public RoomTypeRepositoryDB roomTypeRepository;
-        RoomService roomService;
+        private RoomService roomService;
 
         public RoomTypeService()
         {
             roomTypeRepository = new RoomTypeRepositoryDB();
             roomService = new RoomService();
-
         }
 
         public List<RoomType> GetAllRoomTypes()
         {
-            return Hotel.GetInstance().RoomTypes;
+            using (var context = new HotelDbContext())
+            {
+                return context.RoomTypes.ToList();
+            }
         }
 
         public void SaveRoomType(RoomType roomType)
         {
-            if (roomType.Id == 0)
+            using (var context = new HotelDbContext())
             {
-                roomType.Id = roomTypeRepository.Insert(roomType);
-                Hotel.GetInstance().RoomTypes.Add(roomType);
-            }
-            else
-            {
-                var rooms = Hotel.GetInstance().Rooms;
-                var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
-                Hotel.GetInstance().RoomTypes[index] = roomType;
-
-                //refresh la roomtype
-                foreach (var room in rooms)
+                if (roomType.Id == 0)
                 {
-                    if(room.RoomType.Id == roomType.Id)
+                    context.RoomTypes.Add(roomType);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    var existingRoomType = context.RoomTypes.FirstOrDefault(rt => rt.Id == roomType.Id);
+                    if (existingRoomType != null)
+                    {
+                        existingRoomType.Name = roomType.Name;
+                        context.SaveChanges();
+                    }
+
+                    // Refresh the room types in rooms
+                    var roomsToUpdate = context.Rooms.Where(r => r.RoomType.Id == roomType.Id).ToList();
+                    foreach (var room in roomsToUpdate)
                     {
                         room.RoomType = roomType;
                     }
-                }
 
-                // database update
-                roomTypeRepository.Update(roomType);
+                    context.SaveChanges();
+                }
             }
         }
 
         public RoomType GetRoomTypeByName(int roomTypeID)
         {
-            var selectedRoomType = Hotel.GetInstance().RoomTypes.Find(rt => rt.Id == roomTypeID);
-            return selectedRoomType!;
+            using (var context = new HotelDbContext())
+            {
+                return context.RoomTypes.FirstOrDefault(rt => rt.Id == roomTypeID);
+            }
         }
 
         public void DeleteRoomTypeFromDatabase(RoomType roomType)
         {
-                roomTypeRepository.Delete(roomType.Id);
-        }
-
-       //verificam daca roomtype exista deja in database
-        public bool IsRoomTypeInUse(RoomType roomType)
-        {
-            foreach (Room room in Hotel.GetInstance().Rooms)
+            using (var context = new HotelDbContext())
             {
-                if (room.RoomType.Name.ToString() == roomType.Name.ToString())
+                var existingRoomType = context.RoomTypes.Find(roomType.Id);
+                if (existingRoomType != null)
                 {
-                    return true;
+                    context.RoomTypes.Remove(existingRoomType);
+                    context.SaveChanges();
                 }
             }
-            return false;
+        }
+
+        public bool IsRoomTypeInUse(RoomType roomType)
+        {
+            using (var context = new HotelDbContext())
+            {
+                return context.Rooms.Any(r => r.RoomType.Name == roomType.Name);
+            }
         }
     }
 }

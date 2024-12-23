@@ -1,7 +1,5 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Repositories;
-using HotelReservations.Windows;
-using ServiceStack;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,37 +14,56 @@ namespace HotelReservations.Service
             guestRepository = new GuestRepositoryDB();
         }
 
-        public void SaveGuest(Guest guest,bool editing = false)
+        public void SaveGuest(Guest guest, bool editing = false)
         {
-            if (guest.Id == 0 && editing == false)
+            using (var context = new HotelDbContext())
             {
-                Hotel.GetInstance().Guests.Add(guest);
-                guestRepository.Insert(guest);
-            }
-            else
-            {
-                int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
-                guest.ReservationId = resId;
-                var index = Hotel.GetInstance().Guests.FindIndex(g => (g.Id == guest.Id)&&(g.CNP == guest.CNP));
-                Hotel.GetInstance().Guests[index] = guest;
+                if (guest.Id == 0 && !editing)
+                {
+                    context.Guests.Add(guest);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    guest.Reservation = null;
+                    var existingGuest = context.Guests.FirstOrDefault(g => g.Id == guest.Id);
+                    if (existingGuest != null)
+                    {
+                        existingGuest.Name = guest.Name;
+                        existingGuest.Surname = guest.Surname;
+                        existingGuest.CNP = guest.CNP;
+                        existingGuest.ReservationId = guest.ReservationId;
 
-                guestRepository.Update(guest);
+                        context.SaveChanges();
+                    }
+                }
             }
         }
 
         public void DeleteGuestFromDatabase(Guest guest)
         {
-            guestRepository.Delete(guest.Id);
+            using (var context = new HotelDbContext())
+            {
+                var existingGuest = context.Guests.Find(guest.Id);
+                if (existingGuest != null)
+                {
+                    context.Guests.Remove(existingGuest);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public void RewriteGuestIdAfterReservationIsCreated(int newReservationId)
         {
-            var guestsToRewriteId = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == 0);
-            foreach (Guest guest in guestsToRewriteId)
+            using (var context = new HotelDbContext())
             {
-                guest.ReservationId = newReservationId;
-                //va adauga guest in database doar dupa ce rezervarea este adaugata pentru a ne asigura ca datele rezervarii sunt valide
-                guestRepository.Insert(guest);
+                var guestsToRewriteId = context.Guests.Where(guest => guest.ReservationId == 0).ToList();
+                foreach (Guest guest in guestsToRewriteId)
+                {
+                    guest.ReservationId = newReservationId;
+                    context.Entry(guest).State = System.Data.Entity.EntityState.Modified;
+                }
+                context.SaveChanges();
             }
         }
     }

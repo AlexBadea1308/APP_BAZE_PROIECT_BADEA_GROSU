@@ -3,6 +3,7 @@ using HotelReservations.Service;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -12,11 +13,11 @@ namespace HotelReservations.ViewModels
 {
     public class AddEditRoomViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        private readonly RoomTypeService _roomTypeService;
         private readonly RoomService _roomService;
         private Room _room;
         private bool _isEditing;
         private ObservableCollection<RoomType> _roomTypes;
+        private readonly HotelDbContext _context;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler RoomSaved;
@@ -45,8 +46,6 @@ namespace HotelReservations.ViewModels
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
-
-        // IDataErrorInfo implementation
         public string Error => null;
 
         public string this[string columnName]
@@ -75,11 +74,10 @@ namespace HotelReservations.ViewModels
 
         public AddEditRoomViewModel(Room room = null)
         {
-            _roomTypeService = new RoomTypeService();
             _roomService = new RoomService();
+            _context = new HotelDbContext();
 
-            // Initialize RoomTypes from Hotel singleton
-            RoomTypes = new ObservableCollection<RoomType>(Hotel.GetInstance().RoomTypes);
+            RoomTypes = new ObservableCollection<RoomType>(_context.RoomTypes.ToList());
 
             // Determine if editing or adding new room
             if (room == null)
@@ -119,13 +117,33 @@ namespace HotelReservations.ViewModels
         {
             try
             {
-                // Save the room
-                _roomService.SaveRoom(Room);
+                var selectedRoomType = _context.RoomTypes
+                    .FirstOrDefault(rt => rt.Name == Room.RoomType.Name);
 
-                // Trigger the RoomSaved event to notify listeners
-                RoomSaved?.Invoke(this, EventArgs.Empty);
+                if (selectedRoomType != null)
+                {
+                    Room.RoomTypeId = selectedRoomType.Id;
+                }
+                else
+                {
+                    MessageBox.Show("Selected RoomType does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
-                // Close the window if parameter is a Window
+                if (_isEditing)
+                {
+                    _context.Entry(Room).State = EntityState.Modified;
+
+                }
+                else
+                {
+                    _context.Rooms.Add(Room);
+                }
+
+                _context.SaveChanges();
+
+                RoomSaved?.Invoke(this,EventArgs.Empty);
+
                 if (parameter is Window window)
                 {
                     window.DialogResult = true;
@@ -134,11 +152,9 @@ namespace HotelReservations.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving room: {ex.Message}", "Save Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error saving room: {ex.Message}", "Save Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void Cancel(object parameter)
         {
             if (parameter is Window window)
@@ -151,6 +167,11 @@ namespace HotelReservations.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            _context?.Dispose();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using HotelReservations.ViewModels;
+using HotelReservations.ViewModel;
+
 
 namespace HotelReservations.Views
 {
@@ -42,7 +43,7 @@ namespace HotelReservations.Views
             }
             else
             {
-                Application.Current.Shutdown(); 
+                Application.Current.Shutdown();
             }
         }
 

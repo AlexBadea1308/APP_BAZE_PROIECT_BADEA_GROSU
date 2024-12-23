@@ -1,27 +1,24 @@
 ﻿using HotelReservations.Model;
-using HotelReservations.Service;
 using HotelReservations.Windows;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+using System.Data.Entity;
 using System.Windows.Input;
+using System.Windows;
+using System;
+using System.Linq;
 
 namespace HotelReservations.ViewModels
 {
-    public class AddReservationsViewModel : INotifyPropertyChanged
+    public class AddReservationsViewModel : INotifyPropertyChanged, IDisposable
     {
-        private readonly ReservationService _reservationService;
-        private readonly GuestService _guestService;
+        private readonly HotelDbContext _context;
         private readonly Reservation _contextReservation;
         public bool IsEditing { get; private set; }
 
         private ObservableCollection<Room> _availableRooms;
-        private ObservableCollection<Guest> _guests;
+        private Guest _savedGuest;
         private Room _selectedRoom;
-        private Guest _selectedGuest;
         private string _selectedRoomType;
         private DateTime? _startDate;
         private DateTime? _endDate;
@@ -40,13 +37,13 @@ namespace HotelReservations.ViewModels
             }
         }
 
-        public ObservableCollection<Guest> Guests
+        public Guest SavedGuest
         {
-            get => _guests;
+            get => _savedGuest;
             set
             {
-                _guests = value;
-                OnPropertyChanged(nameof(Guests));
+                _savedGuest = value;
+                OnPropertyChanged(nameof(SavedGuest));
             }
         }
 
@@ -57,17 +54,6 @@ namespace HotelReservations.ViewModels
             {
                 _selectedRoom = value;
                 OnPropertyChanged(nameof(SelectedRoom));
-            }
-        }
-
-        public Guest SelectedGuest
-        {
-            get => _selectedGuest;
-            set
-            {
-                _selectedGuest = value;
-                OnPropertyChanged(nameof(SelectedGuest));
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -111,29 +97,20 @@ namespace HotelReservations.ViewModels
 
         public AddReservationsViewModel(Reservation reservation = null)
         {
-            _reservationService = new ReservationService();
-            _guestService = new GuestService();
+            _context = new HotelDbContext();
             _contextReservation = reservation?.Clone() ?? new Reservation();
             IsEditing = reservation != null;
 
-            InitializeCollections();
             InitializeCommands();
             LoadData();
-        }
-
-        private void InitializeCollections()
-        {
-            AvailableRooms = new ObservableCollection<Room>();
-            Guests = new ObservableCollection<Guest>();
-            RoomTypes = new ObservableCollection<RoomType>(Hotel.GetInstance().RoomTypes.Where(r => r.Id !=0));
         }
 
         private void InitializeCommands()
         {
             CheckAvailableRoomsCommand = new RelayCommand(_ => FilterRooms());
-            AddGuestCommand = new RelayCommand(_ => AddGuest(), _ => !IsEditing);
-            EditGuestCommand = new RelayCommand(_ => EditGuest(), _ => SelectedGuest != null);
-            DeleteGuestCommand = new RelayCommand(_ => DeleteGuest(), _ => SelectedGuest != null);
+            AddGuestCommand = new RelayCommand(_ => AddGuest(), _ => SavedGuest == null);
+            EditGuestCommand = new RelayCommand(_ => EditGuest(), _ => SavedGuest != null);
+            DeleteGuestCommand = new RelayCommand(_ => DeleteGuest(), _ => SavedGuest != null);
             SaveCommand = new RelayCommand(_ => Save(), _ => ValidateReservation());
             CancelCommand = new RelayCommand(_ => Cancel());
         }
@@ -141,39 +118,36 @@ namespace HotelReservations.ViewModels
         private void LoadData()
         {
             LoadRooms();
-            LoadGuests();
+            LoadRoomTypes();
         }
 
         private void LoadRooms()
         {
-            var rooms = Hotel.GetInstance().Rooms.ToList();
+            var rooms = _context.Rooms.Include(r => r.RoomType).ToList();
             AvailableRooms = new ObservableCollection<Room>(rooms);
         }
 
-        private void LoadGuests()
+        private void LoadRoomTypes()
         {
-            IEnumerable<Guest> guests;
-            if (IsEditing)
-            {
-                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == _contextReservation.Id)
-                        ?? Enumerable.Empty<Guest>();
-            }
-            else
-            {
-                guests = Hotel.GetInstance().Guests.Where(g => g.ReservationId == 0);
-            }
-            Guests = new ObservableCollection<Guest>(guests);
+            RoomTypes = new ObservableCollection<RoomType>(_context.RoomTypes.ToList());
         }
 
         private void FilterRooms()
         {
-            var rooms = Hotel.GetInstance().Rooms.Where(room =>
-            {
-                if (SelectedRoomType != null && room.RoomType.ToString() != SelectedRoomType)
-                    return false;
+            var query = _context.Rooms.Include(r => r.RoomType);
 
-                var reservations = Hotel.GetInstance().Reservations
-                    .Where(res => res.RoomNumber == room.RoomNumber);
+            if (!string.IsNullOrEmpty(SelectedRoomType))
+            {
+                query = query.Where(r => r.RoomType.Name == SelectedRoomType);
+            }
+
+            var rooms = query.ToList();
+
+            var filteredRooms = rooms.Where(room =>
+            {
+                var reservations = _context.Reservations
+                    .Where(res => res.RoomNumber == room.RoomNumber)
+                    .ToList();
 
                 foreach (var reservation in reservations)
                 {
@@ -186,7 +160,7 @@ namespace HotelReservations.ViewModels
                 return true;
             });
 
-            AvailableRooms = new ObservableCollection<Room>(rooms);
+            AvailableRooms = new ObservableCollection<Room>(filteredRooms);
         }
 
         private bool AreDatesOverlapping(DateTime? start1, DateTime? end1,
@@ -197,43 +171,43 @@ namespace HotelReservations.ViewModels
                 return false;
 
             return (start1 >= start2 && start1 <= end2) ||
-                   (end1 >= start2 && end1 <= end2);
+                   (end1 >= start2 && end1 <= end2) ||
+                   (start1 <= start2 && end1 >= end2);
         }
 
         private void AddGuest()
         {
             var addGuestWindow = new AddEditGuest();
-            if (addGuestWindow.ShowDialog() == true)
+            if (addGuestWindow.ShowDialog() == true && addGuestWindow.SavedGuest != null)
             {
-                var newGuest = addGuestWindow.SavedGuest;
-                if (newGuest != null)
-                {
-                    Guests.Add(newGuest);
-                }
+                SavedGuest = addGuestWindow.SavedGuest;
             }
         }
 
         private void EditGuest()
         {
-            if (SelectedGuest == null) return;
+            if (SavedGuest == null) return;
 
-            var editGuestWindow = new AddEditGuest(SelectedGuest);
-            if (editGuestWindow.ShowDialog() == true)
+            var addGuestWindow = new AddEditGuest(SavedGuest);
+            if (addGuestWindow.ShowDialog() == true && addGuestWindow.SavedGuest != null)
             {
-                LoadGuests();
+                SavedGuest = addGuestWindow.SavedGuest;
             }
         }
 
         private void DeleteGuest()
         {
-            if (SelectedGuest == null) return;
+            if (SavedGuest == null) return;
 
-            var deleteGuestWindow = new DeleteGuest(SelectedGuest,
-                new ObservableCollection<Guest>(Hotel.GetInstance().Guests.Where(g => g.ReservationId == 0)));
+            var result = MessageBox.Show(
+                "Are you sure you want to remove this guest?",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
-            if (deleteGuestWindow.ShowDialog() == true)
+            if (result == MessageBoxResult.Yes)
             {
-                LoadGuests();
+                SavedGuest = null;
             }
         }
 
@@ -248,7 +222,46 @@ namespace HotelReservations.ViewModels
             if (StartDate > EndDate)
                 return false;
 
-            return true;
+            return SavedGuest != null;
+        }
+
+        private int GetDateDifference(DateTime start, DateTime end)
+        {
+            if (start.Date == end.Date)
+            {
+                return 0;
+            }
+            TimeSpan difference = end.Date - start.Date;
+            return (int)difference.TotalDays;
+        }
+
+        private void CalculateReservationDetails()
+        {
+            if (!StartDate.HasValue || !EndDate.HasValue || SelectedRoom == null)
+                throw new InvalidOperationException("Start date, end date, and room must be selected.");
+
+            int dateDifference = GetDateDifference(StartDate.Value, EndDate.Value);
+
+            // Set reservation type based on date difference
+            _contextReservation.ReservationType = dateDifference == 0 ? "Day" : "Night";
+
+            // Get the price for the selected room type and reservation type
+            var price = _context.Prices
+                .FirstOrDefault(p =>
+                    p.RoomTypeId == SelectedRoom.RoomTypeId &&
+                    p.ReservationType.ToString() == _contextReservation.ReservationType.ToString());
+
+            if (price == null)
+            {
+                throw new InvalidOperationException(
+                    $"Price not found for RoomType: {SelectedRoom.RoomType.Name} and " +
+                    $"ReservationType: {_contextReservation.ReservationType}.");
+            }
+
+            // Calculate total price
+            _contextReservation.TotalPrice = dateDifference == 0
+                ? price.PriceValue
+                : dateDifference * price.PriceValue;
         }
 
         private void Save()
@@ -256,20 +269,47 @@ namespace HotelReservations.ViewModels
             if (!ValidateReservation())
                 return;
 
-            _contextReservation.RoomNumber = SelectedRoom.RoomNumber;
-            _contextReservation.StartDateTime = StartDate.Value;
-            _contextReservation.EndDateTime = EndDate.Value;
-
-            _reservationService.SaveReservation(_contextReservation, SelectedRoom);
-            int reservationId = _reservationService.GetReservationRepository().Insert(_contextReservation);
-
-            foreach (var guest in Guests)
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                guest.ReservationId = reservationId;
-                _guestService.SaveGuest(guest);
-            }
+                try
+                {
+                    // Calculate reservation type and total price
+                    CalculateReservationDetails();
 
-            CloseWindow(true);
+                    // Set basic reservation details
+                    _contextReservation.RoomNumber = SelectedRoom.RoomNumber;
+                    _contextReservation.StartDateTime = StartDate.Value;
+                    _contextReservation.EndDateTime = EndDate.Value;
+
+                    if (IsEditing)
+                    {
+                        _context.Entry(_contextReservation).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        _context.Reservations.Add(_contextReservation);
+                    }
+
+                    _context.SaveChanges();
+
+                    // Associate guest with reservation
+                    SavedGuest.ReservationId = _contextReservation.Id;
+                    _context.Guests.Add(SavedGuest);
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+                    CloseWindow(true);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show(
+                        $"An error occurred while saving the reservation: {ex.Message}",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
         }
 
         private void Cancel()
@@ -290,6 +330,11 @@ namespace HotelReservations.ViewModels
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            _context?.Dispose();
         }
     }
 }

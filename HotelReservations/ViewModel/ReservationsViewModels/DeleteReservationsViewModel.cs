@@ -4,13 +4,13 @@ using System.Runtime.CompilerServices;
 using HotelReservations.Model;
 using HotelReservations.Service;
 using System;
+using System.Linq;
+using System.Windows;
 
 namespace HotelReservations.ViewModels
 {
     public class DeleteReservationViewModel : INotifyPropertyChanged
     {
-        private readonly GuestService _guestService;
-        private readonly ReservationService _reservationService;
         private readonly Reservation _reservationToDelete;
 
         public ICommand DeleteCommand { get; }
@@ -18,8 +18,6 @@ namespace HotelReservations.ViewModels
 
         public DeleteReservationViewModel(Reservation reservation)
         {
-            _guestService = new GuestService();
-            _reservationService = new ReservationService();
             _reservationToDelete = reservation;
 
             DeleteCommand = new RelayCommand(ExecuteDelete);
@@ -28,18 +26,34 @@ namespace HotelReservations.ViewModels
 
         private void ExecuteDelete(object? parameter)
         {
-            // Find guests in database with this ReservationId
-            var guestsToUpdate = _guestService.guestRepository.GetGuestsByReservationId(_reservationToDelete.Id);
-
-            // Update found guests
-            foreach (Guest guest in guestsToUpdate)
+            try
             {
-                _guestService.guestRepository.Delete(guest.ReservationId);  // Delete guest with this ReservationId
-            }
+                using (var context = new HotelDbContext())
+                {
+                    var guestsToUpdate = context.Guests
+                        .Where(g => g.ReservationId == _reservationToDelete.Id)
+                        .ToList();
 
-            _reservationService.DeleteRezervationFromDatabase(_reservationToDelete);
-            RequestClose?.Invoke(this, true);
+                    context.Guests.RemoveRange(guestsToUpdate);
+
+                    var reservationToDelete = context.Reservations
+                        .FirstOrDefault(r => r.Id == _reservationToDelete.Id);
+
+                    if (reservationToDelete != null)
+                    {
+                        context.Reservations.Remove(reservationToDelete);
+                    }
+                    context.SaveChanges();
+                }
+
+                RequestClose?.Invoke(this, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting reservation: {ex.Message}", "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void ExecuteCancel(object? parameter)
         {

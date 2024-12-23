@@ -3,6 +3,7 @@ using HotelReservations.Service;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -10,7 +11,6 @@ namespace HotelReservations.ViewModel
 {
     public class UsersViewModel : ViewModelBase
     {
-        private UserService _userService;
         private ObservableCollection<User> _users;
         private ICollectionView _usersView;
         private string _usernameSearchText = string.Empty;
@@ -54,6 +54,8 @@ namespace HotelReservations.ViewModel
             {
                 _selectedUser = value;
                 OnPropertyChanged(nameof(SelectedUser));
+                (EditCommand as RelayCommand)?.RaiseCanExecuteChanged();
+                (DeleteCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
 
@@ -61,9 +63,10 @@ namespace HotelReservations.ViewModel
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
+        public event EventHandler<User> OnOpenAddEditUserWindow;
+        public event EventHandler<User> OnOpenDeleteUserWindow;
         public UsersViewModel()
         {
-            _userService = new UserService();
             InitializeCommands();
             LoadUsers();
         }
@@ -71,13 +74,16 @@ namespace HotelReservations.ViewModel
         private void InitializeCommands()
         {
             AddCommand = new RelayCommand(ExecuteAdd);
-            EditCommand = new RelayCommand(ExecuteEdit, CanExecuteEditDelete);
-            DeleteCommand = new RelayCommand(ExecuteDelete, CanExecuteEditDelete);
+            EditCommand = new RelayCommand(ExecuteEdit,CanExecuteEditDelete);
+            DeleteCommand = new RelayCommand(ExecuteDelete,CanExecuteEditDelete);
         }
 
         public void LoadUsers()
         {
-            Users = new ObservableCollection<User>(Hotel.GetInstance().Users);
+            using (var context = new HotelDbContext()) 
+            {
+                Users = new ObservableCollection<User>(context.Users.ToList());
+            }
             UsersView = CollectionViewSource.GetDefaultView(Users);
             UsersView.Filter = DoFilter;
         }
@@ -116,7 +122,6 @@ namespace HotelReservations.ViewModel
             OnOpenDeleteUserWindow?.Invoke(this, SelectedUser);
         }
 
-        public event EventHandler<User> OnOpenAddEditUserWindow;
-        public event EventHandler<User> OnOpenDeleteUserWindow;
+
     }
 }

@@ -1,126 +1,66 @@
-﻿using HotelReservations.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
+using System.Data.Entity;
+using HotelReservations.Model;
+using HotelReservations.Data;
 
 namespace HotelReservations.Repositories
 {
     public class GuestRepositoryDB
     {
-        public List<Guest> GetGuestsByReservationId(int rezervationId)
+        public List<Guest> GetGuestsByReservationId(int reservationId)
         {
-            var guests = new List<Guest>();
-
             try
             {
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+                using (var context = new HotelDbContext())
                 {
-                    conn.Open();
-                    var command = new SqlCommand(@"
-                        SELECT guest_id, guest_name, guest_surname, guest_cnp,reservationID 
-                        FROM dbo.guest 
-                        WHERE reservationID = @rezervationId", conn);
-
-                    command.Parameters.Add(new SqlParameter("@rezervationId", rezervationId));
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        var guest = new Guest()
-                        {
-                            Id = (int)reader["guest_id"],
-                            Name = (string)reader["guest_name"],
-                            Surname = (string)reader["guest_surname"],
-                            CNP = (string)reader["guest_cnp"],
-                            ReservationId = (int)reader["reservationID"]
-                        };
-                        guests.Add(guest);
-                    }
+                    return context.Guests
+                        .Where(g => g.ReservationId == reservationId)
+                        .ToList();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving guests: {ex.Message}");
+                return new List<Guest>();
             }
-
-            return guests;
         }
 
         public List<Guest> GetAll()
         {
-            var guests = new List<Guest>();
-
             try
             {
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+                using (var context = new HotelDbContext())
                 {
-                    conn.Open();
-                    var command = new SqlCommand("SELECT * FROM dbo.guest", conn);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        var guest = new Guest()
-                        {
-                            Id = (int)reader["guest_id"],
-                            Name = (string)reader["guest_name"],
-                            Surname = (string)reader["guest_surname"],
-                            CNP = (string)reader["guest_cnp"],
-                            ReservationId = (int)reader["reservationID"]
-                        };
-                        guests.Add(guest);
-                    }
+                    return context.Guests.ToList();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving all guests: {ex.Message}");
+                return new List<Guest>();
             }
-
-            return guests;
         }
 
         public int Insert(Guest guest)
         {
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
-                {
-                    conn.Open();
-                    var command = conn.CreateCommand();
-                    command.CommandText=@"
-                        INSERT INTO dbo.guest (guest_name, guest_surname, guest_cnp,reservationID)
-                        OUTPUT inserted.guest_id
-                        VALUES (@guest_name, @guest_surname, @guest_cnp,@reservationID)";
-
-                    command.Parameters.Add(new SqlParameter("@guest_name", guest.Name));
-                    command.Parameters.Add(new SqlParameter("@guest_surname", guest.Surname));
-                    command.Parameters.Add(new SqlParameter("@guest_cnp", guest.CNP));
-                    command.Parameters.Add(new SqlParameter("@reservationID", guest.ReservationId));
-
-                    return (int)command.ExecuteScalar();
-                }
+            using (var context = new HotelDbContext())
+            {
+                context.Guests.Add(guest);
+                context.SaveChanges();
+                return guest.Id;
+            }
         }
 
         public void Update(Guest guest)
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+                using (var context = new HotelDbContext())
                 {
-                    conn.Open();
-                    var command = new SqlCommand(@"
-                        UPDATE dbo.guest
-                        SET guest_name=@guest_name, guest_surname=@guest_surname, guest_cnp=@guest_cnp,reservationID=@reservationID
-                        WHERE guest_id=@guest_id", conn);
-
-                    command.Parameters.Add(new SqlParameter("@guest_id", guest.Id));
-                    command.Parameters.Add(new SqlParameter("@guest_name", guest.Name));
-                    command.Parameters.Add(new SqlParameter("@guest_surname", guest.Surname));
-                    command.Parameters.Add(new SqlParameter("@guest_cnp", guest.CNP));
-                    command.Parameters.Add(new SqlParameter("@reservationID", guest.ReservationId));
-
-                    command.ExecuteNonQuery();
+                    context.Entry(guest).State = EntityState.Modified;
+                    context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -129,34 +69,31 @@ namespace HotelReservations.Repositories
             }
         }
 
-        public void Delete(int guestID)
+        public void Delete(int guestId)
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+                using (var context = new HotelDbContext())
                 {
-                    conn.Open();
+                    var guest = context.Guests.Find(guestId);
+                    if (guest != null)
+                    {
+                        context.Guests.Remove(guest);
+                        context.SaveChanges();
+                    }
 
-                    var command = new SqlCommand(@"
-                DELETE FROM dbo.guest
-                WHERE guest_id = @guestId", conn);
 
-                    command.Parameters.AddWithValue("guestId", guestID);
-
-                    command.ExecuteNonQuery();
+                    var guestInMemory = context.Guests.FirstOrDefault(g => g.Id == guestId);
+                    if (guestInMemory != null)
+                    {
+                        context.Guests.Remove(guestInMemory);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error deleting guest: {ex.Message}");
             }
-
-            var guests = Hotel.GetInstance().Guests.FirstOrDefault(g => g.Id == guestID);
-            if (guests != null)
-            {
-                Hotel.GetInstance().Guests.Remove(guests);
-            }
         }
-
     }
 }

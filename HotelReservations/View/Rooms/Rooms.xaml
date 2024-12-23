@@ -23,12 +23,6 @@
                      Foreground="White" 
                      Background="#1C2833"
                      Text="{Binding RoomNumberSearchParam, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Content="Room type:" VerticalContentAlignment="Center" Width="70" Foreground="White"/>
-            <TextBox Height="24" Width="100" Margin="3" 
-                     VerticalContentAlignment="Center" 
-                     Foreground="White" 
-                     Background="#1C2833"
-                     Text="{Binding RoomTypeSearchParam, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <ToolBar Grid.Row="1" Background="#2980B9">

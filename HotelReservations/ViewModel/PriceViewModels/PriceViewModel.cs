@@ -36,7 +36,7 @@ namespace HotelReservations.ViewModels
             }
         }
 
-        public Price SelectedPrice => View?.CurrentItem as Price;
+        public Price SelectedPrice => View.CurrentItem as Price;
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
@@ -54,13 +54,18 @@ namespace HotelReservations.ViewModels
 
         private void LoadPrices()
         {
-            var loadedPriceRepository = _priceService.priceRepository.GetAll();
-            if (loadedPriceRepository != null)
+            using (var context = new HotelDbContext())
             {
-                Hotel.GetInstance().Prices = loadedPriceRepository;
-                var prices = Hotel.GetInstance().Prices.ToList();
-                View = CollectionViewSource.GetDefaultView(prices);
+                var prices = context.Prices.ToList();
+                var roomTypes = context.RoomTypes.ToList();
+
+                foreach (var price in prices)
+                {
+                    price.RoomType = roomTypes.FirstOrDefault(rt => rt.Id == price.RoomTypeId);
+                }
+
                 Prices = new ObservableCollection<Price>(prices);
+                View = CollectionViewSource.GetDefaultView(Prices);
             }
         }
 
@@ -96,11 +101,8 @@ namespace HotelReservations.ViewModels
                 return;
             }
 
-            var deletePricesWindow = new DeletePrices(selectedPrice);
-            if (deletePricesWindow.ShowDialog() == true)
-            {
-                LoadPrices();
-            }
+            _priceService.DeletePriceFromDatabase(selectedPrice);
+            LoadPrices();
         }
 
         private bool CanExecuteEditDelete(object obj)
