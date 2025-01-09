@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\
+C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\obj\Debug\net7.0-windows\
 HotelReservations
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\Alex\Desktop\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\App.xaml
+C:\Users\razva\Downloads\git_ap_baze\APP_BAZE_PROIECT_BADEA_GROSU\HotelReservations\App.xaml
 211107360394
 
 741176831164
-204-1966312860
+198-1133866272
 MainWindow.xaml;View\Guests\EditGuest.xaml;View\Guests\Guests.xaml;View\Prices\AddEditPrices.xaml;View\Prices\DeletePrices.xaml;View\Prices\Prices.xaml;View\Reservations\AddReservations.xaml;View\Reservations\DeleteReservations.xaml;View\Reservations\FinishReservation.xaml;View\Reservations\Guests\AddEditGuest.xaml;View\Reservations\Guests\DeleteGuest.xaml;View\Reservations\Reservations.xaml;View\Rooms\AddEditRoom.xaml;View\Rooms\DeleteRoom.xaml;View\Rooms\Rooms.xaml;View\RoomTypes\AddEditRoomType.xaml;View\RoomTypes\DeleteRoomType.xaml;View\RoomTypes\RoomTypes.xaml;View\Users\AddEditUser.xaml;View\Users\DeleteUser.xaml;View\Users\Users.xaml;
 
-False
+True
 
