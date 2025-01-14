@@ -34,11 +34,22 @@ namespace HotelReservations.ViewModels
             CancelCommand = new RelayCommand(Cancel);
         }
 
-        private void DeleteUser(object parameter)
+      private void DeleteUser(object parameter)
         {
-            _userService.DeleteUserFromDatabase(UserToDelete);
-            OnUserDeleted?.Invoke(this, UserToDelete);
+            if (UserToDelete.UserType == "Administrator")
+            {
+                MessageBox.Show("Nu poti sterge un utilizator de tip Administrator.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+            else
+            {
+                _userService.DeleteUserFromDatabase(UserToDelete);
+                OnUserDeleted?.Invoke(this, UserToDelete);
+            }
         }
+
 
         private void Cancel(object parameter)
         {
